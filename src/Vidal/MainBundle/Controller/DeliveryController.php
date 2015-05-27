@@ -18,13 +18,13 @@ class DeliveryController extends Controller
 {
 	/**
 	 * Открыли письмо - записали в БД и вернули как бы картинку
-	 * @Route("/delivery/opened/{deliveryName}/{userId}/1px.png", name="delivery_opened")
+	 * @Route("/delivery/opened/{deliveryName}/{userId}", name="delivery_opened")
 	 */
 	public function deliveryOpened($deliveryName, $userId)
 	{
 		$em       = $this->getDoctrine()->getManager();
 		$delivery = $em->getRepository('VidalMainBundle:Delivery')->findOneByName($deliveryName);
-		$user   = $em->getRepository('VidalMainBundle:User')->findOneById($userId);
+		$user     = $em->getRepository('VidalMainBundle:User')->findOneById($userId);
 
 		if (null == $delivery || null == $user) {
 			throw $this->createNotFoundException();
@@ -36,11 +36,12 @@ class DeliveryController extends Controller
 		$em->persist($do);
 		$em->flush();
 
-		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
-			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
-			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
+		//		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+		//			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
+		//			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
+		//		$file = readfile($imagePath);
 
-		$file = readfile($imagePath);
+		$file = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=');
 
 		$headers = array(
 			'Content-Type'        => 'image/png',
