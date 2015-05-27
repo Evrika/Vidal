@@ -162,7 +162,7 @@ class DeliveryCommand extends ContainerAwareCommand
 
 		# рассылка
 		for ($i = 0; $i < count($users); $i++) {
-			$template2 = $templating->render('VidalMainBundle:Delivery:delivery_end.html.twig', array('delivery' => $delivery, $users[$i]));
+			$template2 = $templating->render('VidalMainBundle:Delivery:delivery_end.html.twig', array('delivery' => $delivery, 'user' => $users[$i]));
 			$template  = $template1 . $template2;
 
 			$this->send($users[$i]['username'], $users[$i]['firstName'], $template, $subject);
