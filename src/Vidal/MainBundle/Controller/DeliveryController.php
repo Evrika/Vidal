@@ -36,22 +36,9 @@ class DeliveryController extends Controller
 		$em->persist($do);
 		$em->flush();
 
-		$file = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=');
-
-		$headers = array(
-			'Content-Type'        => 'image/png',
-			'Content-Disposition' => 'inline; filename="1px.png"'
-		);
-
-		return new Response($file, 200, $headers);
-
-//		$image = imagecreatetruecolor (1, 1);
-//		$black = imagecolorallocate ($image, 0, 0, 0);
-//		imagecolortransparent ($image, $black);
-//
-//		header('Content-type: image/png');
-//		imagepng ($image);
-//		die();
+		header('Content-Type: image/gif');
+		echo "\x47\x49\x46\x38\x37\x61\x1\x0\x1\x0\x80\x0\x0\xfc\x6a\x6c\x0\x0\x0\x2c\x0\x0\x0\x0\x1\x0\x1\x0\x0\x2\x2\x44\x1\x0\x3b";
+		die();
 	}
 
 	public function deliveriesAction()
