@@ -36,18 +36,6 @@ class DeliveryController extends Controller
 		$em->persist($do);
 		$em->flush();
 
-		//		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
-		//			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
-		//			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
-		//		$file = readfile($imagePath);
-
-		$file = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=');
-
-		$headers = array(
-			'Content-Type'        => 'image/png',
-			'Content-Disposition' => 'inline; filename="1px.png"'
-		);
-
 		$image = imagecreatetruecolor (1, 1);
 		$black = imagecolorallocate ($image, 0, 0, 0);
 		imagecolortransparent ($image, $black);
@@ -55,8 +43,6 @@ class DeliveryController extends Controller
 		header('Content-type: image/png');
 		imagepng ($image);
 		die();
-
-		//return new Response($file, 200, $headers);
 	}
 
 	public function deliveriesAction()
