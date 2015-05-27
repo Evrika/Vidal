@@ -172,14 +172,14 @@ class DeliveryCommand extends ContainerAwareCommand
 				->setParameter('id', $users[$i]['id'])
 				->execute();
 
-			if (null !== $delivery->getLimit() && $i >= $delivery->getLimit()) {
+			if ($delivery->getLimit() && $i >= $delivery->getLimit()) {
 				break;
 			}
 
 			if ($i && $i % $step == 0) {
 				# проверка, можно ли продолжать рассылать
 				$em->refresh($delivery);
-				if (false === $delivery->getProgress() || (null !== $delivery->getLimit() && $i >= $delivery->getLimit())) {
+				if (false === $delivery->getProgress() || ($delivery->getLimit() && $i >= $delivery->getLimit())) {
 					break;
 				}
 
