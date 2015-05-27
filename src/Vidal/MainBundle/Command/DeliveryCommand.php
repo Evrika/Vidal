@@ -232,6 +232,7 @@ class DeliveryCommand extends ContainerAwareCommand
 
 		foreach ($users as $user) {
 			$template2 = $templating->render('VidalMainBundle:Delivery:delivery_end.html.twig', array('delivery' => $delivery, 'user' => $user));
+			$template = $template1 . $template2;
 
 			$this->send($user['username'], $user['firstName'], $template, $subject, $local);
 		}
