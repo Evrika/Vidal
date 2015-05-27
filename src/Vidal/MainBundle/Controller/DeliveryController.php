@@ -40,14 +40,22 @@ class DeliveryController extends Controller
 			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
 			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
 
-		$file = readfile($imagePath);
+		$im = imagecreatefrompng($imagePath);
 
-		$headers = array(
-			'Content-Type'   => 'image/png',
-			'Content-Length' => filesize($imagePath),
-			'Accept-Ranges'  => 'bytes',
-			//			'Content-Disposition' => 'inline; filename="1px.png"',
-		);
+		header('Content-Type:image/png');
+
+		imagepng($im);
+		imagedestroy($im);
+		die();
+
+//		$file = readfile($imagePath);
+//
+//		$headers = array(
+//			'Content-Type'   => 'image/png',
+//			'Content-Length' => filesize($imagePath),
+//			'Accept-Ranges'  => 'bytes',
+//			//			'Content-Disposition' => 'inline; filename="1px.png"',
+//		);
 
 		return new Response($file, 200, $headers);
 	}
