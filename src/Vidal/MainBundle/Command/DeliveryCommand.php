@@ -51,9 +51,9 @@ class DeliveryCommand extends ContainerAwareCommand
 			return false;
 		}
 
-		$container    = $this->getContainer();
-		$em           = $container->get('doctrine')->getManager();
-		$delivery     = $em->getRepository('VidalMainBundle:Delivery')->findOneByName($deliveryName);
+		$container = $this->getContainer();
+		$em        = $container->get('doctrine')->getManager();
+		$delivery  = $em->getRepository('VidalMainBundle:Delivery')->findOneByName($deliveryName);
 
 		if (null == $delivery) {
 			$output->writeln("=> Error: delivery with name '$deliveryName' not found");
@@ -118,7 +118,7 @@ class DeliveryCommand extends ContainerAwareCommand
 		$em          = $container->get('doctrine')->getManager();
 		$templating  = $container->get('templating');
 		$specialties = $delivery->getSpecialties();
-		$step        = 50;
+		$step        = 55;
 		$sleep       = 55;
 
 		# пользователи
@@ -156,13 +156,13 @@ class DeliveryCommand extends ContainerAwareCommand
 		$delivery->setTotal($total);
 		$em->flush($delivery);
 
-		$subject   = $delivery->getSubject();
-		$template1 = $templating->render('VidalMainBundle:Digest:template1.html.twig', array('digest' => $delivery));
 		$sendQuery = $em->createQuery('SELECT COUNT(u.id) FROM VidalMainBundle:User u WHERE u.send = 1');
+		$subject   = $delivery->getSubject();
+		$template1 = $templating->render('VidalMainBundle:Delivery:delivery_start.html.twig', array('delivery' => $delivery));
 
 		# рассылка
 		for ($i = 0; $i < count($users); $i++) {
-			$template2 = $templating->render('VidalMainBundle:Digest:template2.html.twig', array('user' => $users[$i]));
+			$template2 = $templating->render('VidalMainBundle:Delivery:delivery_end.html.twig', array('delivery' => $delivery, $users[$i]));
 			$template  = $template1 . $template2;
 
 			$this->send($users[$i]['username'], $users[$i]['firstName'], $template, $subject);
@@ -232,7 +232,7 @@ class DeliveryCommand extends ContainerAwareCommand
 
 		foreach ($users as $user) {
 			$template2 = $templating->render('VidalMainBundle:Delivery:delivery_end.html.twig', array('delivery' => $delivery, 'user' => $user));
-			$template = $template1 . $template2;
+			$template  = $template1 . $template2;
 
 			$this->send($user['username'], $user['firstName'], $template, $subject, $local);
 		}
