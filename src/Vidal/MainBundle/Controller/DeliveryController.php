@@ -36,9 +36,19 @@ class DeliveryController extends Controller
 		$em->persist($do);
 		$em->flush();
 
-		header('Content-Type: image/gif');
-		echo "\x47\x49\x46\x38\x37\x61\x1\x0\x1\x0\x80\x0\x0\xfc\x6a\x6c\x0\x0\x0\x2c\x0\x0\x0\x0\x1\x0\x1\x0\x0\x2\x2\x44\x1\x0\x3b";
-		die();
+		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
+			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
+
+		$file = readfile($imagePath);
+
+		$headers = array(
+			'Content-Type'        => 'image/png',
+//			'Content-Length'      => filesize($imagePath),
+//			'Content-Disposition' => 'inline; filename="1px.png"',
+		);
+
+		return new Response($file, 200, $headers);
 	}
 
 	public function deliveriesAction()
