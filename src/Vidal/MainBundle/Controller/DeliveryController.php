@@ -12,7 +12,6 @@ use Lsw\SecureControllerBundle\Annotation\Secure;
 use Vidal\MainBundle\Entity\Digest;
 use Vidal\MainBundle\Entity\Delivery;
 use Vidal\MainBundle\Entity\DeliveryOpen;
-use Vidal\MainBundle\Http\TransparentPixelResponse;
 
 class DeliveryController extends Controller
 {
