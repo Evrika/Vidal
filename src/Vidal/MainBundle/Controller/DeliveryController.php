@@ -41,11 +41,12 @@ class DeliveryController extends Controller
 		//			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
 		//		$file = readfile($imagePath);
 
-		$file = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=');
+		$file = base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
+		//$file = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=');
 
 		$headers = array(
-			'Content-Type'        => 'image/png',
-			'Content-Disposition' => 'inline; filename="1px.png"'
+			'Content-Type'        => 'image/gif',
+			'Content-Disposition' => 'inline; filename="1px.gif"'
 		);
 
 		return new Response($file, 200, $headers);
