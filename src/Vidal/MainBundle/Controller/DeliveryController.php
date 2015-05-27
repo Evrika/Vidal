@@ -18,7 +18,7 @@ class DeliveryController extends Controller
 {
 	/**
 	 * Открыли письмо - записали в БД и вернули как бы картинку
-	 * @Route("/delivery/opened/{deliveryName}/{userId}", name="delivery_opened")
+	 * @Route("/delivery/opened/{deliveryName}/{userId}/1px.png", name="delivery_opened")
 	 */
 	public function deliveryOpened($deliveryName, $userId)
 	{
@@ -44,7 +44,7 @@ class DeliveryController extends Controller
 
 		$headers = array(
 			'Content-Type'        => 'image/png',
-			//'Content-Disposition' => 'inline; filename="1px.png"'
+			'Content-Disposition' => 'inline; filename="1px.png"'
 		);
 
 		return new Response($file, 200, $headers);
