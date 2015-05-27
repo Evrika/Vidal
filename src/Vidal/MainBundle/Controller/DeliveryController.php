@@ -18,13 +18,13 @@ class DeliveryController extends Controller
 {
 	/**
 	 * Открыли письмо - записали в БД и вернули как бы картинку
-	 * @Route("digest/opened/{digestName}/{doctorId}")
+	 * @Route("/delivery/opened/{deliveryName}/{userId}", name="delivery_opened")
 	 */
-	public function deliveryOpened($deliveryName, $doctorId)
+	public function deliveryOpened($deliveryName, $userId)
 	{
 		$em       = $this->getDoctrine()->getManager();
-		$delivery = $em->getRepository('EvrikaMainBundle:Delivery')->findOneByName($deliveryName);
-		$user   = $em->getRepository('EvrikaMainBundle:Doctor')->findOneById($doctorId);
+		$delivery = $em->getRepository('VidalMainBundle:Delivery')->findOneByName($deliveryName);
+		$user   = $em->getRepository('VidalMainBundle:User')->findOneById($userId);
 
 		if (null == $delivery || null == $user) {
 			throw $this->createNotFoundException();
