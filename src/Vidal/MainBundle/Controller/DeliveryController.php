@@ -37,30 +37,33 @@ class DeliveryController extends Controller
 		$em->persist($do);
 		$em->flush();
 
-		return new TransparentPixelResponse();
+		return $this->redirect('http://www.vidal.ru/bundles/vidalmain/images/delivery/1px.png');
 
-//		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
-//			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
-//			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
-//
-//		$im = imagecreatefrompng($imagePath);
-//
-//		header('Content-Type:image/png');
-//
-//		imagepng($im);
-//		imagedestroy($im);
-//		die();
+		//return new TransparentPixelResponse();
 
-//		$file = readfile($imagePath);
-//
-//		$headers = array(
-//			'Content-Type'   => 'image/png',
-//			'Content-Length' => filesize($imagePath),
-//			'Accept-Ranges'  => 'bytes',
-//			//			'Content-Disposition' => 'inline; filename="1px.png"',
-//		);
-//
-//		return new Response($file, 200, $headers);
+		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
+			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
+
+		$file = readfile($imagePath);
+
+		$headers = array(
+			'Content-Type'   => 'image/png',
+			'Content-Length' => filesize($imagePath),
+			'Content-Disposition' => 'inline; filename="1px_' . uniqid() . '.png"',
+		);
+
+		return new Response($file, 200, $headers);
+
+
+		//		$im = imagecreatefrompng($imagePath);
+		//
+		//		header('Content-Type:image/png');
+		//
+		//		imagepng($im);
+		//		imagedestroy($im);
+		//		die();
+
 	}
 
 	public function deliveriesAction()
