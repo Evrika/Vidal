@@ -12,6 +12,7 @@ use Lsw\SecureControllerBundle\Annotation\Secure;
 use Vidal\MainBundle\Entity\Digest;
 use Vidal\MainBundle\Entity\Delivery;
 use Vidal\MainBundle\Entity\DeliveryOpen;
+use Vidal\MainBundle\Http\TransparentPixelResponse;
 
 /** @Secure(roles="ROLE_SUPERADMIN") */
 class DeliveryController extends Controller
@@ -36,17 +37,19 @@ class DeliveryController extends Controller
 		$em->persist($do);
 		$em->flush();
 
-		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
-			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
-			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
+		return new TransparentPixelResponse();
 
-		$im = imagecreatefrompng($imagePath);
-
-		header('Content-Type:image/png');
-
-		imagepng($im);
-		imagedestroy($im);
-		die();
+//		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+//			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
+//			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
+//
+//		$im = imagecreatefrompng($imagePath);
+//
+//		header('Content-Type:image/png');
+//
+//		imagepng($im);
+//		imagedestroy($im);
+//		die();
 
 //		$file = readfile($imagePath);
 //
@@ -56,8 +59,8 @@ class DeliveryController extends Controller
 //			'Accept-Ranges'  => 'bytes',
 //			//			'Content-Disposition' => 'inline; filename="1px.png"',
 //		);
-
-		return new Response($file, 200, $headers);
+//
+//		return new Response($file, 200, $headers);
 	}
 
 	public function deliveriesAction()
