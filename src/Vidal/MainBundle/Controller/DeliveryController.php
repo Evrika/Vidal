@@ -44,7 +44,7 @@ class DeliveryController extends Controller
 
 		$headers = array(
 			'Content-Type'        => 'image/png',
-//			'Content-Length'      => filesize($imagePath),
+			'Content-Length'      => filesize($imagePath),
 //			'Content-Disposition' => 'inline; filename="1px.png"',
 		);
 
