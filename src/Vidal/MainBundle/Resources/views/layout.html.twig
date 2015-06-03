@@ -81,11 +81,15 @@
                 }
             }
             var $mobile = detectmob();
+            var $tablet = false;
 
             if ( window.screen.width < 768 && $mobile) {
                 document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">');
+            } else if ( window.screen.width >= 768 && window.screen.width < 1008) {
+                document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">');
+                $tablet = true;
             } else {
-                document.write('<meta id="viewport" name="viewport" content="width=1024">');
+                document.write('<meta id="viewport" name="viewport" content="width=1008">');
             }
         </script>
 		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
