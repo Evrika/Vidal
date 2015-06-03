@@ -41,29 +41,49 @@ class ExcelUsersCommand extends ContainerAwareCommand
 		$specialties = array();
 		$regions     = array();
 		$cities      = array();
+		$profs       = array();
 
 		for ($i = 0; $i < count($users); $i++) {
 			# заполняем массив по специальности
 			$key = $users[$i]['specialty'];
 			if (!empty($key)) {
-				isset($specialties[$key])
-					? $specialties[$key] = $specialties[$key] + 1
-					: $specialties[$key] = 1;
+				$specialties[$key] = isset($specialties[$key]) ? $specialties[$key] + 1 : 1;
+
+				if (in_array($key, array('Клиническая фармакология', 'Провизор', 'Фармацевтика'))) {
+					$k         = 'специалисты в области фармации (Клиническая фармакология / Провизор / Фармацевтика)';
+					$profs[$k] = isset($profs[$k]) ? $profs[$k] + 1 : 1;
+				}
+				elseif (in_array($key, array('Средний медицинский персонал', 'Фельдшерское дело'))) {
+					$k         = 'средний медицинский персонал (Средний медицинский персонал / Фельдшерское дело)';
+					$profs[$k] = isset($profs[$k]) ? $profs[$k] + 1 : 1;
+				}
+				elseif (in_array($key, array('Администрация ЛПУ', 'Медико-социальная экспертиза', 'Организация здравоохранения и общественное здоровье', 'Фарм.индустрия'))) {
+					$k         = 'административный персонал (Администрация ЛПУ / Медико-социальная экспертиза / Организация здравоохранения и общественное здоровье / Фарм.индустрия)';
+					$profs[$k] = isset($profs[$k]) ? $profs[$k] + 1 : 1;
+				}
+				elseif (in_array($key, array('Студент ВУЗа', 'Студент ССУЗа'))) {
+					$k         = 'студенты';
+					$profs[$k] = isset($profs[$k]) ? $profs[$k] + 1 : 1;
+				}
+				elseif (in_array($key, array('Айти-специалист в медицине', 'Информационные технологии', 'Химия', 'Биология', 'Ветеринария'))) {
+					$k         = 'прочие (Айти-специалист в медицине / Информационные технологии / Химия / Биология / Ветеринария)';
+					$profs[$k] = isset($profs[$k]) ? $profs[$k] + 1 : 1;
+				}
+				else {
+					$k         = 'врач';
+					$profs[$k] = isset($profs[$k]) ? $profs[$k] + 1 : 1;
+				}
 			}
 
 			# заполняем массив по региону
 			$key = $users[$i]['region'];
 			if (!empty($key)) {
-				isset($regions[$key])
-					? $regions[$key] = $regions[$key] + 1
-					: $regions[$key] = 1;
+				$regions[$key] = isset($regions[$key]) ? $regions[$key] + 1 : 1;
 			}
 
 			$key = $users[$i]['city'];
 			if (!empty($key)) {
-				isset($cities[$key])
-					? $cities[$key] = $cities[$key] + 1
-					: $cities[$key] = 1;
+				$cities[$key] = isset($cities[$key]) ? $cities[$key] + 1 : 1;
 			}
 		}
 
@@ -78,17 +98,20 @@ class ExcelUsersCommand extends ContainerAwareCommand
 		arsort($specialties);
 		arsort($regions);
 		arsort($cities);
+		arsort($profs);
 
 		$newsheet
 			->setTitle('Сводная статистика')
-			->setCellValue('A1', 'Специальность')
-			->setCellValue('B1', 'Кол-во')
-			->setCellValue('C1', 'Регион')
-			->setCellValue('D1', 'Кол-во')
-			->setCellValue('E1', 'Город')
-			->setCellValue('F1', 'Кол-во');
+			->setCellValue('A1', 'Профессия')
+			->setCellValue('B1', '')
+			->setCellValue('C1', 'Специальность')
+			->setCellValue('D1', '')
+			->setCellValue('E1', 'Регион')
+			->setCellValue('F1', '')
+			->setCellValue('G1', 'Город')
+			->setCellValue('H1', '');
 
-		$alphabet = explode(' ', 'A B C D E F');
+		$alphabet = explode(' ', 'A B C D E F G H');
 
 		foreach ($alphabet as $letter) {
 			$newsheet->getColumnDimension($letter)->setWidth('30');
@@ -107,20 +130,26 @@ class ExcelUsersCommand extends ContainerAwareCommand
 		}
 
 		$i = 2;
+		foreach ($profs as $prof => $qty) {
+			$newsheet->setCellValue("A{$i}", $prof)->setCellValue("B{$i}", $qty);
+			$i++;
+		}
+
+		$i = 2;
 		foreach ($specialties as $specialty => $qty) {
-			$newsheet->setCellValue("A{$i}", $specialty)->setCellValue("B{$i}", $qty);
+			$newsheet->setCellValue("C{$i}", $specialty)->setCellValue("D{$i}", $qty);
 			$i++;
 		}
 
 		$i = 2;
 		foreach ($regions as $region => $qty) {
-			$newsheet->setCellValue("C{$i}", $region)->setCellValue("D{$i}", $qty);
+			$newsheet->setCellValue("E{$i}", $region)->setCellValue("F{$i}", $qty);
 			$i++;
 		}
 
 		$i = 2;
 		foreach ($cities as $city => $qty) {
-			$newsheet->setCellValue("E{$i}", $city)->setCellValue("F{$i}", $qty);
+			$newsheet->setCellValue("G{$i}", $city)->setCellValue("H{$i}", $qty);
 			$i++;
 		}
 
