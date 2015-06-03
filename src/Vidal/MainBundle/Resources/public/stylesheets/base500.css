@@ -210,6 +210,9 @@
 	.menu.menu-small, .menu.menu-big {
 		display: none;
 	}
+	.mobile_menu_hidden .menu.menu-small, .mobile_menu_hidden .menu.menu-big {
+		display: block;
+	}
 	.mobile_menu_hidden .menu {
 		position: absolute;
 		left: 55%;
@@ -544,5 +547,17 @@
 	.metrika_mail a {
 		display: inline-block;
 		margin: 0 auto;
+	}
+}
+
+@media (max-width:499px) and (orientation: landscape) {
+	.mobile_menu_wrap {
+		width: 30%;
+	}
+	.mobile_menu_hidden .menu {
+		left: 38%;
+	}
+	.mobile_menu_hidden .menu a {
+		margin-right: 10px;
 	}
 }
