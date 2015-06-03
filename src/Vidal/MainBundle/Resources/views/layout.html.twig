@@ -52,9 +52,42 @@
 		<!--[if lt IE 9]>
 		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/old_ie.css') }}"/>
 		<![endif]-->
-	{% endblock %}
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base500.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base750.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base1000.css') }}"/>
+
+
+
+    {% endblock %}
 
 	{% block javascripts %}
+        <script type="text/javascript">
+            function detectmob() {
+                if( (navigator.userAgent.match(/Android/i)
+                        || navigator.userAgent.match(/webOS/i)
+                        || navigator.userAgent.match(/iPhone/i)
+                        || navigator.userAgent.match(/iPad/i)
+                        || navigator.userAgent.match(/iPod/i)
+                        || navigator.userAgent.match(/BlackBerry/i)
+                        || navigator.userAgent.match(/Windows Phone/i))
+
+                        && window.screen.width <= 768
+                        ){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            var $mobile = detectmob();
+
+            if ( window.screen.width <= 768 && $mobile) {
+                document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">');
+            } else {
+                document.write('<meta id="viewport" name="viewport" content="width=1024">');
+            }
+        </script>
 		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/coockie.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -75,6 +108,32 @@
 	{% if noYad is not defined %}
 		{{ render(controller('VidalMainBundle:Banner:render', {'groupId':2})) }}
 	{% endif %}
+
+    <div class="mobile_menu">
+
+        <div class="mobile_menu_auth"></div>
+        <div class="mobile_menu_search"></div>
+
+        <div class="mobile_menu_icon"></div>
+
+        <div class="mobile_menu_hidden">
+            <div class="mobile_menu_overlay"></div>
+            <div class="mobile_menu_close"></div>
+            <div class="mobile_menu_wrap"></div>
+        </div>
+
+        <div class="mobile_search_hidden">
+            <div class="mobile_search_overlay"></div>
+            <div class="mobile_search_close"></div>
+            <div class="mobile_search_wrap"></div>
+        </div>
+
+        <div class="mobile_auth_hidden">
+            <div class="mobile_auth_overlay"></div>
+            <div class="mobile_auth_close"></div>
+            <div class="mobile_auth_wrap"></div>
+        </div>
+    </div>
 
 	<div class="header">
 		{% include 'VidalMainBundle::header.html.twig' %}
