@@ -22,6 +22,11 @@
 		<a href="{{ path('veterinar') }}"
 		   class="{{ menu_left is defined and menu_left == 'veterinar' ? 'active' : 'dotted' }}">Ветеринария</a>
 	</li>
+	{% if isLogged %}
+		<li>
+			<a href="http://univadis.vidal.ru" class="dotted">Univadis</a>
+		</li>
+	{% endif %}
 	<li>
 		<a href="{{ path('boiron_main') }}?leftsidebar" class="dotted">Французское решение при ОРВИ</a>
 	</li>
