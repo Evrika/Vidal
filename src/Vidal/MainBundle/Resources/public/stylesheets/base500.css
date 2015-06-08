@@ -433,6 +433,9 @@
 		display: block;
 		margin-top: 5px;
 	}
+	.products-table img {
+		display: none;
+	}
 	.block-highlight {
 		box-shadow: none;
 		-khtml-box-shadow: none;
