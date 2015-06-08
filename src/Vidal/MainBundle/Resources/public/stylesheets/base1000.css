@@ -83,4 +83,7 @@
 		padding: 5px !important;
 		float: none !important;
 	}
+	.mobile_menu {
+		display: none !important;
+	}
 }

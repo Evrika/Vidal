@@ -116,7 +116,14 @@
     <div class="mobile_menu">
 
         <div class="mobile_menu_auth"></div>
-        <div class="mobile_menu_search"></div>
+        <div class="mobile_menu_search">
+            <div class="mobile_menu_search_overlay"></div>
+            <form id="search_form_top" class="search" method="get" action="{{ path('search') }}">
+                <input type="hidden" name="search-type" value="{{ app.request.get('t')|default('all') }}">
+                <input type="submit" value="" class="search-submit">
+                <input class="search-query ui-autocomplete-input" type="text" name="q" autocomplete="off" placeholder="Арбидол, Байер, грипп..." value="{{ app.request.attributes.get('_route') == 'search' ? app.request.get('q') }}">
+            </form>
+        </div>
 
         <div class="mobile_menu_icon"></div>
 

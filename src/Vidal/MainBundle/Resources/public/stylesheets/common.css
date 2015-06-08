@@ -1783,3 +1783,6 @@ tr.bold td {
 	border-bottom: 1px solid rgb(207, 207, 183);
 	background:    beige;
 }
+.mobile_menu {
+	display: none;
+}
