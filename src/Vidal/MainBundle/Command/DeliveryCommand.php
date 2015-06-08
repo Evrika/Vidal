@@ -265,7 +265,7 @@ class DeliveryCommand extends ContainerAwareCommand
 			$mail->Password   = 'oijoijoij';
 		}
 
-		$mail->SMTPDebug = 2;
+		//$mail->SMTPDebug = 2;
 
 		$result = $mail->send();
 		$mail   = null;
