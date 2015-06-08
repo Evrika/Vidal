@@ -34,30 +34,6 @@ class DeliveryCommand extends ContainerAwareCommand
 		$container = $this->getContainer();
 		$em        = $container->get('doctrine')->getManager();
 
-		///////////////////////////////////////////////////////////////////////////
-		$em->createQuery('UPDATE VidalMainBundle:User u SET u.send = 0');
-		$qb = $em->createQueryBuilder();
-		$qb->select("u.username, u.id, DATE_FORMAT(u.created, '%Y-%m-%d_%H:%i:%s') as created, u.firstName")
-			->from('VidalMainBundle:User', 'u')
-			->where('u.send = 0')
-			->andWhere('u.enabled = 1')
-			->andWhere('u.emailConfirmed = 1')
-			->andWhere('u.digestSubscribed = 1')
-			->setMaxResults(17500);
-
-		$users = $qb->getQuery()->getResult();
-
-		$uq = $em->createQuery('UPDATE VidalMainBundle:User u SET u.send = 1 WHERE u.id = :uid');
-
-		foreach ($users as $user) {
-			$uq->setParameter('uid', $user['id']);
-		}
-
-		echo '+++ done!';
-		exit;
-
-		////////////////////////////////////////////////////////////////////////////////
-
 		# нужно название рассылки
 		$deliveryName = $input->getArgument('name');
 
@@ -288,6 +264,8 @@ class DeliveryCommand extends ContainerAwareCommand
 			$mail->Username   = 'binacy@yandex.ru';
 			$mail->Password   = 'oijoijoij';
 		}
+
+		$mail->SMTPDebug = 2;
 
 		$result = $mail->send();
 		$mail   = null;
