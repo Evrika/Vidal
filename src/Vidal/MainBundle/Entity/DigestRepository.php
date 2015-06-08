@@ -32,7 +32,6 @@ class DigestRepository extends EntityRepository
 			SELECT COUNT(d.id)
 			FROM VidalMainBundle:User d
 			WHERE d.digestSubscribed = TRUE
-				AND d.emailConfirmed = TRUE
 				AND d.enabled = TRUE
 		')->getSingleScalarResult();
 	}

@@ -112,7 +112,6 @@ class DigestCommand extends ContainerAwareCommand
 			->from('VidalMainBundle:User', 'u')
 			->where('u.send = 0')
 			->andWhere('u.enabled = 1')
-			->andWhere('u.emailConfirmed = 1')
 			->andWhere('u.digestSubscribed = 1');
 
 		if (count($specialties)) {

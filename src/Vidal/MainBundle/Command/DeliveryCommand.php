@@ -31,6 +31,33 @@ class DeliveryCommand extends ContainerAwareCommand
 		ini_set('max_input_time', 0);
 		ini_set('memory_limit', -1);
 
+		$container = $this->getContainer();
+		$em        = $container->get('doctrine')->getManager();
+
+		///////////////////////////////////////////////////////////////////////////
+		$em->createQuery('UPDATE VidalMainBundle:User u SET u.send = 0');
+		$qb = $em->createQueryBuilder();
+		$qb->select("u.username, u.id, DATE_FORMAT(u.created, '%Y-%m-%d_%H:%i:%s') as created, u.firstName")
+			->from('VidalMainBundle:User', 'u')
+			->where('u.send = 0')
+			->andWhere('u.enabled = 1')
+			->andWhere('u.emailConfirmed = 1')
+			->andWhere('u.digestSubscribed = 1')
+			->setMaxResults(17500);
+
+		$users = $qb->getQuery()->getResult();
+
+		$uq = $em->createQuery('UPDATE VidalMainBundle:User u SET u.send = 1 WHERE u.id = :uid');
+
+		foreach ($users as $user) {
+			$uq->setParameter('uid', $user['id']);
+		}
+
+		echo '+++ done!';
+		exit;
+
+		////////////////////////////////////////////////////////////////////////////////
+
 		# нужно название рассылки
 		$deliveryName = $input->getArgument('name');
 
@@ -51,8 +78,6 @@ class DeliveryCommand extends ContainerAwareCommand
 			return false;
 		}
 
-		$container = $this->getContainer();
-		$em        = $container->get('doctrine')->getManager();
 		$delivery  = $em->getRepository('VidalMainBundle:Delivery')->findOneByName($deliveryName);
 
 		if (null == $delivery) {
@@ -88,6 +113,8 @@ class DeliveryCommand extends ContainerAwareCommand
 			$output->writeln("=> Sending: in progress to ALL subscribed users...");
 			$delivery->setProgress(true);
 			$this->sendToAll($output, $delivery);
+			$delivery->setProgress(false);
+			$em->flush();
 		}
 
 		# рассылка нашим менеджерам
@@ -118,7 +145,7 @@ class DeliveryCommand extends ContainerAwareCommand
 		$em          = $container->get('doctrine')->getManager();
 		$templating  = $container->get('templating');
 		$specialties = $delivery->getSpecialties();
-		$step        = 55;
+		$step        = 40;
 		$sleep       = 55;
 
 		# пользователи
@@ -145,7 +172,6 @@ class DeliveryCommand extends ContainerAwareCommand
 		$qb->select('COUNT(u.id)')
 			->from('VidalMainBundle:User', 'u')
 			->andWhere('u.enabled = 1')
-			->andWhere('u.emailConfirmed = 1')
 			->andWhere('u.digestSubscribed = 1');
 
 		if (isset($ids)) {
