@@ -174,16 +174,16 @@ class DeliveryCommand extends ContainerAwareCommand
 				->setParameter('id', $users[$i]['id'])
 				->execute();
 
-			if ($delivery->getLimit() && $i >= $delivery->getLimit()) {
-				break;
-			}
+//			if ($delivery->getLimit() && $i >= $delivery->getLimit()) {
+//				break;
+//			}
 
 			if ($i && $i % $step == 0) {
 				# проверка, можно ли продолжать рассылать
-				$em->refresh($delivery);
-				if (false === $delivery->getProgress() || ($delivery->getLimit() && $i >= $delivery->getLimit())) {
-					break;
-				}
+//				$em->refresh($delivery);
+//				if (false === $delivery->getProgress() || ($delivery->getLimit() && $i >= $delivery->getLimit())) {
+//					break;
+//				}
 
 				$send = $em->createQuery('SELECT COUNT(u.id) FROM VidalMainBundle:User u WHERE u.send = 1')
 					->getSingleScalarResult();
@@ -264,8 +264,6 @@ class DeliveryCommand extends ContainerAwareCommand
 			$mail->Username   = 'binacy@yandex.ru';
 			$mail->Password   = 'oijoijoij';
 		}
-
-		//$mail->SMTPDebug = 2;
 
 		$result = $mail->send();
 		$mail   = null;
