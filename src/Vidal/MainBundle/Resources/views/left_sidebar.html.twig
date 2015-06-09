@@ -22,9 +22,14 @@
 		<a href="{{ path('veterinar') }}"
 		   class="{{ menu_left is defined and menu_left == 'veterinar' ? 'active' : 'dotted' }}">Ветеринария</a>
 	</li>
-    <li>
-        <a href="{{ path('boiron_main') }}?leftsidebar" class="dotted">Французское решение при ОРВИ</a>
-    </li>
+	{% if isLogged %}
+		<li>
+			<a href="http://univadis.vidal.ru?leftsidebar" class="dotted">Univadis</a>
+		</li>
+	{% endif %}
+	<li>
+		<a href="{{ path('boiron_main') }}?leftsidebar" class="dotted">Французское решение при ОРВИ</a>
+	</li>
 
 	{#<li>#}
 	{#<a href="{{ path('helinorm') }}" class="dotted">Жизнь без гастрита</a>#}
@@ -120,7 +125,9 @@
 {{ render(controller('VidalMainBundle:Banner:render', {'groupId':7})) }}
 
 {# последние новости #}
-{{ render(controller('VidalMainBundle:News:left')) }}
+{% if indexPage is not defined %}
+	{{ render(controller('VidalMainBundle:News:left')) }}
+{% endif %}
 
 {# реклама вакансий #}
 {% if app.environment == 'prod' %}

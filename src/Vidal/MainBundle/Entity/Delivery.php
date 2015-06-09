@@ -51,7 +51,7 @@ class Delivery extends BaseEntity
 	/** @ORM\Column(length=255, unique=true) */
 	protected $name;
 
-	/** @ORM\Column(length=255) */
+	/** @ORM\Column(length=255, nullable=true) */
 	protected $template;
 
 	public function __construct()

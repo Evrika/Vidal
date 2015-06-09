@@ -13,18 +13,17 @@ use Vidal\MainBundle\Entity\Digest;
 use Vidal\MainBundle\Entity\Delivery;
 use Vidal\MainBundle\Entity\DeliveryOpen;
 
-/** @Secure(roles="ROLE_SUPERADMIN") */
 class DeliveryController extends Controller
 {
 	/**
 	 * Открыли письмо - записали в БД и вернули как бы картинку
-	 * @Route("digest/opened/{digestName}/{doctorId}")
+	 * @Route("/delivery/opened/{deliveryName}/{userId}", name="delivery_opened")
 	 */
-	public function deliveryOpened($deliveryName, $doctorId)
+	public function deliveryOpened($deliveryName, $userId)
 	{
 		$em       = $this->getDoctrine()->getManager();
-		$delivery = $em->getRepository('EvrikaMainBundle:Delivery')->findOneByName($deliveryName);
-		$user   = $em->getRepository('EvrikaMainBundle:Doctor')->findOneById($doctorId);
+		$delivery = $em->getRepository('VidalMainBundle:Delivery')->findOneByName($deliveryName);
+		$user     = $em->getRepository('VidalMainBundle:User')->findOneById($userId);
 
 		if (null == $delivery || null == $user) {
 			throw $this->createNotFoundException();
@@ -36,18 +35,9 @@ class DeliveryController extends Controller
 		$em->persist($do);
 		$em->flush();
 
-		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
-			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
-			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
-
-		$file = readfile($imagePath);
-
-		$headers = array(
-			'Content-Type'        => 'image/png',
-			'Content-Disposition' => 'inline; filename="1px.png"'
-		);
-
-		return new Response($file, 200, $headers);
+		header('Content-Type: image/gif');
+		echo base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
+		die();
 	}
 
 	public function deliveriesAction()
@@ -63,6 +53,7 @@ class DeliveryController extends Controller
 	/**
 	 * @Route("/delivery/add", name="delivery_add")
 	 * @Template("VidalMainBundle:Delivery:add.html.twig")
+	 * @Secure(roles="ROLE_SUPERADMIN")
 	 */
 	public function addAction()
 	{
@@ -82,6 +73,7 @@ class DeliveryController extends Controller
 	/**
 	 * @Route("/delivery/preview", name="delivery_preview")
 	 * @Template("VidalMainBundle:Digest:preview.html.twig")
+	 * @Secure(roles="ROLE_SUPERADMIN")
 	 */
 	public function previewAction()
 	{
@@ -94,7 +86,10 @@ class DeliveryController extends Controller
 
 	/**************************************************************************************************************/
 
-	/** @Route("/delivery/reset", name="delivery_reset") */
+	/**
+	 * @Route("/delivery/reset", name="delivery_reset")
+	 * @Secure(roles="ROLE_SUPERADMIN")
+	 */
 	public function deliveryResetAction()
 	{
 		$em     = $this->getDoctrine()->getManager();
@@ -109,7 +104,10 @@ class DeliveryController extends Controller
 		return $this->redirect($this->generateUrl('delivery_control'));
 	}
 
-	/** @Route("/delivery/stop", name="delivery_stop") */
+	/**
+	 * @Route("/delivery/stop", name="delivery_stop")
+	 * @Secure(roles="ROLE_SUPERADMIN")
+	 */
 	public function deliveryStopAction()
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -120,7 +118,10 @@ class DeliveryController extends Controller
 		return $this->redirect($this->generateUrl('delivery_control'));
 	}
 
-	/** @Route("/delivery/start", name="delivery_start") */
+	/**
+	 * @Route("/delivery/start", name="delivery_start")
+	 * @Secure(roles="ROLE_SUPERADMIN")
+	 */
 	public function deliveryStartAction()
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -141,6 +142,7 @@ class DeliveryController extends Controller
 	/**
 	 * @Route("/delivery/control", name="delivery_control")
 	 * @Template("VidalMainBundle:Digest:delivery_control.html.twig")
+	 * @Secure(roles="ROLE_SUPERADMIN")
 	 */
 	public function deliveryControlAction(Request $request)
 	{
@@ -180,6 +182,7 @@ class DeliveryController extends Controller
 	/**
 	 * @Route("/delivery", name="delivery")
 	 * @Template("VidalMainBundle:Digest:delivery.html.twig")
+	 * @Secure(roles="ROLE_SUPERADMIN")
 	 */
 	public function deliveryAction(Request $request)
 	{
@@ -215,7 +218,10 @@ class DeliveryController extends Controller
 		return $params;
 	}
 
-	/** @Route("/delivery/test", name="delivery_test") */
+	/**
+	 * @Route("/delivery/test", name="delivery_test")
+	 * @Secure(roles="ROLE_SUPERADMIN")
+	 */
 	public function deliveryTestAction()
 	{
 		$em     = $this->getDoctrine()->getManager();

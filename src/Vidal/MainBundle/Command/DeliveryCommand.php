@@ -4,20 +4,22 @@ namespace Vidal\MainBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
-class DigestCommand extends ContainerAwareCommand
+class DeliveryCommand extends ContainerAwareCommand
 {
 	protected function configure()
 	{
-		$this->setName('vidal:digest')
-			->setDescription('Send digest to users')
+		$this->setName('vidal:delivery')
+			->setDescription('Send delivery to users')
+			->addArgument('name', null, InputArgument::REQUIRED, 'delivery name - REQUIRED')
 			->addOption('test', null, InputOption::VALUE_NONE, 'Send digest to manager e-mails')
 			->addOption('stop', null, InputOption::VALUE_NONE, 'Stop sending digests')
 			->addOption('clean', null, InputOption::VALUE_NONE, 'Clean log app/logs/digest_sent.txt')
 			->addOption('all', null, InputOption::VALUE_NONE, 'Send digest to every subscribed user')
-			->addOption('me', null, InputOption::VALUE_NONE, 'Send digest to 7binary@gmail.com')
+			->addOption('me', null, InputOption::VALUE_NONE, 'Send digest to 7binary@bk.ru')
 			->addOption('local', null, InputOption::VALUE_NONE, 'Send digest from 7binary@list.ru');
 	}
 
@@ -28,6 +30,17 @@ class DigestCommand extends ContainerAwareCommand
 		ini_set('max_execution_time', 0);
 		ini_set('max_input_time', 0);
 		ini_set('memory_limit', -1);
+
+		$container = $this->getContainer();
+		$em        = $container->get('doctrine')->getManager();
+
+		# нужно название рассылки
+		$deliveryName = $input->getArgument('name');
+
+		if (empty($deliveryName)) {
+			$output->writeln('=> REQUIRED: name of delivery, first argument');
+			return false;
+		}
 
 		# если ни одна опция не указана - выводим мануал
 		if (!$input->getOption('test') && !$input->getOption('clean') && !$input->getOption('all') && !$input->getOption('me') && !$input->getOption('local') && !$input->getOption('stop')) {
@@ -41,13 +54,16 @@ class DigestCommand extends ContainerAwareCommand
 			return false;
 		}
 
-		$container = $this->getContainer();
-		$em        = $container->get('doctrine')->getManager();
-		$digest    = $em->getRepository('VidalMainBundle:Digest')->get();
+		$delivery  = $em->getRepository('VidalMainBundle:Delivery')->findOneByName($deliveryName);
+
+		if (null == $delivery) {
+			$output->writeln("=> Error: delivery with name '$deliveryName' not found");
+			return false;
+		}
 
 		# --stop   остановка рассылки дайджеста
 		if ($input->getOption('stop')) {
-			$digest->setProgress(false);
+			$delivery->setProgress(false);
 			$em->flush();
 			$output->writeln('=> digest STOPPED');
 			return true;
@@ -55,7 +71,7 @@ class DigestCommand extends ContainerAwareCommand
 
 		if ($input->getOption('clean')) {
 			$em->createQuery('UPDATE VidalMainBundle:User u SET u.send=0 WHERE u.send=1')->execute();
-			$digest->setProgress(false);
+			$delivery->setProgress(false);
 			$em->flush();
 			$output->writeln('=> users CLEANED');
 			$output->writeln('=> digest STOPPED');
@@ -64,19 +80,22 @@ class DigestCommand extends ContainerAwareCommand
 		# если рассылка уже идет - возвращаем false
 		exec("pgrep digest", $pids);
 		if (!empty($pids)) {
+			$output->writeln("=> Error: delivery already in progress");
 			return false;
 		}
 
 		# рассылка всем подписанным врачам
 		if ($input->getOption('all')) {
 			$output->writeln("=> Sending: in progress to ALL subscribed users...");
-			$digest->setProgress(true);
-			$this->sendToAll($output);
+			$delivery->setProgress(true);
+			$this->sendToAll($output, $delivery);
+			$delivery->setProgress(false);
+			$em->flush();
 		}
 
 		# рассылка нашим менеджерам
 		if ($input->getOption('test')) {
-			$raw      = explode(';', $digest->getEmails());
+			$raw      = explode(';', $delivery->getEmails());
 			$emails[] = array();
 
 			foreach ($raw as $email) {
@@ -84,25 +103,24 @@ class DigestCommand extends ContainerAwareCommand
 			}
 
 			$output->writeln("=> Sending: in progress to managers: " . implode(', ', $emails));
-			$this->sendTo($emails);
+			$this->sendTo($emails, $delivery);
 		}
 
 		# отправить самому себе
 		if ($input->getOption('me')) {
-			$output->writeln("=> Sending: in progress to 7binary@gmail.com");
-			$this->sendTo(array('7binary@gmail.com'), $input->getOption('local'));
+			$output->writeln("=> Sending: in progress to 7binary@bk.ru");
+			$this->sendTo(array('7binary@bk.ru'), $delivery, $input->getOption('local'));
 		}
 
 		return true;
 	}
 
-	private function sendToAll($output)
+	private function sendToAll($output, $delivery)
 	{
 		$container   = $this->getContainer();
 		$em          = $container->get('doctrine')->getManager();
 		$templating  = $container->get('templating');
-		$digest      = $em->getRepository('VidalMainBundle:Digest')->get();
-		$specialties = $digest->getSpecialties();
+		$specialties = $delivery->getSpecialties();
 		$step        = 40;
 		$sleep       = 55;
 
@@ -112,6 +130,7 @@ class DigestCommand extends ContainerAwareCommand
 			->from('VidalMainBundle:User', 'u')
 			->where('u.send = 0')
 			->andWhere('u.enabled = 1')
+			->andWhere('u.emailConfirmed = 1')
 			->andWhere('u.digestSubscribed = 1');
 
 		if (count($specialties)) {
@@ -129,7 +148,6 @@ class DigestCommand extends ContainerAwareCommand
 		$qb->select('COUNT(u.id)')
 			->from('VidalMainBundle:User', 'u')
 			->andWhere('u.enabled = 1')
-			->andWhere('u.emailConfirmed = 1')
 			->andWhere('u.digestSubscribed = 1');
 
 		if (isset($ids)) {
@@ -137,16 +155,16 @@ class DigestCommand extends ContainerAwareCommand
 		}
 
 		$total = $qb->getQuery()->getSingleScalarResult();
-		$digest->setTotal($total);
-		$em->flush($digest);
+		$delivery->setTotal($total);
+		$em->flush($delivery);
 
-		$subject   = $digest->getSubject();
-		$template1 = $templating->render('VidalMainBundle:Digest:template1.html.twig', array('digest' => $digest));
 		$sendQuery = $em->createQuery('SELECT COUNT(u.id) FROM VidalMainBundle:User u WHERE u.send = 1');
+		$subject   = $delivery->getSubject();
+		$template1 = $templating->render('VidalMainBundle:Delivery:delivery_start.html.twig', array('delivery' => $delivery));
 
 		# рассылка
 		for ($i = 0; $i < count($users); $i++) {
-			$template2 = $templating->render('VidalMainBundle:Digest:template2.html.twig', array('user' => $users[$i]));
+			$template2 = $templating->render('VidalMainBundle:Delivery:delivery_end.html.twig', array('delivery' => $delivery, 'user' => $users[$i]));
 			$template  = $template1 . $template2;
 
 			$this->send($users[$i]['username'], $users[$i]['firstName'], $template, $subject);
@@ -156,25 +174,25 @@ class DigestCommand extends ContainerAwareCommand
 				->setParameter('id', $users[$i]['id'])
 				->execute();
 
-			if (null !== $digest->getLimit() && $i >= $digest->getLimit()) {
-				break;
-			}
+//			if ($delivery->getLimit() && $i >= $delivery->getLimit()) {
+//				break;
+//			}
 
 			if ($i && $i % $step == 0) {
 				# проверка, можно ли продолжать рассылать
-				$em->refresh($digest);
-				if (false === $digest->getProgress() || (null !== $digest->getLimit() && $i >= $digest->getLimit())) {
-					break;
-				}
+//				$em->refresh($delivery);
+//				if (false === $delivery->getProgress() || ($delivery->getLimit() && $i >= $delivery->getLimit())) {
+//					break;
+//				}
 
 				$send = $em->createQuery('SELECT COUNT(u.id) FROM VidalMainBundle:User u WHERE u.send = 1')
 					->getSingleScalarResult();
-				$digest->setTotalSend($send);
-				$digest->setTotalLeft($total - $send);
+				$delivery->setTotalSend($send);
+				$delivery->setTotalLeft($total - $send);
 
-				$em->flush($digest);
+				$em->flush($delivery);
 
-				$output->writeln("... sent $send / {$digest->getTotal()}");
+				$output->writeln("... sent $send / {$delivery->getTotal()}");
 
 				$em->getConnection()->close();
 				sleep($sleep);
@@ -183,11 +201,11 @@ class DigestCommand extends ContainerAwareCommand
 		}
 
 		$send = $sendQuery->getSingleScalarResult();
-		$digest->setTotalSend($send);
-		$digest->setTotalLeft($total - $send);
-		$digest->setProgress(false);
+		$delivery->setTotalSend($send);
+		$delivery->setTotalLeft($total - $send);
+		$delivery->setProgress(false);
 
-		$em->flush($digest);
+		$em->flush($delivery);
 
 		$output->writeln('=> Completed!');
 
@@ -198,12 +216,11 @@ class DigestCommand extends ContainerAwareCommand
 	 *
 	 * @param array $emails
 	 */
-	private function sendTo(array $emails, $local = false)
+	private function sendTo(array $emails, $delivery, $local = false)
 	{
 		$container  = $this->getContainer();
 		$em         = $container->get('doctrine')->getManager();
 		$templating = $container->get('templating');
-		$digest     = $em->getRepository('VidalMainBundle:Digest')->get();
 
 		$users = $em->createQuery("
 			SELECT u.username, u.id, DATE_FORMAT(u.created, '%Y-%m-%d_%H:%i:%s') as created, u.firstName
@@ -212,11 +229,11 @@ class DigestCommand extends ContainerAwareCommand
 		")->setParameter('emails', $emails)
 			->getResult();
 
-		$subject   = $digest->getSubject();
-		$template1 = $templating->render('VidalMainBundle:Digest:template1.html.twig', array('digest' => $digest));
+		$subject   = $delivery->getSubject();
+		$template1 = $templating->render('VidalMainBundle:Delivery:delivery_start.html.twig', array('delivery' => $delivery));
 
 		foreach ($users as $user) {
-			$template2 = $templating->render('VidalMainBundle:Digest:template2.html.twig', array('user' => $user));
+			$template2 = $templating->render('VidalMainBundle:Delivery:delivery_end.html.twig', array('delivery' => $delivery, 'user' => $user));
 			$template  = $template1 . $template2;
 
 			$this->send($user['username'], $user['firstName'], $template, $subject, $local);
