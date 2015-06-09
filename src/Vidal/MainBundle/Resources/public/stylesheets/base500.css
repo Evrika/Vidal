@@ -591,11 +591,19 @@
 		-moz-border-radius: 0 !important;
 		-webkit-border-radius: 0 !important;
 		-khtml-border-radius: 0 !important;
+		padding: 0 !important;
 	}
 	.ui-autocomplete.ui-front  a {
 		font-size: 16px;
 		text-align: center;
 		padding: 10px 0;
+		margin: 0;
+		border-radius: 0 !important;
+		-moz-border-radius: 0 !important;
+		-webkit-border-radius: 0 !important;
+		-khtml-border-radius: 0 !important;
+		display: block;
+		box-sizing: border-box;
 	}
 
 }
