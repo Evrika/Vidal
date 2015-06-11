@@ -217,15 +217,3 @@ gregwar_captcha:
 ornicar_apc:
     host: http://www.vidal.ru
     web_dir: %kernel.root_dir%/../web
-
-#LiipThemeBundle
-liip_theme:
-    themes: [ web, phone ]
-    cookie:
-        name: theme
-        lifetime: 31536000
-        path: /
-        domain: ~
-        secure: false
-        http_only: false
-    autodetect_theme: true
