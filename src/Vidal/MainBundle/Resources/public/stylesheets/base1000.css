@@ -6,14 +6,8 @@
 		padding: 0;
 	}
 	.right-sidebar {
-		width: 0;
-		max-width: 0;
-		display: none;
-	}
-	.right-sidebar * {
-		width: 0;
-		max-width: 0;
-		display: none;
+		display: block;
+		margin: 20px auto 0 auto;
 	}
 	#top-link {
 		top: auto;
@@ -75,7 +69,9 @@
 		padding: 0 10px 0 25px;
 		vertical-align: top;
 		min-width: 0;
-		width: calc(100% - 143px - 35px);
+		width: 100%;
+		display: block;
+		box-sizing: border-box;
 	}
 	.letters input {
 		width: auto !important;
