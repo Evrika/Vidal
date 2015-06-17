@@ -12,13 +12,13 @@
 				{% endif %}
 
 				{% if withPhoto %}
-					<a class="photo" href="{{ path('publication', {id:publication.id}) }}">
+					<a class="photo" href="{{ path('publication', {id:publication.id,source:'index'}) }}">
 						<img src="{{ publication.photo.path }}" alt="{{ publication.title }}"/>
 					</a>
 				{% endif %}
 				<div>
 					<div class="publication-title">
-						<a href="{{ path('publication', {id:publication.id}) }}">{{ publication.title|raw }}</a>
+						<a href="{{ path('publication', {id:publication.id,source:'index'}) }}">{{ publication.title|raw }}</a>
 					</div>
 					<div class="publication-announce">
 						{{ publication.announce|raw }}

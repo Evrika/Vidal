@@ -12,7 +12,7 @@
 					{% endif %}
 
 					<a class="article-title"
-					   href="{{ path('article', {'rubrique':article.rubrique.rubrique, 'link':article.link}) }}">
+					   href="{{ path('article', {'rubrique':article.rubrique.rubrique, 'link':article.link, source:'index'}) }}">
 						{{ article.title|raw }}
 					</a>
 
@@ -39,7 +39,7 @@
 					{% endif %}
 
 					<a class="article-title"
-					   href="{{ path('art', {'url':article.rubrique.url ~ '/' ~ (article.type ? article.type.url ~ '/') ~ (article.category ? article.category.url ~ '/') ~ article.link ~ '~' ~ article.id }) }}">
+					   href="{{ path('art', {'url':article.rubrique.url ~ '/' ~ (article.type ? article.type.url ~ '/') ~ (article.category ? article.category.url ~ '/') ~ article.link ~ '~' ~ article.id, source:'index' }) }}">
 						{{ article.title|raw }}
 					</a>
 
