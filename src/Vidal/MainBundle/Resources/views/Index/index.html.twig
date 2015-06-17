@@ -19,21 +19,21 @@
 		<div class="title title-priority">
 			<a href="{{ path('news') }}">Актуальные новости</a>
 		</div>
-		{% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':publicationsPriority, 'without_date':1} %}
+		{% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':publicationsPriority, 'without_date':1, 'source':'index'} %}
 	{% endif %}
 
 	{# Последние новости #}
 	<div class="title title-news">
 		<a href="{{ path('news') }}">Новости медицины и фармации</a>
 	</div>
-	{% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':publications} %}
+	{% include 'VidalMainBundle:Index:render_news.html.twig' with {'news':publications, 'source':'index'} %}
 	<a href="{{ path('news') }}" id="more_news">все</a>
 
 	{# Статьи энциклопедии #}
 	<div class="title title-articles">
 		<a href="{{ path('articles') }}">Новые материалы на сайте</a>
 	</div>
-	{% include 'VidalMainBundle:Index:render_articles.html.twig' %}
+	{% include 'VidalMainBundle:Index:render_articles.html.twig' with {'source':'index'} %}
 	<a href="{{ path('articles') }}" id="more_articles">все</a>
 
 {% endblock %}

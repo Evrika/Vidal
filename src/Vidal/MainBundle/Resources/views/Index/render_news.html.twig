@@ -2,6 +2,10 @@
 	<div class="news text">
 		{% for publication in news %}
 			{% set withPhoto = publication.photo and is_file(publication.photo.path) %}
+			{% set href = source is defined
+			? path('publication', {'id':publication.id, 'source':source})
+			: path('publication', {'id':publication.id}) %}
+
 			<div class="publication{{ withPhoto ? ' with-photo' }}">
 				{# админам карандашик редактирования #}
 				{% if isAdmin %}
@@ -12,13 +16,13 @@
 				{% endif %}
 
 				{% if withPhoto %}
-					<a class="photo" href="{{ path('publication', {id:publication.id,source:'index'}) }}">
+					<a class="photo" href="{{ href }}">
 						<img src="{{ publication.photo.path }}" alt="{{ publication.title }}"/>
 					</a>
 				{% endif %}
 				<div>
 					<div class="publication-title">
-						<a href="{{ path('publication', {id:publication.id,source:'index'}) }}">{{ publication.title|raw }}</a>
+						<a href="{{ href }}">{{ publication.title|raw }}</a>
 					</div>
 					<div class="publication-announce">
 						{{ publication.announce|raw }}
@@ -29,9 +33,6 @@
 								{{ publication.date|date('d.m.Y') }}
 							</div>
 						</div>
-					{% endif %}
-					{% if showTags is defined and showTags %}
-						{#{% include 'VidalMainBundle:Index:render_tags.html.twig' with {'object':publication} %}#}
 					{% endif %}
 				</div>
 			</div>

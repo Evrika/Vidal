@@ -2,6 +2,9 @@
 	<div class="articles">
 		{% for article in articles %}
 			{% if article.isArticle %}
+				{% set href = source is defined
+				? path('article', {'rubrique':article.rubrique.rubrique, 'link':article.link, 'source':'index'})
+				: path('article', {'rubrique':article.rubrique.rubrique, 'link':article.link}) %}
 				<div class="article">
 					{# админам карандашик редактирования #}
 					{% if isAdmin %}
@@ -11,14 +14,9 @@
 						</a>
 					{% endif %}
 
-					<a class="article-title"
-					   href="{{ path('article', {'rubrique':article.rubrique.rubrique, 'link':article.link, source:'index'}) }}">
-						{{ article.title|raw }}
-					</a>
+					<a class="article-title" href="{{ href }}">{{ article.title|raw }}</a>
+					<div class="article-announce text">{{ article.announce|raw }}</div>
 
-					<div class="article-announce text">
-						{{ article.announce|raw }}
-					</div>
 					{% if hideRubrique is not defined or not hideRubrique %}
 						<div class="article-footer">
 							<span>Рубрика:</span>
@@ -28,6 +26,9 @@
 					{% endif %}
 				</div>
 			{% else %}
+				{% set href = source is defined
+				? path('art', {'url':article.rubrique.url ~ '/' ~ (article.type ? article.type.url ~ '/') ~ (article.category ? article.category.url ~ '/') ~ article.link ~ '~' ~ article.id, 'source':source })
+				: path('art', {'url':article.rubrique.url ~ '/' ~ (article.type ? article.type.url ~ '/') ~ (article.category ? article.category.url ~ '/') ~ article.link ~ '~' ~ article.id}) %}
 				{# отдельная статья специалистам - Art #}
 				<div class="article">
 					{# админам карандашик редактирования #}
@@ -38,14 +39,10 @@
 						</a>
 					{% endif %}
 
-					<a class="article-title"
-					   href="{{ path('art', {'url':article.rubrique.url ~ '/' ~ (article.type ? article.type.url ~ '/') ~ (article.category ? article.category.url ~ '/') ~ article.link ~ '~' ~ article.id, source:'index' }) }}">
-						{{ article.title|raw }}
-					</a>
+					<a class="article-title" href="{{ href }}">{{ article.title|raw }}</a>
 
-					<div class="article-announce text">
-						{{ article.announce|raw }}
-					</div>
+					<div class="article-announce text">{{ article.announce|raw }}</div>
+
 					<div class="article-footer">
 						<span>Рубрика:</span>
 						<a href="{{ path('vracham') }}">Статьи для специалистов</a>,
