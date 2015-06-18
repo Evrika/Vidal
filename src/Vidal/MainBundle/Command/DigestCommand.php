@@ -184,7 +184,7 @@ class DigestCommand extends ContainerAwareCommand
 
 			if ($limit && $i && $i % $limit == 0) {
 				$em->getConnection()->close();
-				sleep(5 * 60 * 60);
+				sleep(6 * 60 * 60);
 				$em->getConnection()->connect();
 			}
 		}
