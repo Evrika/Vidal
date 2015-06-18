@@ -43,7 +43,7 @@
 		"liuggio/excelbundle": "~2.0",
 		"elasticsearch/elasticsearch": "~1.0",
 		"antimattr/google-bundle": "~2.0",
-		"liip/theme-bundle": "dev-master"
+		"suncat/mobile-detect-bundle": "0.10.*"
 	},
 
 	"scripts": {

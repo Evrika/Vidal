@@ -41,6 +41,7 @@ class ArticleController extends Controller
 			'rubrique'    => $rubrique,
 			'article'     => $article,
 			'description' => $this->strip($article->getAnnounce()),
+			'hideMobile'  => true,
 		);
 
 		$articleId = $article->getId();
@@ -111,6 +112,7 @@ class ArticleController extends Controller
 			'rubrique'     => $rubrique,
 			'articles'     => $articles,
 			'hideRubrique' => true,
+			'hideMobile'   => true,
 		);
 	}
 
@@ -184,9 +186,10 @@ class ArticleController extends Controller
 		$em = $this->getDoctrine()->getManager('drug');
 
 		return array(
-			'title'     => 'Энциклопедия',
-			'menu'      => 'articles',
-			'rubriques' => $em->getRepository('VidalDrugBundle:ArticleRubrique')->findEnabled()
+			'title'      => 'Энциклопедия',
+			'menu'       => 'articles',
+			'rubriques'  => $em->getRepository('VidalDrugBundle:ArticleRubrique')->findEnabled(),
+			'hideMobile' => true,
 		);
 	}
 
@@ -208,9 +211,10 @@ class ArticleController extends Controller
 		}
 
 		$params = array(
-			'title'     => $company . ' | Новости Фармацевтических компаний',
-			'company'   => $company,
-			'menu_left' => 'vracham',
+			'title'      => $company . ' | Новости Фармацевтических компаний',
+			'company'    => $company,
+			'menu_left'  => 'vracham',
+			'hideMobile' => true,
 		);
 
 		$params['pagination'] = $this->get('knp_paginator')->paginate(
@@ -234,8 +238,9 @@ class ArticleController extends Controller
 
 		$em     = $this->getDoctrine()->getManager('drug');
 		$params = array(
-			'title'     => 'Новости Фармацевтических компаний',
-			'menu_left' => 'vracham'
+			'title'      => 'Новости Фармацевтических компаний',
+			'menu_left'  => 'vracham',
+			'hideMobile' => true,
 		);
 
 		$params['pagination'] = $this->get('knp_paginator')->paginate(
@@ -260,10 +265,11 @@ class ArticleController extends Controller
 		$em = $this->getDoctrine()->getManager('drug');
 
 		return array(
-			'title'     => 'Информация для специалистов',
-			'menu'      => 'vracham',
-			'rubriques' => $em->getRepository('VidalDrugBundle:ArtRubrique')->findActive(),
-			'arts'      => $em->getRepository('VidalDrugBundle:Art')->findForAnons(),
+			'title'      => 'Информация для специалистов',
+			'menu'       => 'vracham',
+			'rubriques'  => $em->getRepository('VidalDrugBundle:ArtRubrique')->findActive(),
+			'arts'       => $em->getRepository('VidalDrugBundle:Art')->findForAnons(),
+			'hideMobile' => true,
 		);
 	}
 
@@ -282,6 +288,7 @@ class ArticleController extends Controller
 		$params = array(
 			'title'      => 'Портфели препаратов',
 			'portfolios' => $em->getRepository('VidalDrugBundle:PharmPortfolio')->findActive(),
+			'hideMobile' => true,
 		);
 
 		return $params;
@@ -305,9 +312,10 @@ class ArticleController extends Controller
 		}
 
 		$params = array(
-			'title'     => $this->strip($portfolio->getTitle()) . ' | Портфель препарата',
-			'portfolio' => $portfolio,
-			'products'  => $em->getRepository('VidalDrugBundle:Product')->findByPortfolio($portfolio),
+			'title'      => $this->strip($portfolio->getTitle()) . ' | Портфель препарата',
+			'portfolio'  => $portfolio,
+			'products'   => $em->getRepository('VidalDrugBundle:Product')->findByPortfolio($portfolio),
+			'hideMobile' => true,
 		);
 
 		return $params;
@@ -324,8 +332,9 @@ class ArticleController extends Controller
 		}
 
 		return array(
-			'title' => 'Видаль-Эксперт',
-			'menu'  => 'vracham',
+			'title'      => 'Видаль-Эксперт',
+			'menu'       => 'vracham',
+			'hideMobile' => true,
 		);
 	}
 
@@ -340,8 +349,9 @@ class ArticleController extends Controller
 		}
 
 		return array(
-			'menu'  => 'vracham',
-			'title' => 'Электронный справочник Видаль',
+			'menu'       => 'vracham',
+			'title'      => 'Электронный справочник Видаль',
+			'hideMobile' => true,
 		);
 	}
 
@@ -380,8 +390,9 @@ class ArticleController extends Controller
 		$em       = $this->getDoctrine()->getManager('drug');
 		$rubrique = $em->getRepository('VidalDrugBundle:ArtRubrique')->findOneByUrl($parts[0]);
 		$params   = array(
-			'menu'     => 'vracham',
-			'rubrique' => $rubrique,
+			'menu'       => 'vracham',
+			'rubrique'   => $rubrique,
+			'hideMobile' => true,
 		);
 
 		# находим, если указана статья по старому

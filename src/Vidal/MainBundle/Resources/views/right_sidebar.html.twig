@@ -1,4 +1,4 @@
-{% if noYad is not defined %}
+{% if noYad is not defined and (is_full_view() or hideMobile is not defined) %}
 	{{ render(controller('VidalMainBundle:Banner:render', {'groupId':9})) }}
 	{{ render(controller('VidalMainBundle:Banner:render', {'groupId':11})) }}
 

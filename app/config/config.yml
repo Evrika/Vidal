@@ -217,3 +217,24 @@ gregwar_captcha:
 ornicar_apc:
     host: http://www.vidal.ru
     web_dir: %kernel.root_dir%/../web
+
+mobile_detect:
+    redirect:
+        full:
+            is_enabled: false           # default false
+            host: http://site.com       # with scheme (http|https), default null, url validate
+            status_code: 301            # default 302
+            action: redirect            # redirect, no_redirect, redirect_without_path
+        mobile:
+            is_enabled: false           # default false
+            host: http://m.site.com     # with scheme (http|https), default null, url validate
+            status_code: 301            # default 302
+            action: redirect            # redirect, no_redirect, redirect_without_path
+        tablet:
+            is_enabled: false           # default false
+            host: http://t.site.com     # with scheme (http|https), default null, url validate
+            status_code: 301            # default 302
+            action: redirect            # redirect, no_redirect, redirect_without_path
+        detect_tablet_as_mobile: true   # default false
+    switch_device_view:
+        save_referer_path: false

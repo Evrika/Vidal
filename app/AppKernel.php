@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
 			new Ornicar\ApcBundle\OrnicarApcBundle(),
 			new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+			new SunCat\MobileDetectBundle\MobileDetectBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
