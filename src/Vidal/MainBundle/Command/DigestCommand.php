@@ -104,7 +104,7 @@ class DigestCommand extends ContainerAwareCommand
 		$digest      = $em->getRepository('VidalMainBundle:Digest')->get();
 		$specialties = $digest->getSpecialties();
 		$step        = 40;
-		$sleep       = 55;
+		$sleep       = 60;
 
 		# пользователи
 		$qb = $em->createQueryBuilder();
@@ -141,6 +141,7 @@ class DigestCommand extends ContainerAwareCommand
 		$em->flush($digest);
 
 		$subject   = $digest->getSubject();
+		$limit     = $digest->getLimit();
 		$template1 = $templating->render('VidalMainBundle:Digest:template1.html.twig', array('digest' => $digest));
 		$sendQuery = $em->createQuery('SELECT COUNT(u.id) FROM VidalMainBundle:User u WHERE u.send = 1');
 
@@ -163,7 +164,7 @@ class DigestCommand extends ContainerAwareCommand
 			if ($i && $i % $step == 0) {
 				# проверка, можно ли продолжать рассылать
 				$em->refresh($digest);
-				if (false === $digest->getProgress() || (null !== $digest->getLimit() && $i >= $digest->getLimit())) {
+				if (false === $digest->getProgress()) {
 					break;
 				}
 
@@ -178,6 +179,12 @@ class DigestCommand extends ContainerAwareCommand
 
 				$em->getConnection()->close();
 				sleep($sleep);
+				$em->getConnection()->connect();
+			}
+
+			if ($limit && $i % $limit == 0) {
+				$em->getConnection()->close();
+				sleep(5 * 60 * 60);
 				$em->getConnection()->connect();
 			}
 		}
