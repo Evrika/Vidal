@@ -261,8 +261,6 @@ class DeliveryController extends Controller
 		$qb = $em->createQueryBuilder();
 		$qb->select("COUNT(u.id)")
 			->from('VidalMainBundle:User', 'u')
-			->andWhere('u.enabled = 1')
-			->andWhere('u.emailConfirmed = 1')
 			->andWhere('u.digestSubscribed = 1');
 
 		if (count($specialties)) {
