@@ -33,7 +33,7 @@ class Digest extends BaseEntity
 	/** @ORM\Column(type="string", length=255) */
 	protected $font;
 
-	/** @ORM\Column(type="integer", nullable=true) */
+	/** @ORM\Column(type="integer", nullable=true, name="limitBatch") */
 	protected $limit;
 
 	/** @ORM\Column(type="integer", nullable=true) */

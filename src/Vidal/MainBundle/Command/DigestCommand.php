@@ -111,7 +111,6 @@ class DigestCommand extends ContainerAwareCommand
 		$qb->select("u.username, u.id, DATE_FORMAT(u.created, '%Y-%m-%d_%H:%i:%s') as created, u.firstName")
 			->from('VidalMainBundle:User', 'u')
 			->where('u.send = 0')
-			->andWhere('u.enabled = 1')
 			->andWhere('u.digestSubscribed = 1');
 
 		if (count($specialties)) {
@@ -128,8 +127,6 @@ class DigestCommand extends ContainerAwareCommand
 		$qb = $em->createQueryBuilder();
 		$qb->select('COUNT(u.id)')
 			->from('VidalMainBundle:User', 'u')
-			->andWhere('u.enabled = 1')
-			->andWhere('u.emailConfirmed = 1')
 			->andWhere('u.digestSubscribed = 1');
 
 		if (isset($ids)) {
@@ -156,10 +153,6 @@ class DigestCommand extends ContainerAwareCommand
 			$em->createQuery('UPDATE VidalMainBundle:User u SET u.send=1 WHERE u.id = :id')
 				->setParameter('id', $users[$i]['id'])
 				->execute();
-
-			if (null !== $digest->getLimit() && $i >= $digest->getLimit()) {
-				break;
-			}
 
 			if ($i && $i % $step == 0) {
 				# проверка, можно ли продолжать рассылать
