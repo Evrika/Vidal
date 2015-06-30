@@ -671,6 +671,9 @@ tr.bold td {
 	cursor:      pointer;
 	margin:      22px 0 6px;
 }
+.more-link.down-red {
+	background:  url(../images/icons/down-red.png) #f5f5f5 no-repeat 4px 6px;
+}
 .more-link div {
 	color: black;
 }

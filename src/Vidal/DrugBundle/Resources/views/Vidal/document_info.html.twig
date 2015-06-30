@@ -53,7 +53,7 @@
 
 {# Открыть описание действующего вещества #}
 {% if short %}
-	<div class="more-link">
+	<div class="more-link no-selection">
 		Открыть описание активных компонентов препарата
 		<div>{{ product.RusName|raw }} ({{ product.EngName|raw }})</div>
 	</div>
@@ -68,8 +68,14 @@
 			$('.more-info').hide();
 
 			$('.more-link').click(function() {
-				$('.more-link, .more-about').hide();
-				$('.more-info').slideDown();
+				if ($(this).hasClass('down-red')) {
+					$(this).removeClass('down-red');
+					$('.more-info').slideUp('fast');
+				}
+				else {
+					$(this).addClass('down-red');
+					$('.more-info').slideDown('fast');
+				}
 			});
 		});
 	</script>
