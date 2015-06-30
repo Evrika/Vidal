@@ -51,190 +51,207 @@
 	</div>
 {% endif %}
 
-{# Фармакологическое действие #}
-{% if document.PhInfluence is not empty %}
-	<div class="block" id="influence">
-		{% if isDoctor %}
-			<div class="block-head">Фармакологическое действие</div>
-			<div class="block-content">{{ document.PhInfluence|raw }}</div>
-		{% else %}
-			<div class="block-head">
-				<a href="#" class="closed-link">Фармакологическое действие</a>
-			</div>
-			{% include 'VidalMainBundle:Auth:closed_info.html.twig' %}
-		{% endif %}
-	</div>
+{# Открыть описание действующего вещества #}
+{% if document.ArticleID in [1,4] %}
+	<div class="more-link anons-footer">Открыть описание действующего вещества</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.more-info').hide();
+
+			$('.more-link').click(function() {
+				$(this).hide();
+				$('.more-info').slideDown();
+			});
+		});
+	</script>
 {% endif %}
 
-{# Фармакокинетика #}
-{% if document.PhKinetics is not empty %}
-	<div class="block" id="kinetics">
-		{% if isDoctor %}
-			<div class="block-head">Фармакокинетика</div>
-			<div class="block-content">{{ document.PhKinetics|raw }}</div>
-		{% else %}
-			<div class="block-head">
-				<a href="#" class="closed-link">Фармакокинетика</a>
-			</div>
-			{% include 'VidalMainBundle:Auth:closed_info.html.twig' %}
-		{% endif %}
-	</div>
-{% endif %}
-
-{# Показания к применению препарата #}
-{% if document.Indication is not empty %}
-	<div class="block" id="indication">
-		<div class="block-head">Показания</div>
-		<div class="block-content">
-			{{ document.Indication|raw }}
+<div class="more-info">
+	{# Фармакологическое действие #}
+	{% if document.PhInfluence is not empty %}
+		<div class="block" id="influence">
+			{% if isDoctor %}
+				<div class="block-head">Фармакологическое действие</div>
+				<div class="block-content">{{ document.PhInfluence|raw }}</div>
+			{% else %}
+				<div class="block-head">
+					<a href="#" class="closed-link">Фармакологическое действие</a>
+				</div>
+				{% include 'VidalMainBundle:Auth:closed_info.html.twig' %}
+			{% endif %}
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Коды МКБ-10 #}
-{% if document.nozologies is not empty %}
-	<div class="mkb">
-		<a href="#" class="mkb-show">Коды МКБ-10</a>
-		<table class="products-table">
-			<tr class="products-table-header">
-				<td style="width:78px">Код МКБ-10</td>
-				<td>Показание</td>
-			</tr>
-			{% for nozology in document.nozologies %}
-				<tr>
-					<td>{{ nozology.Code }}</td>
-					<td><a href="{{ path('nosology_item', {'Code':nozology.Code}) }}"
-						   class="no-underline">{{ nozology.Name|raw }}</a></td>
+	{# Фармакокинетика #}
+	{% if document.PhKinetics is not empty %}
+		<div class="block" id="kinetics">
+			{% if isDoctor %}
+				<div class="block-head">Фармакокинетика</div>
+				<div class="block-content">{{ document.PhKinetics|raw }}</div>
+			{% else %}
+				<div class="block-head">
+					<a href="#" class="closed-link">Фармакокинетика</a>
+				</div>
+				{% include 'VidalMainBundle:Auth:closed_info.html.twig' %}
+			{% endif %}
+		</div>
+	{% endif %}
+
+	{# Показания к применению препарата #}
+	{% if document.Indication is not empty %}
+		<div class="block" id="indication">
+			<div class="block-head">Показания</div>
+			<div class="block-content">
+				{{ document.Indication|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Коды МКБ-10 #}
+	{% if document.nozologies is not empty %}
+		<div class="mkb">
+			<a href="#" class="mkb-show">Коды МКБ-10</a>
+			<table class="products-table">
+				<tr class="products-table-header">
+					<td style="width:78px">Код МКБ-10</td>
+					<td>Показание</td>
 				</tr>
-			{% endfor %}
-		</table>
-	</div>
-{% endif %}
-
-{# Режим дозирования #}
-{% if document.Dosage is not empty %}
-	<div class="block" id="dosage">
-		<div class="block-head">Режим дозирования</div>
-		<div class="block-content">
-			{{ document.Dosage|raw }}
+				{% for nozology in document.nozologies %}
+					<tr>
+						<td>{{ nozology.Code }}</td>
+						<td><a href="{{ path('nosology_item', {'Code':nozology.Code}) }}"
+							   class="no-underline">{{ nozology.Name|raw }}</a></td>
+					</tr>
+				{% endfor %}
+			</table>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Побочное действие #}
-{% if document.SideEffects is not empty %}
-	<div class="block" id="side_effects">
-		<div class="block-head">Побочное действие</div>
-		<div class="block-content">
-			{{ document.SideEffects|raw }}
+	{# Режим дозирования #}
+	{% if document.Dosage is not empty %}
+		<div class="block" id="dosage">
+			<div class="block-head">Режим дозирования</div>
+			<div class="block-content">
+				{{ document.Dosage|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Противопоказания к применению препарата #}
-{% if document.ContraIndication is not empty %}
-	<div class="block" id="contra">
-		<div class="block-head">Противопоказания к применению</div>
-		<div class="block-content">
-			{{ document.ContraIndication|raw }}
+	{# Побочное действие #}
+	{% if document.SideEffects is not empty %}
+		<div class="block" id="side_effects">
+			<div class="block-head">Побочное действие</div>
+			<div class="block-content">
+				{{ document.SideEffects|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Применение препарата при беременности и кормлении грудью #}
-{% if document.Lactation is not empty %}
-	<div class="block" id="preg_lact">
-		<div class="block-head">Применение при беременности и кормлении грудью</div>
-		<div class="block-content">
-			{{ document.Lactation|raw }}
+	{# Противопоказания к применению препарата #}
+	{% if document.ContraIndication is not empty %}
+		<div class="block" id="contra">
+			<div class="block-head">Противопоказания к применению</div>
+			<div class="block-content">
+				{{ document.ContraIndication|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Применение при нарушениях функции печени #}
-{% if document.HepatoInsuf is not empty %}
-	<div class="block" id="hepato">
-		<div class="block-head">Применение при нарушениях функции печени</div>
-		<div class="block-content">
-			{{ document.HepatoInsuf|raw }}
+	{# Применение препарата при беременности и кормлении грудью #}
+	{% if document.Lactation is not empty %}
+		<div class="block" id="preg_lact">
+			<div class="block-head">Применение при беременности и кормлении грудью</div>
+			<div class="block-content">
+				{{ document.Lactation|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Применение при нарушениях функции почек #}
-{% if document.RenalInsuf is not empty %}
-	<div class="block" id="renal">
-		<div class="block-head">Применение при нарушениях функции почек</div>
-		<div class="block-content">
-			{{ document.RenalInsuf|raw }}
+	{# Применение при нарушениях функции печени #}
+	{% if document.HepatoInsuf is not empty %}
+		<div class="block" id="hepato">
+			<div class="block-head">Применение при нарушениях функции печени</div>
+			<div class="block-content">
+				{{ document.HepatoInsuf|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Применение у детей #}
-{% if document.ChildInsuf is not empty %}
-	<div class="block" id="child">
-		<div class="block-head">Применение у детей</div>
-		<div class="block-content">
-			{{ document.ChildInsuf|raw }}
+	{# Применение при нарушениях функции почек #}
+	{% if document.RenalInsuf is not empty %}
+		<div class="block" id="renal">
+			<div class="block-head">Применение при нарушениях функции почек</div>
+			<div class="block-content">
+				{{ document.RenalInsuf|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Применение у пожилых пациентов #}
-{% if document.ElderlyInsuf is not empty %}
-	<div class="block" id="old">
-		<div class=" block-head">Применение у пожилых пациентов</div>
-		<div class="block-content">
-			{{ document.ElderlyInsuf|raw }}
+	{# Применение у детей #}
+	{% if document.ChildInsuf is not empty %}
+		<div class="block" id="child">
+			<div class="block-head">Применение у детей</div>
+			<div class="block-content">
+				{{ document.ChildInsuf|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Особые указания #}
-{% if document.SpecialInstruction is not empty %}
-	<div class="block" id="special">
-		<div class="block-head">Особые указания</div>
-		<div class="block-content">
-			{{ document.SpecialInstruction|raw }}
+	{# Применение у пожилых пациентов #}
+	{% if document.ElderlyInsuf is not empty %}
+		<div class="block" id="old">
+			<div class=" block-head">Применение у пожилых пациентов</div>
+			<div class="block-content">
+				{{ document.ElderlyInsuf|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Передозировка #}
-{% if document.OverDosage is not empty %}
-	<div class="block" id="over_dosage">
-		<div class="block-head">Передозировка</div>
-		<div class="block-content">
-			{{ document.OverDosage|raw }}
+	{# Особые указания #}
+	{% if document.SpecialInstruction is not empty %}
+		<div class="block" id="special">
+			<div class="block-head">Особые указания</div>
+			<div class="block-content">
+				{{ document.SpecialInstruction|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Лекарственное взаимодействие #}
-{% if document.Interaction is not empty %}
-	<div class="block" id="interaction">
-		<div class="block-head">Лекарственное взаимодействие</div>
-		<div class="block-content">{{ document.Interaction|raw }}</div>
-	</div>
-{% endif %}
-
-{# Условия отпуска из аптек #}
-{% if document.PharmDelivery is not empty %}
-	<div class="block" id="pharm">
-		<div class="block-head">Условия отпуска из аптек</div>
-		<div class="block-content">
-			{{ document.PharmDelivery|raw }}
+	{# Передозировка #}
+	{% if document.OverDosage is not empty %}
+		<div class="block" id="over_dosage">
+			<div class="block-head">Передозировка</div>
+			<div class="block-content">
+				{{ document.OverDosage|raw }}
+			</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
 
-{# Условия и сроки хранения #}
-{% if document.StorageCondition is not empty %}
-	<div class="block" id="storage">
-		<div class="block-head">Условия и сроки хранения</div>
-		<div class="block-content">
-			{{ document.StorageCondition|raw }}
+	{# Лекарственное взаимодействие #}
+	{% if document.Interaction is not empty %}
+		<div class="block" id="interaction">
+			<div class="block-head">Лекарственное взаимодействие</div>
+			<div class="block-content">{{ document.Interaction|raw }}</div>
 		</div>
-	</div>
-{% endif %}
+	{% endif %}
+
+	{# Условия отпуска из аптек #}
+	{% if document.PharmDelivery is not empty %}
+		<div class="block" id="pharm">
+			<div class="block-head">Условия отпуска из аптек</div>
+			<div class="block-content">
+				{{ document.PharmDelivery|raw }}
+			</div>
+		</div>
+	{% endif %}
+
+	{# Условия и сроки хранения #}
+	{% if document.StorageCondition is not empty %}
+		<div class="block" id="storage">
+			<div class="block-head">Условия и сроки хранения</div>
+			<div class="block-content">
+				{{ document.StorageCondition|raw }}
+			</div>
+		</div>
+	{% endif %}
+</div>
