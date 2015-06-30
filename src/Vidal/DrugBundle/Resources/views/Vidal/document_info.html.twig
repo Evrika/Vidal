@@ -53,8 +53,6 @@
 
 {# Открыть описание действующего вещества #}
 {% if short %}
-	{% include 'VidalDrugBundle:Vidal:document_about.html.twig' %}
-
 	<div class="more-link">
 		Открыть описание активных компонентов препарата
 		<div>{{ product.RusName|raw }} ({{ product.EngName|raw }})</div>
