@@ -660,6 +660,23 @@ tr.bold td {
 	display:   none;
 	font-size: 13px;
 }
+.more-link {
+	background:  url(../images/icons/right-red.png) #f5f5f5 no-repeat 4px 6px;
+	padding:     4px 5px 5px 24px;
+	color:       #d71344;
+	font-weight: bold;
+	font-size:   14px;
+	line-height: 18px;
+	border:      1px solid rgba(71, 97, 115, 0.5);
+	cursor:      pointer;
+	margin:      22px 0 6px;
+}
+.more-link div {
+	color: black;
+}
+.more-about.small {
+	font-size: 12px;
+}
 /* block */
 .block {
 	margin-top: 17px;

@@ -52,14 +52,25 @@
 {% endif %}
 
 {# Открыть описание действующего вещества #}
-{% if document.ArticleID in [1,4] %}
-	<div class="more-link anons-footer">Открыть описание действующего вещества</div>
+{% if short %}
+	{% include 'VidalDrugBundle:Vidal:document_about.html.twig' %}
+
+	<div class="more-link">
+		Открыть описание активных компонентов препарата
+		<div>{{ product.RusName|raw }} ({{ product.EngName|raw }})</div>
+	</div>
+
+	<div class="more-about small">
+		Приведенная научная информация является обобщающей и не может быть использована для принятия решения
+		о возможности применения конкретного лекарственного препарата.
+	</div>
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.more-info').hide();
 
 			$('.more-link').click(function() {
-				$(this).hide();
+				$('.more-link, .more-about').hide();
 				$('.more-info').slideDown();
 			});
 		});

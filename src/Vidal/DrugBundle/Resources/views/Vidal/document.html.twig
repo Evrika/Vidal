@@ -4,6 +4,7 @@
 {% set loz = asset('bundles/vidalmain/images/g2.gif') %}
 {% set Composition = product is defined ? product.Composition : document.CompiledComposition %}
 {% set isDoctor = is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+{% set short = document is defined and document.ArticleID in [1,4] %}
 
 
 {% block meta %}
@@ -48,15 +49,9 @@
 
 
 {% block vidal %}
-
 	{# Иконки использования при состояниях #}
-	{% if document is defined %}
+	{% if document is defined and not short %}
 		{% include 'VidalDrugBundle:Vidal:document_conditions.html.twig' %}
-
-		{#{% else %}#}
-		{#<div class="conditions">#}
-		{#{{ render(controller('VidalMainBundle:Market:button', { 'drugId' :  product is defined ?  product.ProductID : document.DocumentID , 'isDocs' : ( product is defined ? 'false' : 'true' ) })) }}#}
-		{#</div>#}
 	{% endif %}
 
 	{# подробнее о препарате #}
@@ -114,7 +109,7 @@
 		{% endif %}
 	{% endif %}
 
-	{% if document is defined %}
+	{% if document is defined and not short %}
 		{% include 'VidalDrugBundle:Vidal:document_about.html.twig' %}
 		{% include 'VidalDrugBundle:Vidal:document_navigation.html.twig' %}
 	{% endif %}
