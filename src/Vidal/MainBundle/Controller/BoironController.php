@@ -11,8 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class BoironController extends Controller
 {
 
+	//* @Route("/boiron", name="boiron_main")
 	/**
-	 * @Route("/boiron", name="boiron_main")
 	 * @Template("VidalMainBundle:Boiron:index.html.twig")
 	 */
 	public function indexAction()
@@ -26,8 +26,8 @@ class BoironController extends Controller
 		);
 	}
 
+	//* @Route("/boiron/{pageNum}", name="boiron_page")
 	/**
-	 * @Route("/boiron/{pageNum}", name="boiron_page")
 	 * @Template("VidalMainBundle:Boiron:page.html.twig")
 	 */
 	public function pageAction($pageNum)
