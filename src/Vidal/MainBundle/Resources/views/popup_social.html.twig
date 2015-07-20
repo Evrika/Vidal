@@ -1,0 +1,83 @@
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/avgrund.css') }}"/>
+<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/avgrund.min.js') }}"></script>
+<script>
+    $(function() {
+        var cookie = getCookie('popup');
+        if (!cookie){
+            Avgrund.show( "#default-popup" );
+            $("#overlay").css('display','block');
+            {% if app.debug %}
+            SetCookieForNDays('popup', '1', 1, '/app_dev.php');
+            {% else %}
+            SetCookieForNDays('popup', '1', 1, '/');
+            {% endif %}
+        }
+
+    });
+    function closeDialog() {
+        Avgrund.hide();
+        $("#overlay").css('display','none');
+    }
+    function SetCookieForNDays(name, value, days, path, domain, secure)
+    {
+        var today = new Date();
+        expires = new Date(today.getTime() + days*24*60*60*1000);
+        document.cookie = name + "=" + escape(value) +
+                "; expires=" + expires.toGMTString() +
+                ((path) ? "; path=" + path : "") +
+                ((domain) ? "; domain=" + domain : "") +
+                ((secure) ? "; secure" : "");
+    }
+    function getCookie(name) {
+        var cookie = " " + document.cookie;
+        var search = " " + name + "=";
+        var setStr = null;
+        var offset = 0;
+        var end = 0;
+        if (cookie.length > 0) {
+            offset = cookie.indexOf(search);
+            if (offset != -1) {
+                offset += search.length;
+                end = cookie.indexOf(";", offset)
+                if (end == -1) {
+                    end = cookie.length;
+                }
+                setStr = unescape(cookie.substring(offset, end));
+            }
+        }
+        return(setStr);
+    }
+</script>
+<style>
+    .socialText li {
+        font-size: 19px;
+        font-weight: bold;
+    }
+</style>
+<div class="overlay"></div>
+<aside id="default-popup" class="avgrund-popup" style="  z-index: 1000;">
+    <div style="float:left;"><img src="/bundles/vidalmain/images/vidal.png" style="width: 250px;" /></div>
+    <h1 style="  clear: both;
+  text-align: center;
+  margin-top: 70px;
+  font-size: 22px;">Присоединяйтесь к нам в социальных сетях!</h1>
+    <ul class="socialText">
+        <li>Сведения о безопасности лекарств</li>
+        <li>Дайджесты обновлений на сайте</li>
+        <li>Новости медицины и фармации</li>
+    </ul>
+    <div style="text-align: center;">
+        <a target="_blank" href="https://www.facebook.com/vidalru"><img src="{{ asset('bundles/vidalmain/images/social/facebook.png') }}"/></a>
+        <a target="_blank" href="https://vk.com/vidalru"><img src="{{ asset('bundles/vidalmain/images/social/vk.png') }}"/></a>
+        <a target="_blank" href="http://vidalru.livejournal.com/"><img src="{{ asset('bundles/vidalmain/images/social/livejournal.png') }}"/></a>
+        <a target="_blank" href="https://google.com/+VidalRu"><img src="{{ asset('bundles/vidalmain/images/social/gplus.png') }}"/></a>
+        <a target="_blank" href="http://twitter.com/Vidalru"><img src="{{ asset('bundles/vidalmain/images/social/twitter.png') }}"/></a>
+        <a target="_blank" href="http://vidalru.blogspot.ru/"><img src="{{ asset('bundles/vidalmain/images/social/blogspot.png') }}"/></a>
+        <a target="_blank" href="https://www.linkedin.com/company/vidal-ru/"><img src="{{ asset('bundles/vidalmain/images/social/linkedin.png') }}"/></a>
+    </div>
+    <div style="clear:both;"></div>
+
+    <div style="text-align: center;">
+       <a href="javascript:void(0);" onclick="javascript:closeDialog();">Спасибо, напомнить позже.</a>
+    </div>
+</aside>
