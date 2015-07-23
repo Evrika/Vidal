@@ -6,6 +6,8 @@
         if (!cookie){
             Avgrund.show( "#default-popup" );
             $("#overlay").css('display','block');
+            $("#overlay").css('cursor','pointer');
+            $("#overlay").attr('onclick','javascript:closeDialog();');
             {% if app.debug %}
             SetCookieForNDays('popup', '1', 1, '/app_dev.php');
             {% else %}
@@ -50,34 +52,42 @@
 </script>
 <style>
     .socialText li {
-        font-size: 19px;
+        font-size: 15px;
         font-weight: bold;
+    }
+    .closeButtonXBanner {
+        text-decoration: none;
+        font-size: 35px;
+        font-family: cursive;
+        position: absolute;
+        top: 0px;
+        right: 22px;
     }
 </style>
 <div class="overlay"></div>
 <aside id="default-popup" class="avgrund-popup" style="  z-index: 1000;">
-    <div style="float:left;"><img src="/bundles/vidalmain/images/vidal.png" style="width: 250px;" /></div>
+    <div style="float:left;"><img src="/bundles/vidalmain/images/vidal.png" style="width: 130px;" /></div>
     <h1 style="  clear: both;
   text-align: center;
   margin-top: 70px;
-  font-size: 22px;">Присоединяйтесь к нам в социальных сетях!</h1>
+  font-size:17px;">Присоединяйтесь к нам в социальных сетях!</h1>
     <ul class="socialText">
         <li>Сведения о безопасности лекарств</li>
         <li>Дайджесты обновлений на сайте</li>
         <li>Новости медицины и фармации</li>
     </ul>
     <div style="text-align: center;">
-        <a target="_blank" href="https://www.facebook.com/vidalru"><img src="{{ asset('bundles/vidalmain/images/social/facebook.png') }}"/></a>
-        <a target="_blank" href="https://vk.com/vidalru"><img src="{{ asset('bundles/vidalmain/images/social/vk.png') }}"/></a>
-        <a target="_blank" href="http://vidalru.livejournal.com/"><img src="{{ asset('bundles/vidalmain/images/social/livejournal.png') }}"/></a>
-        <a target="_blank" href="https://google.com/+VidalRu"><img src="{{ asset('bundles/vidalmain/images/social/gplus.png') }}"/></a>
-        <a target="_blank" href="http://twitter.com/Vidalru"><img src="{{ asset('bundles/vidalmain/images/social/twitter.png') }}"/></a>
-        <a target="_blank" href="http://vidalru.blogspot.ru/"><img src="{{ asset('bundles/vidalmain/images/social/blogspot.png') }}"/></a>
-        <a target="_blank" href="https://www.linkedin.com/company/vidal-ru/"><img src="{{ asset('bundles/vidalmain/images/social/linkedin.png') }}"/></a>
+        <a target="_blank" href="https://www.facebook.com/vidalru"><img src="{{ asset('bundles/vidalmain/images/social/facebook.png') }}" style="width: 30px;"/></a>
+        <a target="_blank" href="https://vk.com/vidalru"><img src="{{ asset('bundles/vidalmain/images/social/vk.png') }}" style="width: 30px;"/></a>
+        <a target="_blank" href="http://vidalru.livejournal.com/"><img src="{{ asset('bundles/vidalmain/images/social/livejournal.png') }}" style="width: 30px;"/></a>
+        <a target="_blank" href="https://google.com/+VidalRu"><img src="{{ asset('bundles/vidalmain/images/social/gplus.png') }}" style="width: 30px;"/></a>
+        <a target="_blank" href="http://twitter.com/Vidalru"><img src="{{ asset('bundles/vidalmain/images/social/twitter.png') }}" style="width: 30px;"/></a>
+        <a target="_blank" href="http://vidalru.blogspot.ru/"><img src="{{ asset('bundles/vidalmain/images/social/blogspot.png') }}" style="width: 30px;"/></a>
+        <a target="_blank" href="https://www.linkedin.com/company/vidal-ru/"><img src="{{ asset('bundles/vidalmain/images/social/linkedin.png') }}" style="width: 30px;"/></a>
     </div>
     <div style="clear:both;"></div>
 
     <div style="text-align: center;">
-       <a href="javascript:void(0);" onclick="javascript:closeDialog();">Спасибо, напомнить позже.</a>
+       <a href="javascript:void(0);" onclick="javascript:closeDialog();" class="closeButtonXBanner">X</a>
     </div>
 </aside>
