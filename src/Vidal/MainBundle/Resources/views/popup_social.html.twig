@@ -3,17 +3,32 @@
 <script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/avgrund.min.js') }}"></script>
 <script>
     $(function() {
-        var cookie = getCookie('popup');
-        if (!cookie){
-            Avgrund.show( "#default-popup" );
-            $("#overlay").css('display','block');
-            $("#overlay").css('cursor','pointer');
-            $("#overlay").attr('onclick','javascript:closeDialog();');
-            {% if app.debug %}
-            SetCookieForNDays('popup', '1', 1, '/app_dev.php');
-            {% else %}
-            SetCookieForNDays('popup', '1', 1, '/');
-            {% endif %}
+         {% if app.user %}
+            var cookie = getCookie('popup_m');
+            if (!cookie){
+                Avgrund.show( "#default-popup" );
+                $("#overlay").css('display','block');
+                $("#overlay").css('cursor','pointer');
+                $("#overlay").attr('onclick','javascript:closeDialog();');
+                {% if app.debug %}
+                SetCookieForNDays('popup_m', '1', 10, '/app_dev.php');
+                {% else %}
+                SetCookieForNDays('popup_m', '1', 10, '/');
+                {% endif %}
+         {% else %}
+            var cookie = getCookie('popup');
+            if (!cookie){
+                Avgrund.show( "#default-popup" );
+                $("#overlay").css('display','block');
+                $("#overlay").css('cursor','pointer');
+                $("#overlay").attr('onclick','javascript:closeDialog();');
+                {% if app.debug %}
+                SetCookieForNDays('popup', '1', 1, '/app_dev.php');
+                {% else %}
+                SetCookieForNDays('popup', '1', 1, '/');
+                {% endif %}
+         {% endif %}
+        
         }
 
     });
@@ -71,7 +86,7 @@
     <div style="float:left;"><img src="/bundles/vidalmain/images/vidal.png" style="width: 130px;" /></div>
     <h1 style="  clear: both;
   text-align: center;
-  margin-top: 70px;
+  margin-top: 40px;
   font-size:17px;">Присоединяйтесь к нам в социальных сетях!</h1>
     <ul class="socialText">
         <li>Сведения о безопасности лекарств</li>
