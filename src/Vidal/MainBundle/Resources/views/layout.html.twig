@@ -147,7 +147,7 @@
 		{% include 'VidalMainBundle::header.html.twig' %}
 	</div>
 
-	<div id="banner" class="banner" style="width:970px; height:90px">
+	<div id="banner" class="banner" style="width:970px; height:90px;margin-bottom:20px;">
 			<div id="banner_swf">
 			</div>
 	</div>
@@ -155,7 +155,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			if (!/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
-				swfobject.embedSWF("/970-90.swf", "banner_swf", "{{ width }}", "{{ height }}",
+				swfobject.embedSWF("/970-90.swf", "banner_swf", "970", "90",
 						"9.0.0", "/expressInstall.swf", null, {wmode: "opaque"});
 			}
 		});
