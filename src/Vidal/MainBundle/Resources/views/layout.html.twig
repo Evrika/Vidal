@@ -110,6 +110,11 @@
 		{{ render(controller('VidalMainBundle:Banner:render', {'groupId':2})) }}
 	{% endif %}
 
+	<div id="banner" class="banner" style="width:970px; height:90px;margin-bottom:20px;">
+		<div id="banner_swf">
+		</div>
+	</div>
+
     <div class="mobile_menu">
 
         <div class="mobile_menu_auth"></div>
@@ -145,11 +150,6 @@
 
 	<div class="header">
 		{% include 'VidalMainBundle::header.html.twig' %}
-	</div>
-
-	<div id="banner" class="banner" style="width:970px; height:90px;margin-bottom:20px;">
-			<div id="banner_swf">
-			</div>
 	</div>
 
 	<script type="text/javascript">
