@@ -112,6 +112,18 @@
 
 	<div id="banner" class="banner" style="width:970px; height:90px;margin-bottom:20px;">
 		<div id="banner_swf">
+			<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=534988&pid=2074358&bid=3975422&bn=3975422&rnd=664572440" />
+			<div id="banner_rotate" class="banner-rotate" data="5" data-link="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=534988&pid=2074358&bid=3975422&bn=3975422&rnd=664572440" onclick="var $banner = $('#banner_rotate'); $.get(Routing.generate('banner_rotate_clicked', {'bannerId': $banner.attr('data')})); window.open($banner.attr('data-link'), '_blank'); ga('send','event', 'banner-' + $(this).attr('data'), 'click', '%кликнули по платному баннеру%');" style="text-align:center; position:relative; background:transparent;">
+				<div id="banner_rotate_clickarea" style="position:absolute; background:transparent; cursor:pointer;width:970px; height:90px"></div>
+				<object width="970" height="90" class="banner-rotate">
+					<param name="movie" value="/970-90.swf">
+					<param name="quality" value="high">
+					<param name="play" value="true">
+					<param name="loop" value="true">
+					<param name="wmode" value="transparent">
+					<embed src="/970-90.swf" width="970" height="90" wmode="transparent" bgcolor="#FFFFFF" quality="high">
+				</object>
+			</div>
 		</div>
 	</div>
 
@@ -151,15 +163,6 @@
 	<div class="header">
 		{% include 'VidalMainBundle::header.html.twig' %}
 	</div>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			if (!/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
-				swfobject.embedSWF("/970-90.swf", "banner_swf", "970", "90",
-						"9.0.0", "/expressInstall.swf", null, {wmode: "opaque"});
-			}
-		});
-	</script>
 
 		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/banner_top.css') }}"/>
 
