@@ -16,3 +16,6 @@ mysql-connector-*
 .gitconfig
 node_modules/
 web/sitemap*
+app/SymfonyRequirements.php
+app/check.php
+web/config.php
