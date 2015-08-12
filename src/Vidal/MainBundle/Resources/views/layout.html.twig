@@ -231,7 +231,10 @@
 <a id="top-link" href="#">
 	<img src="{{ asset('bundles/vidalmain/images/icon_top.png') }}"/>
 </a>
-{#{% include 'VidalMainBundle::popup_social.html.twig' %}#}
+
+{% if ("now"|date('N') == 2) or ("now"|date('N') == 5) %}
+	{% include 'VidalMainBundle::popup_social.html.twig' %}
+{% endif %}
 {#{% include 'VidalMainBundle::popupunder.html.twig' %}#}
 
 {# счетчики аналитики #}
