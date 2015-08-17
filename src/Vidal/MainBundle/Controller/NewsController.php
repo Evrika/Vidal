@@ -53,11 +53,17 @@ class NewsController extends Controller
 		$em       = $this->getDoctrine()->getManager('drug');
 		$page     = $request->query->get('p', 1);
 		$testMode = $request->query->has('test');
-
-		$params = array(
-			'menu_left' => 'news',
-			'title'     => 'Новости',
-		);
+		if($page == 1) {
+			$params = array(
+				'menu_left' => 'news',
+				'title'     => 'Новости медицины и фармации – страница 1',
+			);
+		} else {
+			$params = array(
+				'menu_left' => 'news',
+				'title'     => 'Новости медицины и фармации – страница '.$page,
+			);
+		}
 
 		if ($page == 1) {
 			$params['publicationsPriority'] = $em->getRepository('VidalDrugBundle:Publication')->findLastPriority($testMode);
