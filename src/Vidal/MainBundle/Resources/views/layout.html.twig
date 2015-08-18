@@ -42,66 +42,6 @@
 			{% endif %}
 		{% endif %}
 	{% endblock %}
-
-	{% block stylesheets %}
-		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/common.min.css') }}"/>
-		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/jquery-chosen/chosen.min.css') }}"/>
-		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/checkbox/checkbox.css') }}"/>
-		<link rel="stylesheet" type="text/css"
-			  href="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.css') }}"/>
-		<!--[if lt IE 9]>
-		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/old_ie.css') }}"/>
-		<![endif]-->
-
-        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base500.css') }}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base750.css') }}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base1000.css') }}"/>
-    {% endblock %}
-
-	{% block javascripts %}
-        <script type="text/javascript">
-            function detectmob() {
-                if( (navigator.userAgent.match(/Android/i)
-                        || navigator.userAgent.match(/webOS/i)
-                        || navigator.userAgent.match(/iPhone/i)
-                        || navigator.userAgent.match(/iPad/i)
-                        || navigator.userAgent.match(/iPod/i)
-                        || navigator.userAgent.match(/BlackBerry/i)
-                        || navigator.userAgent.match(/Windows Phone/i))
-
-                        && window.screen.width < 768
-                        ){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            var $mobile = detectmob();
-            var $tablet = false;
-
-            if ( window.screen.width < 768 && $mobile) {
-                document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">');
-            } else if ( window.screen.width >= 768 && window.screen.width < 1008) {
-                document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">');
-                $tablet = true;
-            } else {
-                document.write('<meta id="viewport" name="viewport" content="width=1008">');
-            }
-        </script>
-		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/coockie.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/vidalmain/checkbox/jquery.checkbox.js') }}"></script>
-		<script type="text/javascript"
-				src="{{ asset('bundles/vidalmain/jquery-chosen/chosen.jquery.min.js') }}"></script>
-		<script type="text/javascript"
-				src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-		<script type="text/javascript"
-				src="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/swfobject2.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/ready.min.js') }}"></script>
-	{% endblock %}
 </head>
 
 <body>
@@ -260,6 +200,64 @@
 {% include 'VidalMainBundle:Metrika:yandex_metrika.html.twig' %}
 {% include 'VidalMainBundle:Metrika:mail_metrika.html.twig' %}
 {#{% endif %}#}
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/common.min.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/jquery-chosen/chosen.min.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/checkbox/checkbox.css') }}"/>
+	<link rel="stylesheet" type="text/css"
+		  href="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.css') }}"/>
+	<!--[if lt IE 9]>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/old_ie.css') }}"/>
+	<![endif]-->
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base500.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base750.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base1000.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        function detectmob() {
+            if( (navigator.userAgent.match(/Android/i)
+                    || navigator.userAgent.match(/webOS/i)
+                    || navigator.userAgent.match(/iPhone/i)
+                    || navigator.userAgent.match(/iPad/i)
+                    || navigator.userAgent.match(/iPod/i)
+                    || navigator.userAgent.match(/BlackBerry/i)
+                    || navigator.userAgent.match(/Windows Phone/i))
+
+                    && window.screen.width < 768
+                    ){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        var $mobile = detectmob();
+        var $tablet = false;
+
+        if ( window.screen.width < 768 && $mobile) {
+            document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">');
+        } else if ( window.screen.width >= 768 && window.screen.width < 1008) {
+            document.write('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">');
+            $tablet = true;
+        } else {
+            document.write('<meta id="viewport" name="viewport" content="width=1008">');
+        }
+    </script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/coockie.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/checkbox/jquery.checkbox.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/jquery-chosen/chosen.jquery.min.js') }}"></script>
+	<script type="text/javascript"
+			src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+	<script type="text/javascript"
+			src="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/swfobject2.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/ready.min.js') }}"></script>
+{% endblock %}
 </body>
 </html>
