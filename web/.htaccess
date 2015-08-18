@@ -77,3 +77,9 @@ RewriteRule /BAD/(.*)$ /drugs [R=301,L]
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|js|css|pdf)$">
+        Header set Cache-Control "max-age=2592000"
+    </FilesMatch>
+</IfModule>
