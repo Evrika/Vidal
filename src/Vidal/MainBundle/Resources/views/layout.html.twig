@@ -186,9 +186,6 @@
 	<img src="{{ asset('bundles/vidalmain/images/icon_top.png') }}"/>
 </a>
 
-{% if ("now"|date('N') == 2) or ("now"|date('N') == 5) %}
-	{% include 'VidalMainBundle::popup_social.html.twig' %}
-{% endif %}
 {#{% include 'VidalMainBundle::popupunder.html.twig' %}#}
 
 {# счетчики аналитики #}
@@ -259,5 +256,8 @@
 	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/swfobject2.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/ready.min.js') }}"></script>
 {% endblock %}
+{% if ("now"|date('N') == 2) or ("now"|date('N') == 5) %}
+	{% include 'VidalMainBundle::popup_social.html.twig' %}
+{% endif %}
 </body>
 </html>
