@@ -42,6 +42,20 @@
 			{% endif %}
 		{% endif %}
 	{% endblock %}
+	{% block stylesheets %}
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/common.min.css') }}"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/jquery-chosen/chosen.min.css') }}"/>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/checkbox/checkbox.css') }}"/>
+		<link rel="stylesheet" type="text/css"
+			  href="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.css') }}"/>
+		<!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/old_ie.css') }}"/>
+		<![endif]-->
+
+	    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base500.css') }}"/>
+	    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base750.css') }}"/>
+	    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base1000.css') }}"/>
+	{% endblock %}
 </head>
 
 <body>
@@ -197,21 +211,6 @@
 {% include 'VidalMainBundle:Metrika:yandex_metrika.html.twig' %}
 {% include 'VidalMainBundle:Metrika:mail_metrika.html.twig' %}
 {#{% endif %}#}
-{% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/common.min.css') }}"/>
-	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/jquery-chosen/chosen.min.css') }}"/>
-	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/checkbox/checkbox.css') }}"/>
-	<link rel="stylesheet" type="text/css"
-		  href="{{ asset('bundles/vidalmain/jquery-ui/jquery-ui-1.10.4.custom.min.css') }}"/>
-	<!--[if lt IE 9]>
-	<link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/old_ie.css') }}"/>
-	<![endif]-->
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base500.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base750.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base1000.css') }}"/>
-{% endblock %}
-
 {% block javascripts %}
     <script type="text/javascript">
         function detectmob() {
