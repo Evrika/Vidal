@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% set isAdmin = app.user and is_granted('ROLE_ADMIN') %}
 {% set route = app.request.get('_route') %}
-<html lang="ru" xmlns:og="http://ogp.me/ns#">
+<html lang="ru">
 <head>
 	<meta charset="UTF-8"/>
 	<link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2"/>
@@ -55,6 +55,50 @@
 	    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base500.css') }}"/>
 	    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base750.css') }}"/>
 	    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/vidalmain/stylesheets/base1000.css') }}"/>
+	    {% if ("now"|date('N') == 2) or ("now"|date('N') == 5) %}
+		<style>
+		@media only screen and (max-device-width: 480px) {
+		    .avgrund-popup {
+		        position: absolute;
+		        width: 100%;
+		        height: initial;
+		        left: 0%;
+		        top: 50%;
+		        margin: -130px 0 0 0px;
+		        visibility: hidden;
+		        opacity: 0;
+		        z-index: 2;
+		        padding: 10px;
+		        background: white;
+		        box-shadow: 0px 0px 20px rgba( 0, 0, 0, 0.6 );
+		        border-radius: 3px;
+		        -webkit-transform: scale( 0.8 );
+		        -moz-transform: scale( 0.8 );
+		        -ms-transform: scale( 0.8 );
+		        -o-transform: scale( 0.8 );
+		        transform: scale( 0.8 ) !important;
+		    }
+		}
+		    .socialText li {
+		        font-size: 15px;
+		        font-weight: bold;
+		        margin-left: 45px;
+		    }
+		    .closeButtonXBanner {
+		        text-decoration: none;
+		        font-size: 35px;
+		        font-family: cursive;
+		        position: absolute;
+		        top: -8px;
+		        right: 8px;
+		    }
+		</style>
+		{% endif %}
+		<style type="text/css">
+        .mobile_social img {
+        	border-radius:2px;
+        }
+        </style>
 	{% endblock %}
 </head>
 
@@ -66,8 +110,8 @@
 
 	<div id="banner" class="banner" style="width:970px; height:90px;margin-bottom:20px;">
 		<div id="banner_swf">
-			<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=534988&pid=2074358&bid=3975422&bn=3975422&rnd=664572440" />
-			<div id="banner_rotate" class="banner-rotate" data="5" data-link="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=534988&pid=2074358&bid=3975422&bn=3975422&rnd=664572440" onclick="var $banner = $('#banner_rotate'); window.open($banner.attr('data-link'), '_blank');" style="text-align:center; position:relative; background:transparent;">
+			<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;amp;bid=3975422&amp;amp;bn=3975422&amp;amp;rnd=664572440" alt="adriver whitespace" />
+			<div id="banner_rotate" class="banner-rotate" data="5" data-link="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;bid=3975422&amp;bn=3975422&amp;rnd=664572440" onclick="var $banner = $('#banner_rotate'); window.open($banner.attr('data-link'), '_blank');" style="text-align:center; position:relative; background:transparent;">
 				<div id="banner_rotate_clickarea" style="position:absolute; background:transparent; cursor:pointer;width:970px; height:90px"></div>
 				<object width="970" height="90" class="banner-rotate">
 					<param name="movie" value="/970-90.swf">
@@ -82,9 +126,9 @@
 	</div>
 
 	<div id="banner_mobile" style="margin-bottom:20px;display:none;  text-align: center;">
-		<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=534988&pid=2074358&bid=3975422&bn=3975422&rnd=664572440" />
-		<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=534988&pid=2074358&bid=3975422&bn=3975422&rnd=664572440">
-			<img src="/para-plus_300x150.jpg" style="max-width:100%;" />
+		<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;bid=3975422&amp;bn=3975422&amp;rnd=664572440" alt="adriver whitespace" />
+		<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;bid=3975422&amp;bn=3975422&amp;rnd=664572440">
+			<img src="/para-plus_300x150.jpg" style="max-width:100%;" alt="paraplus" />
 		</a>
 	</div>
 	<script>
@@ -131,19 +175,14 @@
             <div class="mobile_auth_close"></div>
             <div class="mobile_auth_wrap"></div>
         </div>
-        <style>
-        .mobile_social img {
-        	border-radius:2px;
-        }
-        </style>
         <div style="text-align: center;margin-top:20px;" class="mobile_social">
-        <a target="_blank" href="https://www.facebook.com/vidalru"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/facebook_big.png') }}" style="width: 30px;"/></a>
-        <a target="_blank" href="https://vk.com/vidalru"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/vk_big.png') }}" style="width: 30px;"/></a>
-        <a target="_blank" href="http://vidalru.livejournal.com/"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/livejournal_big.png') }}" style="width: 30px;"/></a>
-        <a target="_blank" href="https://google.com/+VidalRu"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/gplus_big.png') }}" style="width: 30px;"/></a>
-        <a target="_blank" href="http://twitter.com/Vidalru"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/twitter_big.png') }}" style="width: 30px;"/></a>
-        <a target="_blank" href="http://vidalru.blogspot.ru/"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/blogspot_big.png') }}" style="width: 30px;"/></a>
-        <a target="_blank" href="https://www.linkedin.com/company/vidal-ru/"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/linkedin_big.png') }}" style="width: 30px;"/></a>
+        <a target="_blank" href="https://www.facebook.com/vidalru"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/facebook_big.png') }}" style="width: 30px;" alt="facebook"/></a>
+        <a target="_blank" href="https://vk.com/vidalru"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/vk_big.png') }}" style="width: 30px;" alt="vkontakte"/></a>
+        <a target="_blank" href="http://vidalru.livejournal.com/"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/livejournal_big.png') }}" style="width: 30px;" alt="livejournal"/></a>
+        <a target="_blank" href="https://google.com/+VidalRu"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/gplus_big.png') }}" style="width: 30px;" alt="googleplus"/></a>
+        <a target="_blank" href="http://twitter.com/Vidalru"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/twitter_big.png') }}" style="width: 30px;" alt="twitter"/></a>
+        <a target="_blank" href="http://vidalru.blogspot.ru/"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/blogspot_big.png') }}" style="width: 30px;" alt="blogspot"/></a>
+        <a target="_blank" href="https://www.linkedin.com/company/vidal-ru/"><img class="tada animated" src="{{ asset('bundles/vidalmain/images/social/linkedin_big.png') }}" style="width: 30px;" alt="linkedin"/></a>
     </div>
     </div>
 
