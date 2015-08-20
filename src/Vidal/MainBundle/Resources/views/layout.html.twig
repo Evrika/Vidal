@@ -100,7 +100,7 @@
         }
         </style>
 	{% endblock %}
-	
+
 	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
 </head>
 
@@ -204,6 +204,26 @@
 						<center>
 							<a href="http://univadis.evrika.ru/?utm_source=media&utm_medium=vidal_ru&utm_content=240x400&utm_campaign=univadis_vidal"><img src="/univadis_banner.gif" /></a>
 						</center>
+						<br />
+						{% if random(1) %}
+							<center>
+								<a href="http://www.efim2015.org/"><img src="/Baner-ECIM-200x400.jpg" /></a>
+							</center>
+						{% else %}
+							<center>
+								<a href="http://www.congress2015.rnmot.ru/"><img src="/Baner-NKT-200x400.jpg" /></a>
+							</center>
+						{% endif %}
+					{% else %}
+						{% if random(1) %}
+							<center>
+								<a href="http://www.efim2015.org/"><img src="/Baner-ECIM-200x400.jpg" /></a>
+							</center>
+						{% else %}
+							<center>
+								<a href="http://www.congress2015.rnmot.ru/"><img src="/Baner-NKT-200x400.jpg" /></a>
+							</center>
+						{% endif %}
 					{% endif %}
 					{% block right %}
 						{% include 'VidalMainBundle::right_sidebar.html.twig' %}
