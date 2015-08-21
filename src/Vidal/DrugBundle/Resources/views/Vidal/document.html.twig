@@ -249,6 +249,7 @@
 					{% for p in products %}
 						<tr>
 							<td class="products-table-loz">
+								<!-- FACKU: {{p.ProductTypeCode}} -->
 								{% if p.NonPrescriptionDrug %}
 									<img src="{{ asset('bundles/vidalmain/images/g2.gif') }}"
 										 title="Препарат разрешен к применению в качестве средств безрецептурного отпуска"/>
