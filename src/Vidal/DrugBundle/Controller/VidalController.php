@@ -92,12 +92,6 @@ class VidalController extends Controller
 		}
 
 		$products = $em->getRepository('VidalDrugBundle:Product')->findByOwner($CompanyID);
-		$env = $this->container->getParameter("kernel.environment");
-		if ("dev" == $env) {
-			echo "<pre>";
-		    print_r($products);
-			die();
-		}
 
 		# находим представительства
 		$productsRepresented = array();

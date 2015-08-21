@@ -230,7 +230,7 @@ class ProductRepository extends EntityRepository
 	public function findByOwner($CompanyID)
 	{
 		$productsRaw = $this->_em->createQuery('
-			SELECT p.ProductID, p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.ZipInfo,
+			SELECT p.ProductID, p.RusName, p.EngName, p.ProductTypeCode, p.Name, p.NonPrescriptionDrug, p.ZipInfo,
 				p.RegistrationNumber, p.RegistrationDate, p.photo, p.hidePhoto,
 				country.RusName CompanyCountry,
 				d.Indication, d.DocumentID, d.ArticleID, d.RusName DocumentRusName, d.EngName DocumentEngName,
