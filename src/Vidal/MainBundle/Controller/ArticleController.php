@@ -84,7 +84,12 @@ class ArticleController extends Controller
 				$params['infoPages'] = $em->getRepository('VidalDrugBundle:InfoPage')->findByProducts($products);
 			}
 		}
-
+		if($link == "doctor_chistoteloff") {
+			$params['products'] = array();
+		}
+		if($link == "doktor-chistoteloff") {
+			$params['products'] = array();
+		}
 		return $params;
 	}
 
