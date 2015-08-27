@@ -86,9 +86,11 @@ class ArticleController extends Controller
 		}
 		if($link == "doctor_chistoteloff") {
 			$params['products'] = array();
+			$params['pre_products'] = array();
 		}
 		if($link == "doktor-chistoteloff") {
 			$params['products'] = array();
+			$params['pre_products'] = array();
 		}
 		return $params;
 	}
