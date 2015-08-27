@@ -4,7 +4,8 @@
 <html lang="ru">
 <head>
 	<meta charset="UTF-8"/>
-	<link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2"/>
+	<link rel="canonical" href="{{ app.request.uri }}" />
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2"/>
 
 	{% block meta %}
 		<title>{% spaceless %}
