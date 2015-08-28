@@ -544,10 +544,10 @@ class ArticleController extends Controller
 		$security = $this->get('security.context');
 
 		if (!$security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-			return $this->redirect($this->generateUrl('login'));
+			return $this->redirect($this->generateUrl('login'),301);
 		}
 		elseif (!$security->isGranted('ROLE_DOCTOR')) {
-			return $this->redirect($this->generateUrl('confirm'));
+			return $this->redirect($this->generateUrl('confirm'),301);
 		}
 
 		return null;

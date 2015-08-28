@@ -56,7 +56,7 @@ class AstrazenecaController extends Controller
 
 				$this->get('session')->getFlashBag()->add('questioned', '');
 
-				return $this->redirect($this->generateUrl('shkola_gastrita') . '#qa');
+				return $this->redirect($this->generateUrl('shkola_gastrita') . '#qa',301);
 			}
 		}
 
@@ -129,7 +129,7 @@ class AstrazenecaController extends Controller
 
 				$this->get('session')->getFlashBag()->add('questioned', '');
 
-				return $this->redirect($this->generateUrl('shkola_consult'));
+				return $this->redirect($this->generateUrl('shkola_consult'),301);
 			}
 		}
 
@@ -389,7 +389,7 @@ class AstrazenecaController extends Controller
 		$em->remove($faq);
 		$em->flush();
 
-		return $this->redirect($this->generateUrl('shkola_faq_list'));
+		return $this->redirect($this->generateUrl('shkola_faq_list'),301);
 	}
 
 	/**

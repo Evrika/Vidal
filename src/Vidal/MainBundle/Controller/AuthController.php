@@ -55,7 +55,7 @@ class AuthController extends Controller
 			$user->setLastLogin(new \DateTime('now'));
 			$em->flush();
 
-			return $this->redirect($this->generateUrl('index'));
+			return $this->redirect($this->generateUrl('index'),301);
 		}
 
 		return array(
@@ -114,7 +114,7 @@ class AuthController extends Controller
 	public function registrationAction(Request $request)
 	{
 		if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-			return $this->redirect($this->generateUrl('index'));
+			return $this->redirect($this->generateUrl('index'),301);
 		}
 
 		$em     = $this->getDoctrine()->getManager();
@@ -152,7 +152,7 @@ class AuthController extends Controller
 				//					'Зарегистрировался новый пользователь'
 				//				);
 
-				return $this->redirect($this->generateUrl('profile'));
+				return $this->redirect($this->generateUrl('profile'),301);
 			}
 			else {
 				$params['error'] = true;
@@ -197,7 +197,7 @@ class AuthController extends Controller
 				);
 			}
 
-			return $this->redirect($this->generateUrl('profile'));
+			return $this->redirect($this->generateUrl('profile'),301);
 		}
 
 		return array(
@@ -228,10 +228,10 @@ class AuthController extends Controller
 
 			$this->get('session')->getFlashBag()->add('confirmed', '');
 
-			return $this->redirect($this->generateUrl('profile'));
+			return $this->redirect($this->generateUrl('profile'),301);
 		}
 
-		return $this->redirect($this->generateUrl('index'));
+		return $this->redirect($this->generateUrl('index'),301);
 	}
 
 	/**
@@ -255,7 +255,7 @@ class AuthController extends Controller
 
 		$stmt->execute();
 
-		return $this->redirect($this->generateUrl('profile'));
+		return $this->redirect($this->generateUrl('profile'),301);
 	}
 
 	private function resetToken($user)
@@ -321,7 +321,7 @@ class AuthController extends Controller
 	public function passwordResetAction(Request $request)
 	{
 		if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-			return $this->redirect($this->generateUrl('index'));
+			return $this->redirect($this->generateUrl('index'),301);
 		}
 
 		$params = array('title' => 'Восстановление пароля');
@@ -351,7 +351,7 @@ class AuthController extends Controller
 				);
 				$this->get('session')->getFlashBag()->add('notice', '');
 
-				return $this->redirect($this->generateUrl('password_reset'));
+				return $this->redirect($this->generateUrl('password_reset'),301);
 			}
 			else {
 				$form->addError(new FormError('Такой e-mail адрес не зарегистрирован в системе'));
@@ -371,7 +371,7 @@ class AuthController extends Controller
 	public function confirmPasswordResetAction($userId, $hash)
 	{
 		if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-			return $this->redirect($this->generateUrl('index'));
+			return $this->redirect($this->generateUrl('index'),301);
 		}
 
 		$em   = $this->getDoctrine()->getManager();
@@ -439,7 +439,7 @@ class AuthController extends Controller
 				$em->flush();
 				$this->get('session')->getFlashBag()->add('notice', '');
 
-				return $this->redirect($this->generateUrl('password_change'));
+				return $this->redirect($this->generateUrl('password_change'),301);
 			}
 			else {
 				$form->addError(new FormError('Неверно указан текущий пароль'));
@@ -493,7 +493,7 @@ class AuthController extends Controller
 
 				$this->get('session')->getFlashBag()->add('notice', $email);
 
-				return $this->redirect($this->generateUrl('credentials'));
+				return $this->redirect($this->generateUrl('credentials'),301);
 			}
 		}
 

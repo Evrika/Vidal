@@ -122,7 +122,7 @@ class AppointmentController extends Controller
 	public function doctorsActions($doctorId)
 	{
 		if ($this->isAuth() == false) {
-			return $this->redirect($this->generateUrl('appointment'));
+			return $this->redirect($this->generateUrl('appointment'),301);
 		}
 		$soap    = $this->createConnection();
 		$doctors = $soap->getDoctorsInfo(array('omsNumber' => '9988889785000068', 'birthDate' => '2011-04-14T00:00:00', 'specialityId' => $doctorId, 'externalSystemId' => 'MPGU'));
@@ -136,7 +136,7 @@ class AppointmentController extends Controller
 	public function datetimeActions($availableResourceId, $complexResourceId)
 	{
 		if ($this->isAuth() == false) {
-			return $this->redirect($this->generateUrl('appointment'));
+			return $this->redirect($this->generateUrl('appointment'),301);
 		}
 		$soap     = $this->createConnection();
 		$datetime = $soap->getAvailableResourceScheduleInfo(array('omsNumber' => '9988889785000068', 'birthDate' => '2011-04-14T00:00:00', 'availableResourceId' => $availableResourceId, 'complexResourceId' => $complexResourceId, 'externalSystemId' => 'MPGU'));
@@ -150,7 +150,7 @@ class AppointmentController extends Controller
 	public function createAppointment(Request $request)
 	{
 		if ($this->isAuth() == false) {
-			return $this->redirect($this->generateUrl('appointment'));
+			return $this->redirect($this->generateUrl('appointment'),301);
 		}
 
 		$request                        = $request->request;
@@ -211,7 +211,7 @@ class AppointmentController extends Controller
 			}
 		}
 
-		return $this->redirect($this->generateUrl('appointment'));
+		return $this->redirect($this->generateUrl('appointment'),301);
 	}
 
 	/**
@@ -220,7 +220,7 @@ class AppointmentController extends Controller
 	public function listActions()
 	{
 		if ($this->isAuth() == false) {
-			return $this->redirect($this->generateUrl('appointment'));
+			return $this->redirect($this->generateUrl('appointment'),301);
 		}
 		$soap = $this->createConnection();
 		$data = $soap->getAppointmentReceptionsByPatient(
@@ -240,7 +240,7 @@ class AppointmentController extends Controller
 	public function deleteAction($appointmentId)
 	{
 		if ($this->isAuth() == false) {
-			return $this->redirect($this->generateUrl('appointment'));
+			return $this->redirect($this->generateUrl('appointment'),301);
 		}
 		$soap = $this->createConnection();
 		$data = $soap->cancelAppointment(
@@ -261,7 +261,7 @@ class AppointmentController extends Controller
 			);
 		}
 
-		return $this->redirect($this->generateUrl('appointment'));
+		return $this->redirect($this->generateUrl('appointment'),301);
 	}
 
 	protected function createConnection()

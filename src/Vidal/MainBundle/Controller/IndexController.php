@@ -88,7 +88,7 @@ class IndexController extends Controller
 
 				$checkFaq = $em->getRepository('VidalMainBundle:QuestionAnswer')->findOneByQuestion($faq->getQuestion());
 				if ($checkFaq) {
-					return $this->redirect($this->generateUrl('qa_asked', array('id' => $checkFaq->getId())));
+					return $this->redirect($this->generateUrl('qa_asked', array('id' => $checkFaq->getId())),301);
 				}
 
 				$faq->setEnabled(0);
@@ -102,7 +102,7 @@ class IndexController extends Controller
 					'Вопрос на сайте vidal.ru'
 				);
 
-				return $this->redirect($this->generateUrl('qa_asked', array('id' => $faq->getId())));
+				return $this->redirect($this->generateUrl('qa_asked', array('id' => $faq->getId())),301);
 			}
 		}
 		$qus          = $this->getDoctrine()->getRepository('VidalMainBundle:QuestionAnswer')->findByEnabled();
@@ -161,7 +161,7 @@ class IndexController extends Controller
 			return array('questions' => $questions, 'parties' => $parties, 'thisPartyId' => $thisPartyId);
 		}
 		else {
-			return $this->redirect($this->generateUrl('confirmation_doctor'));
+			return $this->redirect($this->generateUrl('confirmation_doctor'),301);
 		}
 	}
 
@@ -175,7 +175,7 @@ class IndexController extends Controller
 		$user = $this->getUser();
 		$scan = $user->getConfirmation();
 		if ($scan == 0) {
-			return $this->redirect($this->generateUrl('profile') . '#work');
+			return $this->redirect($this->generateUrl('profile') . '#work',301);
 		}
 		else {
 			return array();
@@ -204,7 +204,7 @@ class IndexController extends Controller
 			$form = $builder->getForm();
 		}
 		else {
-			return $this->redirect($this->generateUrl('qa_admin'));
+			return $this->redirect($this->generateUrl('qa_admin'),301);
 		}
 
 		$form->handleRequest($request);
@@ -225,7 +225,7 @@ class IndexController extends Controller
 
 			$em->flush();
 
-			return $this->redirect($this->generateUrl('qa_admin'));
+			return $this->redirect($this->generateUrl('qa_admin'),301);
 		}
 
 		return array('form' => $form->createView(), 'question' => $question);

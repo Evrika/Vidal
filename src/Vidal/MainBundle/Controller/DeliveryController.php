@@ -101,7 +101,7 @@ class DeliveryController extends Controller
 
 		$this->get('session')->getFlashBag()->add('msg', 'Сброшены разосланные флаги, рассылка остановлена');
 
-		return $this->redirect($this->generateUrl('delivery_control'));
+		return $this->redirect($this->generateUrl('delivery_control'),301);
 	}
 
 	/**
@@ -115,7 +115,7 @@ class DeliveryController extends Controller
 
 		$this->get('session')->getFlashBag()->add('msg', 'Рассылка остановлена');
 
-		return $this->redirect($this->generateUrl('delivery_control'));
+		return $this->redirect($this->generateUrl('delivery_control'),301);
 	}
 
 	/**
@@ -136,7 +136,7 @@ class DeliveryController extends Controller
 			system($cmd);
 		}
 
-		return $this->redirect($this->generateUrl('delivery_control'));
+		return $this->redirect($this->generateUrl('delivery_control'),301);
 	}
 
 	/**
@@ -167,7 +167,7 @@ class DeliveryController extends Controller
 			$em->flush();
 			$this->get('session')->getFlashBag()->add('msg', 'Изменения сохранены');
 
-			return $this->redirect($this->generateUrl('delivery_control'));
+			return $this->redirect($this->generateUrl('delivery_control'),301);
 		}
 
 		$params = array(
@@ -203,7 +203,7 @@ class DeliveryController extends Controller
 			$em->flush();
 			$this->get('session')->getFlashBag()->add('msg', 'Изменения сохранены');
 
-			return $this->redirect($this->generateUrl('delivery'));
+			return $this->redirect($this->generateUrl('delivery'),301);
 		}
 
 		$params = array(
@@ -231,7 +231,7 @@ class DeliveryController extends Controller
 		$this->testTo($emails, $digest);
 		$this->get('session')->getFlashBag()->add('msg', 'Было отправлено на адреса: ' . $digest->getEmails());
 
-		return $this->redirect($this->generateUrl('delivery'));
+		return $this->redirect($this->generateUrl('delivery'),301);
 	}
 
 	private function testTo($emails, $digest)

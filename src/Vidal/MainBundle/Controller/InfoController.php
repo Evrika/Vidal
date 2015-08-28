@@ -45,7 +45,7 @@ class InfoController extends Controller
 	public function downloadAction(Request $request, $filename)
 	{
 		if (!$this->get('security.context')->isGranted('ROLE_DOCTOR')) {
-			return $this->redirect($this->generateUrl('no_download', array('filename' => $filename)));
+			return $this->redirect($this->generateUrl('no_download', array('filename' => $filename)),301);
 		}
 
 		$contentType = 'application/octet-stream';
