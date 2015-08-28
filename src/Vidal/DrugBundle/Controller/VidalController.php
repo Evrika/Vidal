@@ -375,7 +375,7 @@ class VidalController extends Controller
 		return $this->redirect($this->generateUrl('product', array(
 			'ProductID' => $ProductID,
 			'EngName'   => $product->getName(),
-		)));
+		)),301);
 	}
 
 	/**
@@ -509,7 +509,7 @@ class VidalController extends Controller
 			return $this->redirect($this->generateUrl('index'), 301);
 		}
 
-		return $this->redirect($this->generateUrl('molecule', array('MoleculeID' => $molecule['MoleculeID'])));
+		return $this->redirect($this->generateUrl('molecule', array('MoleculeID' => $molecule['MoleculeID'])),301);
 	}
 
 	/**

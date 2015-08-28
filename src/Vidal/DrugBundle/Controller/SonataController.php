@@ -186,7 +186,7 @@ class SonataController extends Controller
 
 			$this->get('session')->getFlashBag()->add('notice', '');
 
-			return $this->redirect($this->generateUrl('move_art'));
+			return $this->redirect($this->generateUrl('move_art'),301);
 		}
 
 		return $params;
@@ -334,7 +334,7 @@ class SonataController extends Controller
 			$stmt->execute();
 		}
 
-		return $this->redirect($this->generateUrl('admin_vidal_drug_document_edit', array('id' => $newDocumentID)));
+		return $this->redirect($this->generateUrl('admin_vidal_drug_document_edit', array('id' => $newDocumentID)),301);
 	}
 
 	/** @Route("/admin/clone-product/{ProductID}/{newProductID}", name="clone_product", options={"expose":true}) */
@@ -390,7 +390,7 @@ class SonataController extends Controller
 
 		$this->get('session')->getFlashbag()->add('notice', '');
 
-		return $this->redirect($this->generateUrl('admin_vidal_drug_product_edit', array('id' => $newProductID)));
+		return $this->redirect($this->generateUrl('admin_vidal_drug_product_edit', array('id' => $newProductID)),301);
 	}
 
 	/** @Route("/tag-clean/{tagId}", name="tag_clean", options={"expose":true}) */
@@ -420,7 +420,7 @@ class SonataController extends Controller
 		# добавляем для админки сонаты оповещение
 		$this->get('session')->getFlashbag()->add('msg', 'Все связи данного тега с материалами очищены');
 
-		return $this->redirect($this->generateUrl('admin_vidal_drug_tag_edit', array('id' => $tagId)));
+		return $this->redirect($this->generateUrl('admin_vidal_drug_tag_edit', array('id' => $tagId)),301);
 	}
 
 	/** @Route("/tag-set/{tagId}/{text}", name="tag_set", options={"expose":true}) */
@@ -527,7 +527,7 @@ class SonataController extends Controller
 
 		$this->get('session')->getFlashbag()->add('msg', "Выставлены теги в материалах по слову <b>$tagHistory</b>: $total");
 
-		return $this->redirect($this->generateUrl('admin_vidal_drug_tag_edit', array('id' => $tagId)));
+		return $this->redirect($this->generateUrl('admin_vidal_drug_tag_edit', array('id' => $tagId)),301);
 	}
 
 	/** @Route("/tag-unset/{tagId}/{text}", name="tag_unset", options={"expose":true}) */
@@ -539,7 +539,7 @@ class SonataController extends Controller
 		$pdo        = $em->getConnection();
 
 		if (!$tag || !$tagHistory || !$text) {
-			return $this->redirect($this->generateUrl('admin_vidal_drug_tag_edit', array('id' => $tagId)));
+			return $this->redirect($this->generateUrl('admin_vidal_drug_tag_edit', array('id' => $tagId)),301);
 		}
 
 		# удаляем tag-article
@@ -574,7 +574,7 @@ class SonataController extends Controller
 		# добавляем для админки сонаты оповещение
 		$this->get('session')->getFlashbag()->add('msg', 'Очищены связи с материалами по слову <b>' . $text . '</b>');
 
-		return $this->redirect($this->generateUrl('admin_vidal_drug_tag_edit', array('id' => $tagId)));
+		return $this->redirect($this->generateUrl('admin_vidal_drug_tag_edit', array('id' => $tagId)),301);
 	}
 
 	/** @Route("/admin-tag-total/{tagId}", name="admin_tag_total", options={"expose":true}) */
@@ -903,7 +903,7 @@ class SonataController extends Controller
 		$name .= '.xlsx';
 
 		if (!$this->get('security.context')->isGranted('ROLE_DOCTOR')) {
-			return $this->redirect($this->generateUrl('no_download', array('filename' => $name)));
+			return $this->redirect($this->generateUrl('no_download', array('filename' => $name)),301);
 		}
 
 		# путь файла
