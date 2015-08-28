@@ -450,6 +450,7 @@ class VidalController extends Controller
 		$atcCodes   = $em->getRepository('VidalDrugBundle:Product')->findAllATC($product);
 
 		$params['product']      = $product;
+		$params['alt_product']	= preg_replace('/<sup\b[^>]*>(.*?)<\/sup>/i', '', $product->getRusName());
 		$params['products']     = array($product);
 		$params['owners']       = $em->getRepository('VidalDrugBundle:Company')->findOwnersByProducts($productIds);
 		$params['distributors'] = $em->getRepository('VidalDrugBundle:Company')->findDistributorsByProducts($productIds);
