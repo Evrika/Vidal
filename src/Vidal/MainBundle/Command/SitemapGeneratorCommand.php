@@ -256,6 +256,15 @@ class SitemapGeneratorCommand extends ContainerAwareCommand
 		$urlset2->asXML("{$webRoot}/sitemap2.xml");
 		$urlset3->asXML("{$webRoot}/sitemap3.xml");
 
+		$dom = new DOMDocument();
+		$dom->loadXML("{$webRoot}/sitemap1.xml");
+		$dom->formatOutput = true;
+		$formattedXML = $dom->saveXML();
+
+		$fp = fopen("{$webRoot}/sitemap1.xml",'w+');
+		fwrite($fp, $formattedXML);
+		fclose($fp);
+
 		///////////////////////////////////////////
 
 		$output->writeln('+++ vidal:sitemap:generate completed');
