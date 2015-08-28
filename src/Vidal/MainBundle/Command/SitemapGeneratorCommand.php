@@ -251,12 +251,12 @@ class SitemapGeneratorCommand extends ContainerAwareCommand
 			}
 		}
 
-		/*# запись в файл
+		# запись в файл
 		$urlset->asXML("{$webRoot}/sitemap1.xml");
 		$urlset2->asXML("{$webRoot}/sitemap2.xml");
 		$urlset3->asXML("{$webRoot}/sitemap3.xml");
 
-		$dom = new \DOMDocument();
+		/*$dom = new \DOMDocument();
 		$dom->loadXML("{$webRoot}/sitemap1.xml");
 		$dom->formatOutput = true;
 		$formattedXML = $dom->saveXML();
