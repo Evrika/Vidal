@@ -28,7 +28,7 @@ class ProductCompositionCommand extends ContainerAwareCommand
 		$em = $this->getContainer()->get('doctrine')->getManager('drug');
 
 		# у продуктов с документом типа 2 надо проставить их описания
-		$products = $em->createQuery('
+		/*$products = $em->createQuery('
 			SELECT p.ProductID, d.CompiledComposition composition
 			FROM VidalDrugBundle:Product p
 			JOIN p.document d
@@ -46,8 +46,8 @@ class ProductCompositionCommand extends ContainerAwareCommand
 				'product_composition' => $product['composition'],
 				'product_id' => $product['ProductID'],
 			))->execute();
-		}
-
+		}*/
+		
 		# заменяем специальные символы в описаниях
 		$products = $em->createQuery('
 			SELECT p.ProductID, p.Composition
