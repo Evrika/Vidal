@@ -111,7 +111,7 @@
 		{{ render(controller('VidalMainBundle:Banner:render', {'groupId':2})) }}
 	{% endif %}
 
-	<div id="banner" class="banner" style="width:970px; height:90px;margin-bottom:20px;">
+	{#<div id="banner" class="banner" style="width:970px; height:90px;margin-bottom:20px;">
 		<div id="banner_swf">
 			<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;amp;bid=3975422&amp;amp;bn=3975422&amp;amp;rnd=664572440" alt="adriver whitespace" />
 			<div id="banner_rotate" class="banner-rotate" data="5" data-link="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;bid=3975422&amp;bn=3975422&amp;rnd=664572440" onclick="var $banner = $('#banner_rotate'); window.open($banner.attr('data-link'), '_blank');" style="text-align:center; position:relative; background:transparent;">
@@ -133,7 +133,7 @@
 		<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;bid=3975422&amp;bn=3975422&amp;rnd=664572440">
 			<img src="/para-plus_300x150.jpg" style="max-width:100%;" alt="paraplus" />
 		</a>
-	</div>
+	</div>#}
     <div class="mobile_menu">
 
         <div class="mobile_menu_auth"></div>
@@ -303,7 +303,7 @@
 	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/swfobject2.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/ready.min.js') }}"></script>
 	
-	<script>
+	{#<script>
 		$(function() {
 			var isMobile = false; //initiate as false
 			// device detection
@@ -315,7 +315,7 @@
 				$("#banner_mobile").css('display','block');
 			}
 		});
-	</script>
+	</script>#}
 {% endblock %}
 {% if ("now"|date('N') == 2) or ("now"|date('N') == 5) %}
 	{% include 'VidalMainBundle::popup_social.html.twig' %}
