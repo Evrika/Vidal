@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vidal\MainBundle\Form\DataTransformer\CityToStringTransformer;
+use Vidal\MainBundle\Entity\DigestOpened;
 
 class IndexController extends Controller
 {
@@ -42,6 +43,40 @@ class IndexController extends Controller
 		);
 
 		return $params;
+	}
+
+	/**
+	 * Открыли письмо - записали в БД и вернули как бы картинку
+	 * @Route("/digest_q/opened/{digestName}/{doctorId}")
+	 */
+	public function digestOpenedAction($digestName, $doctorId)
+	{
+		$em       = $this->getDoctrine()->getManager();
+		$delivery = $em->getRepository('VidalMainBundle:Digest')->findOneBy(['uniqueid' => $digestName]);
+		$doctor   = $em->getRepository('VidalMainBundle:User')->findOneById($doctorId);
+
+		//$delivery->addDoctor($doctor);
+		$do = new DigestOpened();
+		$do->setUser($doctorId);
+		$do->setUniqueid($digestName);
+		$em->persist($do);
+		$em->flush();
+
+
+		$em->flush();
+
+		$imagePath = $this->get('kernel')->getRootDir() . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+			. 'web' . DIRECTORY_SEPARATOR . 'bundles' . DIRECTORY_SEPARATOR . 'vidalmain' . DIRECTORY_SEPARATOR
+			. 'images' . DIRECTORY_SEPARATOR . 'delivery' . DIRECTORY_SEPARATOR . '1px.png';
+
+		$file = readfile($imagePath);
+
+		$headers = array(
+			'Content-Type'        => 'image/png',
+			'Content-Disposition' => 'inline; filename="1px.png"'
+		);
+
+		return new Response($file, 200, $headers);
 	}
 
 	/** @Route("/otvety_specialistov", name="qa_redirect") */

@@ -144,7 +144,7 @@ class DigestCommand extends ContainerAwareCommand
 
 		# рассылка
 		for ($i = 0; $i < count($users); $i++) {
-			$template2 = $templating->render('VidalMainBundle:Digest:template2.html.twig', array('user' => $users[$i]));
+			$template2 = $templating->render('VidalMainBundle:Digest:template2.html.twig', array('user' => $users[$i],'digest' => $digest));
 			$template  = $template1 . $template2;
 
 			$this->send($users[$i]['username'], $users[$i]['firstName'], $template, $subject);

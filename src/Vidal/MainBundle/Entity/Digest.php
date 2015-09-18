@@ -24,6 +24,13 @@ class Digest extends BaseEntity
 	/** @ORM\Column(type="string", length=500, nullable=true) */
 	protected $emails;
 
+	/**
+	 * @ORM\Column(type = "string", length = 255)
+	 * @Assert\Length(max = 255, maxMessage = "Заголовок не может быть длиннее {{ limit }} символов")
+	 * @var string
+	 */
+	protected $uniqueid;
+
 	/** @ORM\ManyToMany(targetEntity="Specialty", inversedBy="digests") */
 	protected $specialties;
 
@@ -113,6 +120,30 @@ class Digest extends BaseEntity
 	{
 		$this->specialties = $specialties;
 	}
+
+	/**
+	 * Get subject
+	 *
+	 * @return string
+	 */
+	public function getUniqueid()
+	{
+		return $this->uniqueid;
+	}
+
+	/**
+	 * Set subject
+	 *
+	 * @param string $subject
+	 * @return Digest
+	 */
+	public function setUniqueid($uniqueid)
+	{
+		$this->uniqueid = $uniqueid;
+
+		return $this;
+	}
+
 
 	/**
 	 * @return mixed
