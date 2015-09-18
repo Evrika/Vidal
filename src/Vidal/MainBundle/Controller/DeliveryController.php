@@ -242,7 +242,8 @@ class DeliveryController extends Controller
 		foreach ($emails as $email) {
 			$email = trim($email);
 			$user  = $em->getRepository('VidalMainBundle:User')->findOneByUsername($email);
-
+			print_r($user);
+			die();
 			if ($user) {
 				$service->send(
 					$email,
