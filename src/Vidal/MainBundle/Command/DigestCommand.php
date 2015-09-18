@@ -89,8 +89,8 @@ class DigestCommand extends ContainerAwareCommand
 
 		# отправить самому себе
 		if ($input->getOption('me')) {
-			$output->writeln("=> Sending: in progress to 7binary@gmail.com");
-			$this->sendTo(array('7binary@gmail.com'), $input->getOption('local'));
+			$output->writeln("=> Sending: in progress to sokolov.a@evrika.ru");
+			$this->sendTo(array('sokolov.a@evrika.ru'), $input->getOption('local'));
 		}
 
 		return true;
