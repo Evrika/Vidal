@@ -77,12 +77,13 @@ class DigestCommand extends ContainerAwareCommand
 		# рассылка нашим менеджерам
 		if ($input->getOption('test')) {
 			$raw      = explode(';', $digest->getEmails());
-			$emails[] = array();
+			$emails = array();
 
 			foreach ($raw as $email) {
 				$emails[] = trim($email);
 			}
-
+			print_r($emails);
+			die();
 			$output->writeln("=> Sending: in progress to managers: " . implode(', ', $emails));
 			$this->sendTo($emails);
 		}
@@ -216,7 +217,7 @@ class DigestCommand extends ContainerAwareCommand
 		$template1 = $templating->render('VidalMainBundle:Digest:template1.html.twig', array('digest' => $digest));
 
 		foreach ($users as $user) {
-			$template2 = $templating->render('VidalMainBundle:Digest:template2.html.twig', array('user' => $user));
+			$template2 = $templating->render('VidalMainBundle:Digest:template2.html.twig', array('user' => $user,'digest' => $digest));
 			$template  = $template1 . $template2;
 
 			$this->send($user['username'], $user['firstName'], $template, $subject, $local);
