@@ -52,7 +52,7 @@ class IndexController extends Controller
 	public function digestOpenedAction($digestName, $doctorId)
 	{
 		$em       = $this->getDoctrine()->getManager();
-		$delivery = $em->getRepository('VidalMainBundle:Digest')->findOneBy(['uniqueid' => $digestName]);
+		$delivery = $em->getRepository('VidalMainBundle:Digest')->findOneBy(array('uniqueid' => $digestName));
 		$doctor   = $em->getRepository('VidalMainBundle:User')->findOneById($doctorId);
 
 		//$delivery->addDoctor($doctor);
