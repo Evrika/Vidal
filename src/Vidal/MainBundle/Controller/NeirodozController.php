@@ -18,7 +18,7 @@ class NeirodozController extends Controller
      */
     public function numb11erAction()
     {
-        $params = [];
+        $params = array();
         return $params;
     }
 }
