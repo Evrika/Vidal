@@ -57,13 +57,13 @@
 						{% if product.photo %}
 							<a class="no-underline"
 							   href="{{ path('product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}"
-								><img src="{{ product.photo.path }}"/></a>
+								><img src="{{ product.photo.path }}" alt="{{ product.RusName|raw }}" /></a>
 						{% elseif pictures[id] is defined %}
 							{% set path = '/upload/products/' ~ pictures[id] %}
 							{% if is_file(path) %}
 								<a class="no-underline"
 								   href="{{ path('product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}"
-									><img src="{{ path }}"/></a>
+									><img src="{{ path }}" alt="{{ product.RusName|raw }}" /></a>
 							{% endif %}
 						{% endif %}
 					{% endif %}
