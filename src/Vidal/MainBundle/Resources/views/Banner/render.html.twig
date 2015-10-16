@@ -12,14 +12,14 @@
 		{% set height = (banner.height != null ? banner.height : banner.group.height ) %}
 	{% endif %}
 
-	<div id="{{ group }}" class="banner {{ name }}" alt="Электронный справочник Vidal" style="width:{{ width }}px; height:{{ height }}px">
+	<div id="{{ group }}" class="banner {{ name }}" style="width:{{ width }}px; height:{{ height }}px">
 		{% if banner.code is not empty %}
 			{{ banner.code|raw }}
 		{% else %}
 			{% if isSwf %}
 				<div id="{{ group }}_swf">
 					{% if banner.fallback %}
-						<img src="{{ banner.fallback.path }}" style="width:{{ width }}px; height:{{ height }}px"/>
+						<img src="{{ banner.fallback.path }}" alt="Электронный справочник Vidal" style="width:{{ width }}px; height:{{ height }}px"/>
 					{% endif %}
 				</div>
 			{% else %}
