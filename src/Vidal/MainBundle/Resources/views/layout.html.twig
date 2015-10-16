@@ -99,6 +99,9 @@
         .mobile_social img {
         	border-radius:2px;
         }
+        .centerBannerVia {
+            text-align: center;
+        }
         </style>
 	{% endblock %}
 
@@ -202,9 +205,9 @@
 				</td>
 				<td class="right-sidebar">
 					{% if app.user %}
-						<center>
+						<div class="centerBannerVia">
 							<a href="http://univadis.evrika.ru/?utm_source=media&utm_medium=vidal_ru&utm_content=200x200&utm_campaign=univadis_vidal"><img src="/univadis_banner.gif" /></a>
-						</center>
+						</div>
 						<br />
 						{% if random(1) %}
 							{% if random(1) %}
