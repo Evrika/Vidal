@@ -204,45 +204,13 @@
 					{% endblock %}
 				</td>
 				<td class="right-sidebar">
-					{% if app.user %}
+                    {% if app.user %}
 						<div class="centerBannerVia">
 							<a href="http://univadis.evrika.ru/?utm_source=media&utm_medium=vidal_ru&utm_content=200x200&utm_campaign=univadis_vidal"><img src="/univadis_banner.gif" /></a>
 						</div>
 						<br />
-						
-                        {% if random(1) %}
-							{% if random(1) %}
-                                <div class="centerBannerVia">
-                                    <a href="http://www.efim2015.org/"><img src="/Baner-ECIM-200x400.jpg" alt="ECIM" /></a>
-                                </center>
-                            {% else %}
-                                <div class="centerBannerVia">
-                                    <a href="http://www.congress2015.rnmot.ru/"><img src="/Baner-NKT-200x400.jpg" alt="NKT" /></a>
-                                </div>
-                            {% endif %}
-						{% else %}
-							<div class="centerBannerVia">
-								<a href="http://www.surprizovnet.ru/"><img src="/contraception240-400_vidal.gif" alt="Контрацепция" /></a>
-							</center>
-						{% endif %}
-					{% else %}
-						{% if random(1) %}
-                            {% if random(1) %}
-                                <div class="centerBannerVia">
-                                    <a href="http://www.efim2015.org/"><img src="/Baner-ECIM-200x400.jpg" alt="ECIM" /></a>
-                                </div>
-                            {% else %}
-                                <div class="centerBannerVia">
-                                    <a href="http://www.congress2015.rnmot.ru/"><img src="/Baner-NKT-200x400.jpg" alt="NKT" /></a>
-                                </div>
-                            {% endif %}
-                        {% else %}
-                            <div class="centerBannerVia">
-                                <a href="http://www.surprizovnet.ru/"><img src="/contraception240-400_vidal.gif" alt="Контрацепция" /></a>
-                            </div>
-                        {% endif %}
-					{% endif %}
-                    
+                    {% endif %}
+
 					{% block right %}
 						{% include 'VidalMainBundle::right_sidebar.html.twig' %}
 					{% endblock %}
