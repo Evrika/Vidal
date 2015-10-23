@@ -536,6 +536,9 @@ class ArticleController extends Controller
 			return $response;
 		}
 
+		$params['keywords']    = "";
+		
+
 		return $params;
 	}
 

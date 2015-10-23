@@ -54,6 +54,7 @@ class TagController extends Controller
 		$params = array(
 			'tag'   => $tag,
 			'title' => $tag->getText() . ' | Новости',
+			'keywords' => ''
 		);
 
 		$query                = $em->getRepository('VidalDrugBundle:Publication')->getQueryByTag($id);
