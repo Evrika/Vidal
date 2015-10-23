@@ -34,7 +34,7 @@ class NozologyRepository extends EntityRepository
 			SELECT n
 			FROM VidalDrugBundle:Nozology n
 			WHERE n.Code = :code
-		')->setParameter('code', $code)
+		')->setMaxResults(1)->setParameter('code', $code)
 			->getOneOrNullResult();
 
 		if (!$result) {
@@ -42,7 +42,7 @@ class NozologyRepository extends EntityRepository
 				SELECT n
 				FROM VidalDrugBundle:Nozology n
 				WHERE n.NozologyCode = :code
-			')->setParameter('code', $code)
+			')->setMaxResults(1)->setParameter('code', $code)
 				->getOneOrNullResult();
 		}
 
