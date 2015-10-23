@@ -95,6 +95,7 @@ class DrugsController extends Controller
 		$params = array(
 			'menu_drugs' => 'atc',
 			'title'      => 'АТХ',
+			'keywords'	 =>	'',
 			'l'          => $l,
 			'q'          => $q,
 			'atcCode'    => $atcCode,
