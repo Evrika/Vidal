@@ -481,6 +481,7 @@ class VidalController extends Controller
 			$params['pictures'] = $em->getRepository('VidalDrugBundle:Picture')->findAllByProductIds($productIds);
 			$params['title']    = $title . ' - ' . $product->getZipInfo() . ' | Медицинские изделия';
 			$params['isMI']     = true;
+			$params['keywords']    = "";
 
 			return $this->render("VidalDrugBundle:Vidal:bad_document.html.twig", $params);
 		}
@@ -489,12 +490,14 @@ class VidalController extends Controller
 		if ($product->isBAD() || ($document && $document->isBAD())) {
 			$params['pictures'] = $em->getRepository('VidalDrugBundle:Picture')->findAllByProductIds($productIds);
 			$params['title']    = $title . ' - ' . $product->getZipInfo() . ' | БАДы';
+			$params['keywords']    = "";
 
 			return $this->render("VidalDrugBundle:Vidal:bad_document.html.twig", $params);
 		}
 		else {
 			$params['pictures'] = $em->getRepository('VidalDrugBundle:Picture')->findAllByProductIds($productIds);
 			$params['title']    = $title . ' - ' . $product->getZipInfo() . ' | Препараты';
+			$params['keywords']    = "";
 		}
 
 		return $params;
