@@ -1,85 +1,85 @@
 <div class="conditions">
 	{% if document.PregnancyUsing == 'Can' %}
 		<a href="#preg_lact" title="Возможно применение при беременности">
-			<img src="{{ asset('bundles/vidalmain/images/can_p.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/can_p.gif') }}" alt="Возможно применение при беременности" />
 		</a>
 	{% elseif document.PregnancyUsing == 'Care' %}
 		<a href="#preg_lact" title="C осторожностью применяется при беременности">
-			<img src="{{ asset('bundles/vidalmain/images/care_p.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/care_p.gif') }}" alt="C осторожностью применяется при беременности" />
 		</a>
 	{% elseif document.PregnancyUsing == 'Not' %}
 		<a href="#preg_lact" title="Противопоказан при беременности">
-			<img src="{{ asset('bundles/vidalmain/images/not_p.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/not_p.gif') }}" alt="Противопоказан при беременности" />
 		</a>
 	{% endif %}
 
 	{% if document.NursingUsing == 'Can' %}
 		<a href="#preg_lact" title="Возможно применение при кормлении грудью">
-			<img src="{{ asset('bundles/vidalmain/images/can_l.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/can_l.gif') }}" alt="Возможно применение при кормлении грудью" />
 		</a>
 	{% elseif document.NursingUsing == 'Care' %}
 		<a href="#preg_lact" title="C осторожностью применяется при кормлении грудью">
-			<img src="{{ asset('bundles/vidalmain/images/care_l.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/care_l.gif') }}" alt="C осторожностью применяется при кормлении грудью" />
 		</a>
 	{% elseif document.NursingUsing == 'Not' %}
 		<a href="#preg_lact" title="Противопоказан при кормлении грудью">
-			<img src="{{ asset('bundles/vidalmain/images/not_l.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/not_l.gif') }}" alt="Противопоказан при кормлении грудью" />
 		</a>
 	{% endif %}
 
 	{% if document.HepatoInsufUsing == 'Can' %}
 		<a href="#hepato" title="Возможно применение при нарушениях функции печени">
-			<img src="{{ asset('bundles/vidalmain/images/can_r.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/can_r.gif') }}" alt="Возможно применение при нарушениях функции печени" />
 		</a>
 	{% elseif document.HepatoInsufUsing == 'Care' %}
 		<a href="#hepato" title="C осторожностью применяется при нарушениях функции печени">
-			<img src="{{ asset('bundles/vidalmain/images/care_r.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/care_r.gif') }}" alt="C осторожностью применяется при нарушениях функции печени" />
 		</a>
 	{% elseif document.HepatoInsufUsing == 'Not' %}
 		<a href="#hepato" title="Противопоказан при нарушениях функции печени">
-			<img src="{{ asset('bundles/vidalmain/images/not_r.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/not_r.gif') }}" alt="Противопоказан при нарушениях функции печени" />
 		</a>
 	{% endif %}
 
 	{% if document.RenalInsufUsing == 'Can' %}
 		<a href="#renal" title="Возможно применение при нарушениях функции почек">
-			<img src="{{ asset('bundles/vidalmain/images/can_n.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/can_n.gif') }}" alt="Возможно применение при нарушениях функции почек" />
 		</a>
 	{% elseif document.RenalInsufUsing == 'Care' %}
 		<a href="#renal" title="C осторожностью применяется при нарушениях функции почек">
-			<img src="{{ asset('bundles/vidalmain/images/care_n.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/care_n.gif') }}" alt="C осторожностью применяется при нарушениях функции почек" />
 		</a>
 	{% elseif document.RenalInsufUsing == 'Not' %}
 		<a href="#renal" title="Противопоказан при нарушениях функции почек">
-			<img src="{{ asset('bundles/vidalmain/images/not_n.gif') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/not_n.gif') }}" alt="Противопоказан при нарушениях функции почек" />
 		</a>
 	{% endif %}
 
 	{% if document.ChildInsufUsing == 'Can' %}
 		<a href="#child" title="Возможно применение для детей">
-			<img src="{{ asset('bundles/vidalmain/images/can_c.jpg') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/can_c.jpg') }}" alt="Возможно применение для детей" />
 		</a>
 	{% elseif document.ChildInsufUsing == 'Care' %}
 		<a href="#child" title="C осторожностью применяется для детей">
-			<img src="{{ asset('bundles/vidalmain/images/care_c.jpg') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/care_c.jpg') }}" alt="C осторожностью применяется для детей" />
 		</a>
 	{% elseif document.ChildInsufUsing == 'Not' %}
 		<a href="#child" title="Противопоказан для детей">
-			<img src="{{ asset('bundles/vidalmain/images/not_c.jpg') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/not_c.jpg') }}" alt="Противопоказан для детей" />
 		</a>
 	{% endif %}
 
 	{% if document.ElderlyInsufUsing == 'Can' %}
 		<a href="#old" title="Возможно применение пожилыми пациентами">
-			<img src="{{ asset('bundles/vidalmain/images/can_o.jpg') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/can_o.jpg') }}" alt="Возможно применение пожилыми пациентами" />
 		</a>
 	{% elseif document.ElderlyInsufUsing == 'Care' %}
 		<a href="#old" title="C осторожностью применяется пожилыми пациентами">
-			<img src="{{ asset('bundles/vidalmain/images/care_o.jpg') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/care_o.jpg') }}" alt="C осторожностью применяется пожилыми пациентами" />
 		</a>
 	{% elseif document.ElderlyInsufUsing == 'Not' %}
 		<a href="#old" title="Противопоказан пожилым пациентам">
-			<img src="{{ asset('bundles/vidalmain/images/not_o.jpg') }}"/>
+			<img src="{{ asset('bundles/vidalmain/images/not_o.jpg') }}" alt="Противопоказан пожилым пациентам" />
 		</a>
 	{% endif %}
 
