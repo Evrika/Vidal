@@ -209,8 +209,7 @@
 							<a href="http://univadis.evrika.ru/?utm_source=media&utm_medium=vidal_ru&utm_content=200x200&utm_campaign=univadis_vidal"><img src="/univadis_banner.gif" /></a>
 						</div>
 						<br />
-                    {% endif %}
-
+                    {% else %}
                     <div style="position:relative;width:200px;height:400px;margin-left: 21px;">
                         <a href="http://www.vidal.ru/neiro_doz">
                         <div style="position: absolute;width:200px;height:400px;"></div>
@@ -249,7 +248,7 @@
                             <!--<![endif]-->
                         </object>
                     </div>
-
+                    {% endif %}
 					{% block right %}
 						{% include 'VidalMainBundle::right_sidebar.html.twig' %}
 					{% endblock %}
