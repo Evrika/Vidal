@@ -39,6 +39,26 @@ class VidalController extends Controller
 				# препараты по букве алфавита или по поисковому запросу
 				if ($l) {
 					$products           = $em->getRepository('VidalVeterinarBundle:Product')->findByLetter($l);
+					if (in_array($l, array("А","Б","В","Г","Д"))) {
+						foreach ($products as $key => $value) {
+							if(in_array($value['ProductID'],array(27840,27869,27868))) {
+								$name = $value['Name'];
+								$products[$key]['new'] = false;
+								$products[$key]['urlFor'] = $value['Name'];
+							} else {
+								$name = $value['Name'];
+								$products[$key]['urlFor'] = preg_replace('/[^A-Za-z0-9 -]/u', '', strip_tags(strtolower(str_replace("&reg;","",str_replace(" ","-",$name)))));
+								$products[$key]['new'] = true;
+							}
+						}
+					} else {
+						foreach ($products as $key => $value) {
+							$name = $value['Name'];
+							$products[$key]['new'] = false;
+							$products[$key]['urlFor'] = $value['Name'];
+						}
+					}
+
 					$pagination         = $this->get('knp_paginator')->paginate($products, $p, self::PRODUCTS_PER_PAGE);
 					$params['products'] = $pagination;
 
@@ -50,6 +70,27 @@ class VidalController extends Controller
 				}
 				elseif (!empty($q)) {
 					$products           = $em->getRepository('VidalVeterinarBundle:Product')->findByQuery($q);
+					
+					if (in_array($l, array("А","Б","В","Г","Д"))) {
+						foreach ($products as $key => $value) {
+							if(in_array($value['ProductID'],array(27840,27869,27868))) {
+								$name = $value['Name'];
+								$products[$key]['new'] = false;
+								$products[$key]['urlFor'] = $value['Name'];
+							} else {
+								$name = $value['Name'];
+								$products[$key]['urlFor'] = preg_replace('/[^A-Za-z0-9 -]/u', '', strip_tags(strtolower(str_replace("&reg;","",str_replace(" ","-",$name)))));
+								$products[$key]['new'] = true;
+							}
+						}
+					} else {
+						foreach ($products as $key => $value) {
+							$name = $value['Name'];
+							$products[$key]['new'] = false;
+							$products[$key]['urlFor'] = $value['Name'];
+						}
+					}
+
 					$pagination         = $this->get('knp_paginator')->paginate($products, $p, self::PRODUCTS_PER_PAGE);
 					$params['products'] = $pagination;
 
@@ -79,6 +120,7 @@ class VidalController extends Controller
 				}
 				break;
 		}
+		
 
 		return $params;
 	}
@@ -340,16 +382,31 @@ class VidalController extends Controller
 
 	/**
 	 * Описание препарата
-	 * @Route("/veterinar/{EngName}~{ProductID}.{ext}", name="v_product", requirements={"ProductID":"\d+", "EngName"=".+"}, defaults={"ext"="htm"})
+	 * @Route("/veterinar/{EngName}-{ProductID}.{ext}", name="v_product", requirements={"ProductID":"\d+", "EngName"=".*"}, defaults={"ext"="htm"})
+	 * @Route("/veterinar/{EngName}~{ProductID}.{ext}", name="v_product_old", requirements={"ProductID":"\d+", "EngName"=".+"}, defaults={"ext"="htm"})
 	 *
 	 * @Template("VidalVeterinarBundle:Vidal:document.html.twig")
 	 */
 	public function productAction($EngName, $ProductID)
 	{
+
 		$em     = $this->getDoctrine()->getManager('veterinar');
 		$params = array();
 
 		$product = $em->getRepository('VidalVeterinarBundle:Product')->findByProductID($ProductID);
+		$firstChar = mb_substr($product['RusName'],0,1);
+		if (in_array($firstChar, array("А","Б","В","Г","Д"))) {
+				if(!in_array($product['ProductID'],array(27840,27869,27868))) {
+					$name = $product['Name'];
+
+					$request = $this->container->get('request');
+					$routeName = $request->get('_route');
+					if($routeName == "v_product_old") {
+						$name = preg_replace('/[^A-Za-z0-9 -]/u', '', strip_tags(strtolower(str_replace("&reg;","",str_replace(" ","-",$name)))));
+						return $this->redirect($this->generateUrl('v_product', array('EngName' => $name,'ProductID' => $product['ProductID'])), 301);
+					}
+				}
+		}
 
 		if (!$product) {
 			throw $this->createNotFoundException();

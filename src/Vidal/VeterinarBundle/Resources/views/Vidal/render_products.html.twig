@@ -11,9 +11,17 @@
 			{% set id = product.ProductID %}
 			<tr>
 				<td class="products-table-name">
+				{% if(product['new'] == true) %}
 					<a class="no-underline"
-					   href="{{ path('v_product', {'EngName':product.Name, 'ProductID':product.ProductID}) }}">
-						{{ product.RusName|raw }}</a>
+					   href="{{ path('v_product', {'EngName':product['urlFor'], 'ProductID':product.ProductID}) }}">
+						{{ product.RusName|raw }}
+					</a>
+				{% else %}
+					<a class="no-underline"
+					   href="{{ path('v_product_old', {'EngName':product.Name, 'ProductID':product.ProductID}) }}">
+						{{ product.RusName|raw }}
+					</a>
+				{% endif %}
 
 					{% if product.Indication is defined and product.Indication is not empty %}
 						<img class="m" src="{{ asset('bundles/vidalmain/images/more.png') }}"/>
