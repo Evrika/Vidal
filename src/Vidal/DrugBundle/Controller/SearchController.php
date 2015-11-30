@@ -212,9 +212,8 @@ class SearchController extends Controller
 
 			$paginator                    = $this->get('knp_paginator');
 			$pagination                   = $paginator->paginate($products, $p, self::PRODUCTS_PER_PAGE);
-			if($this->get('kernel')->isDebug()) {
-				print_r(count($pagination));
-				die();
+			if(count($pagination) < 1) {
+				return $this->redirect($this->generateUrl('index'), 301);
 			}
 			$params['productsPagination'] = $pagination;
 			$params['anyOfWord']          = $anyOfWord;
