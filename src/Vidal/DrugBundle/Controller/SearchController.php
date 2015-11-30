@@ -213,7 +213,7 @@ class SearchController extends Controller
 			$paginator                    = $this->get('knp_paginator');
 			$pagination                   = $paginator->paginate($products, $p, self::PRODUCTS_PER_PAGE);
 			if($this->get('kernel')->isDebug()) {
-				print_r($pagination);
+				print_r($pagination['items']);
 				die();
 			}
 			$params['productsPagination'] = $pagination;
