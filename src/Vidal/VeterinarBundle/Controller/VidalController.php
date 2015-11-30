@@ -39,9 +39,9 @@ class VidalController extends Controller
 				# препараты по букве алфавита или по поисковому запросу
 				if ($l) {
 					$products           = $em->getRepository('VidalVeterinarBundle:Product')->findByLetter($l);
-					if (in_array($l, array("А","Б","В","Г","Д"))) {
+					if (in_array($l, array("А","Б","В","Г","Д","Е","З","И","Й","К"))) {
 						foreach ($products as $key => $value) {
-							if(in_array($value['ProductID'],array(27840,27869,27868))) {
+							if(in_array($value['ProductID'],array(27840,27869,27868,27934,27935,27996,28175,27710,28247,27987,27705,27964,27962,28004,28080,28086,28086,27949,27947,28078,27784,27785,27720))) {
 								$name = $value['Name'];
 								$products[$key]['new'] = false;
 								$products[$key]['urlFor'] = $value['Name'];
@@ -71,9 +71,9 @@ class VidalController extends Controller
 				elseif (!empty($q)) {
 					$products           = $em->getRepository('VidalVeterinarBundle:Product')->findByQuery($q);
 					
-					if (in_array($l, array("А","Б","В","Г","Д"))) {
+					if (in_array($l, array("А","Б","В","Г","Д","Е","З","И","Й","К"))) {
 						foreach ($products as $key => $value) {
-							if(in_array($value['ProductID'],array(27840,27869,27868))) {
+							if(in_array($value['ProductID'],array(27840,27869,27868,27934,27935,27996,28175,27710,28247,27987,27705,27964,27962,28004,28080,28086,28086,27949,27947,28078,27784,27785,27720))) {
 								$name = $value['Name'];
 								$products[$key]['new'] = false;
 								$products[$key]['urlFor'] = $value['Name'];
@@ -395,8 +395,9 @@ class VidalController extends Controller
 
 		$product = $em->getRepository('VidalVeterinarBundle:Product')->findByProductID($ProductID);
 		$firstChar = mb_substr($product['RusName'],0,1);
-		if (in_array($firstChar, array("А","Б","В","Г","Д"))) {
-				if(!in_array($product['ProductID'],array(27840,27869,27868))) {
+
+		if (in_array($l, array("А","Б","В","Г","Д","Е","З","И","Й","К"))) {
+				if(!in_array($product['ProductID'],array(27840,27869,27868,27934,27935,27996,28175,27710,28247,27987,27705,27964,27962,28004,28080,28086,28086,27949,27947,28078,27784,27785,27720))) {
 					$name = $product['Name'];
 
 					$request = $this->container->get('request');
