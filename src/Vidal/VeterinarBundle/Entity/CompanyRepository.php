@@ -34,7 +34,7 @@ class CompanyRepository extends EntityRepository
 			FROM VidalVeterinarBundle:Company c
 			LEFT JOIN VidalVeterinarBundle:Country country WITH c.CountryCode = country
 			WHERE c.Name = :name
-		')->setParameter('name', $name)
+		')->setParameter('name', $name)->setMaxResults(1)
 			->getOneOrNullResult();
 	}
 
