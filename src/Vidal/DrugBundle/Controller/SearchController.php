@@ -207,6 +207,10 @@ class SearchController extends Controller
 				$products = $productsRaw;
 			}
 
+			if(count($products) < 1) {
+				return $this->redirect($this->generateUrl('index'), 301);
+			}
+
 			$paginator                    = $this->get('knp_paginator');
 			$pagination                   = $paginator->paginate($products, $p, self::PRODUCTS_PER_PAGE);
 			$params['productsPagination'] = $pagination;

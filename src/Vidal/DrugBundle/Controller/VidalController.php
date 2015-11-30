@@ -22,8 +22,9 @@ class VidalController extends Controller
 	/** @Route("/BAD/opisanie/") */
 	public function r3()
 	{
-		return $this->redirect($this->generateUrl('searche_letter', array('t' => 'b',)), 301);
+		return $this->redirect($this->generateUrl('index'), 301);
 	}
+
 
 	/** @Route("/BAD/opisanie/{url}", requirements={"url"=".+"}) */
 	public function r4($url)
@@ -47,13 +48,13 @@ class VidalController extends Controller
 			)), 301);
 		}
 
-		return $this->redirect($this->generateUrl('searche_letter'), 301);
+		return $this->redirect($this->generateUrl('searche'), 301);
 	}
 
 	/** @Route("/patsientam/spisok-boleznei-po-alfavitu/") */
 	public function r5()
 	{
-		return $this->redirect($this->generateUrl('searche_disease'), 301);
+		return $this->redirect($this->generateUrl('disease'), 301);
 	}
 
 	/** @Route("/poisk_preparatov/fir_{url}", requirements={"url"=".+"}) */
