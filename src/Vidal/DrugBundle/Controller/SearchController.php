@@ -167,7 +167,10 @@ class SearchController extends Controller
 
 		if ($t == 'all' || $t == 'product') {
 			list($productsRaw, $anyOfWord) = $em->getRepository('VidalDrugBundle:Product')->findByQuery($q, $bad);
-
+			if($this->get('kernel')->isDebug()) {
+				print_r($productsRaw);
+				die();
+			}
 			# если включаем бады, то их надо в отдельную группу
 			if ($bad && $p == 1) {
 				$products = array();
