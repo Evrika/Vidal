@@ -13,7 +13,7 @@ use Vidal\MainBundle\Entity\AstrazenecaFaq;
 class NeirodozController extends Controller
 {
     /**
-     * @Route("/neiro_doz", name="shkola_gastrita")
+     * @Route("/neiro_doz", name="neirodoz")
      * @Template("VidalMainBundle:NeiroDoz:home.html.twig")
      */
     public function numb11erAction()
