@@ -34,7 +34,7 @@ class DropNonRusCommand extends ContainerAwareCommand
 		$stmt = $pdo->prepare("DELETE FROM product WHERE CountryEditionCode != 'RUS'");
 		$stmt->execute();
 
-		$stmt = $pdo->prepare("DELETE FROM document WHERE YearEdition > 2015 OR (CountryEditionCode != 'RUS' AND ArticleID NOT IN (1,4,5))");
+		$stmt = $pdo->prepare("DELETE FROM document WHERE YearEdition > 2016 OR (CountryEditionCode != 'RUS' AND ArticleID NOT IN (1,4,5))");
 		$stmt->execute();
 
 		$output->writeln("+++ vidal:drop_non_rus completed!");
