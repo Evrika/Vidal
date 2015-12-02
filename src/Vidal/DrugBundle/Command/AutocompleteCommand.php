@@ -72,14 +72,16 @@ class AutocompleteCommand extends ContainerAwareCommand
 				'type' => $type,
 			));
 
-			if ($i && $i % 500 == 0) {
+			if ($i && $i % 500 == 0 && count($documents) > 0) {
 				$elasticaType->addDocuments($documents);
 				$elasticaType->getIndex()->refresh();
 				$documents = array();
 			}
 		}
 
-		$elasticaType->addDocuments($documents);
+		if(count($documents) > 0) {
+			$elasticaType->addDocuments($documents);
+		}
 		$elasticaType->getIndex()->refresh();
 	}
 }
