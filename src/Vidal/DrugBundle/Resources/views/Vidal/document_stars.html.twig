@@ -4,25 +4,25 @@
 
 	<div class="stars">
 		<div class="images">
-			{% if document.yearEdition == 2015 %}
+			{% if document.yearEdition in [2015,2016] %}
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
-			{% elseif document.yearEdition in [2014,2013] %}
+			{% elseif document.yearEdition == 2014 %}
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
 				<img src="{{ empty }}"/>
-			{% elseif document.yearEdition in [2012,2011] %}
+			{% elseif document.yearEdition == 2013 %}
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
 				<img src="{{ empty }}"/>
 				<img src="{{ empty }}"/>
-			{% elseif document.yearEdition in [2010,2009] %}
+			{% elseif document.yearEdition == 2012 %}
 				<img src="{{ full }}"/>
 				<img src="{{ full }}"/>
 				<img src="{{ empty }}"/>
