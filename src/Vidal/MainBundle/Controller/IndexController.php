@@ -35,13 +35,23 @@ class IndexController extends Controller
 		$articles = array_merge($articles, $arts);
 
 		$params = array(
-			'indexPage'            => true,
-			'seotitle'             => 'Справочник лекарственных препаратов Видаль. Описание лекарственных средств',
-			'publications'         => $em->getRepository('VidalDrugBundle:Publication')->findLast(self::PUBLICATIONS_SHOW, $testMode),
-			'publicationsPriority' => $em->getRepository('VidalDrugBundle:Publication')->findLastPriority(),
-			'articles'             => $articles,
+				'indexPage'            => true,
+				'seotitle'             => 'Справочник лекарственных препаратов Видаль. Описание лекарственных средств',
+				'publications'         => $em->getRepository('VidalDrugBundle:Publication')->findLast(self::PUBLICATIONS_SHOW, $testMode),
+				'publicationsPriority' => $em->getRepository('VidalDrugBundle:Publication')->findLastPriority(),
+				'articles'             => $articles,
 		);
 
+		return $params;
+	}
+
+	/**
+	 * @Route("/banner_hofitol", name="banner_hofitol")
+	 * @Template("VidalMainBundle:Index:banner_hofitol.html.twig")
+	 */
+	public function bannerAction(Request $request)
+	{
+		$params = array();
 		return $params;
 	}
 

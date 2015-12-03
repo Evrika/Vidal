@@ -104,6 +104,19 @@
         }
         </style>
 	{% endblock %}
+	<style>
+		body{margin:0}
+        iframe{margin:0}
+	</style>
+	<script>
+		var trackOutboundLink = function(url) {
+			ga('send', 'event', 'outbound_banner', 'click', url, {'hitCallback':
+					function () {
+						window.open(url, '_blank');
+					}
+			});
+		}
+	</script>
 
 	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
 </head>
@@ -114,29 +127,20 @@
 		{{ render(controller('VidalMainBundle:Banner:render', {'groupId':2})) }}
 	{% endif %}
 
-	{#<div id="banner" class="banner" style="width:970px; height:90px;margin-bottom:20px;">
+	<div id="banner" class="banner" style="width:970px; height:90px;margin-bottom:20px;">
 		<div id="banner_swf">
-			<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;amp;bid=3975422&amp;amp;bn=3975422&amp;amp;rnd=664572440" alt="adriver whitespace" />
-			<div id="banner_rotate" class="banner-rotate" data="5" data-link="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;bid=3975422&amp;bn=3975422&amp;rnd=664572440" onclick="var $banner = $('#banner_rotate'); window.open($banner.attr('data-link'), '_blank');" style="text-align:center; position:relative; background:transparent;">
-				<div id="banner_rotate_clickarea" style="position:absolute; background:transparent; cursor:pointer;width:970px; height:90px"></div>
-				<object width="970" height="90" class="banner-rotate">
-					<param name="movie" value="/970-90.swf">
-					<param name="quality" value="high">
-					<param name="play" value="true">
-					<param name="loop" value="true">
-					<param name="wmode" value="transparent">
-					<embed src="/970-90.swf" width="970" height="90" wmode="transparent" bgcolor="#FFFFFF" quality="high">
-				</object>
-			</div>
+			<iframe name="iframeanimfx"
+					src="/banner_hofitol" scrolling="no" frameborder="no" height="90" width="970">
+			</iframe>
 		</div>
 	</div>
 
 	<div id="banner_mobile" style="margin-bottom:20px;display:none;  text-align: center;">
-		<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;bid=3975422&amp;bn=3975422&amp;rnd=664572440" alt="adriver whitespace" />
-		<a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&amp;bt=21&amp;ad=534988&amp;pid=2074358&amp;bid=3975422&amp;bn=3975422&amp;rnd=664572440">
-			<img src="/para-plus_300x150.jpg" style="max-width:100%;" alt="paraplus" />
+		<a href="#" onclick="trackOutboundLink('http://chophytol.ru'); return false;">
+			<img src="/300x150-hofitol.gif" style="max-width:100%;" alt="paraplus" />
 		</a>
-	</div>#}
+	</div>
+
     <div class="mobile_menu">
 
         <div class="mobile_menu_auth"></div>
@@ -326,8 +330,20 @@
 	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/swfobject2.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/ready.min.js') }}"></script>
 	
-	{#<script>
+	<script>
 		$(function() {
+			var
+					iframe = document.getElementsByTagName('iframe')[0];
+
+			function restyle() {
+				var body = iframe.contentDocument.body;
+				body.style.padding = 0;
+				body.style.margin = 0;
+			}
+
+			iframe.onload = restyle;
+			restyle();
+
 			var isMobile = false; //initiate as false
 			// device detection
 			if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
@@ -338,7 +354,7 @@
 				$("#banner_mobile").css('display','block');
 			}
 		});
-	</script>#}
+	</script>
 {% endblock %}
 </body>
 </html>

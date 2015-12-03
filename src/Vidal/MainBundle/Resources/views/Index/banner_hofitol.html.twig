@@ -1,0 +1,35 @@
+<style>
+    body {
+        margin: 0px;
+    }
+</style>
+<html>
+<head>
+
+    {% include 'VidalMainBundle:Metrika:google_analytics.html.twig' %}
+    <script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/jquery-1.11.0.min.js') }}"></script>
+    <script>
+        var trackOutboundLink = function(url) {
+            ga('send', 'event', 'outbound_banner', 'click', url, {'hitCallback':
+                    function () {
+                        window.open(url, '_blank');
+                    }
+            });
+        }
+    </script>
+
+</head>
+<body>
+<div id="banner_rotate" class="banner-rotate" data="5" data-link="http://chophytol.ru" onclick="trackOutboundLink('http://chophytol.ru'); return false;" style="text-align:center; position:relative; background:transparent;">
+    <div id="banner_rotate_clickarea" style="position:absolute; background:transparent; cursor:pointer;width:970px; height:90px"></div>
+    <object width="970" height="90" class="banner-rotate">
+        <param name="movie" value="/970-90-hofitol.swf">
+        <param name="quality" value="high">
+        <param name="play" value="true">
+        <param name="loop" value="true">
+        <param name="wmode" value="transparent">
+        <embed src="/970-90-hofitol.swf" width="970" height="90" wmode="transparent" bgcolor="#FFFFFF" quality="high">
+    </object>
+</div>
+</body>
+</html>
