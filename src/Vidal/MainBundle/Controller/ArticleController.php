@@ -113,14 +113,14 @@ class ArticleController extends Controller
 
 		$articles = $em->getRepository('VidalDrugBundle:Article')->ofRubrique($rubriqueEntity, $testMode);
 
-		$params = [
+		$params = array(
 			'title'        => $rubrique . ' | Энциклопедия',
 			'menu'         => 'articles',
 			'rubrique'     => $rubriqueEntity,
 			'articles'     => $articles,
 			'hideRubrique' => true,
 			'hideMobile'   => true,
-		];
+		);
 
 		if ($rubrique == 'medicinskie-izdeliya') {
 			$params['menu_left'] = 'meds';
