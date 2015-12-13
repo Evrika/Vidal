@@ -274,11 +274,16 @@
 								<!--<![endif]-->
 							</object>
 						</div>
-
-						{% if app.request.get('a') == 'a' and not app.user %}
-							{% include 'VidalMainBundle:Banners:hofitol_mobile.html.twig' %}
-						{% endif %}
 					{% endif %}
+
+					{% if app.request.get('a') == 'a' and app.user %}
+						{% include 'VidalMainBundle:Banners:avemed.html.twig' %}
+					{% endif %}
+
+					{% if app.request.get('a') == 'a' and not app.user %}
+						{% include 'VidalMainBundle:Banners:hofitol_mobile.html.twig' %}
+					{% endif %}
+
 					{% block right %}
 						{% include 'VidalMainBundle::right_sidebar.html.twig' %}
 					{% endblock %}

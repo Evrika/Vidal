@@ -5,7 +5,7 @@
 </div>
 
 <script>
-	function detectmob() {
+	$(document).ready(function() {
 		if ((navigator.userAgent.match(/Android/i)
 			|| navigator.userAgent.match(/webOS/i)
 			|| navigator.userAgent.match(/iPhone/i)
@@ -13,22 +13,13 @@
 			|| navigator.userAgent.match(/iPod/i)
 			|| navigator.userAgent.match(/BlackBerry/i)
 			|| navigator.userAgent.match(/Windows Phone/i))
-
 			&& window.screen.width < 768
 		) {
-			return true;
+			$('#swiffycontainer, .banner-neiro').hide();
+			$('.banner-hofitol').show();
+			$('.banner-hofitol a').click(function() {
+				ga('send', 'event', 'Outbond_chophytol', 'click', 'http://chophytol.ru/');
+			});
 		}
-		else {
-			return false;
-		}
-	}
-
-	// hide top banner, show bottom
-	if (detectmob()) {
-		$('#swiffycontainer, .banner-neiro').hide();
-		$('.banner-hofitol').show();
-		$('.banner-hofitol a').click(function() {
-			ga('send', 'event', 'Outbond_chophytol', 'click', 'http://chophytol.ru/');
-		});
-	}
+	});
 </script>
