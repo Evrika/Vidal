@@ -226,10 +226,10 @@
 						{% endif %}
 						{% include 'VidalMainBundle:Banners:univadis.html.twig' %}
 					{% else %}
-						{% include 'VidalMainBundle:Banners:lions.html.twig' %}
 						{% if app.request.get('a') == 'a' %}
 							{% include 'VidalMainBundle:Banners:hofitol_mobile.html.twig' %}
 						{% endif %}
+						{% include 'VidalMainBundle:Banners:lions.html.twig' %}
 					{% endif %}
 
 					{% block right %}

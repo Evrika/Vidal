@@ -95,7 +95,7 @@ class DrugsController extends Controller
 		$params = array(
 			'menu_drugs' => 'atc',
 			'title'      => 'АТХ',
-			'keywords'	 =>	'',
+			'keywords'   => '',
 			'l'          => $l,
 			'q'          => $q,
 			'atcCode'    => $atcCode,
@@ -762,6 +762,10 @@ class DrugsController extends Controller
 			'menu_drugs' => 'products',
 			'title'      => 'Поиск препаратов по алфавиту',
 		);
+
+		if ($t == 'b') {
+			$params['menu_left']  = 'bads';
+		}
 
 		# БАДы только безрецептурные
 		if ($t == 'b') {

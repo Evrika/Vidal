@@ -105,22 +105,28 @@ class ArticleController extends Controller
 	{
 		$em       = $this->getDoctrine()->getManager('drug');
 		$testMode = $request->query->has('test');
-		$rubrique = $em->getRepository('VidalDrugBundle:ArticleRubrique')->findEnabledByRubrique($rubrique);
+		$rubriqueEntity = $em->getRepository('VidalDrugBundle:ArticleRubrique')->findEnabledByRubrique($rubrique);
 
 		if (!$rubrique) {
 			throw $this->createNotFoundException();
 		}
 
-		$articles = $em->getRepository('VidalDrugBundle:Article')->ofRubrique($rubrique, $testMode);
+		$articles = $em->getRepository('VidalDrugBundle:Article')->ofRubrique($rubriqueEntity, $testMode);
 
-		return array(
+		$params = [
 			'title'        => $rubrique . ' | Энциклопедия',
 			'menu'         => 'articles',
-			'rubrique'     => $rubrique,
+			'rubrique'     => $rubriqueEntity,
 			'articles'     => $articles,
 			'hideRubrique' => true,
 			'hideMobile'   => true,
-		);
+		];
+
+		if ($rubrique == 'medicinskie-izdeliya') {
+			$params['menu_left'] = 'meds';
+		}
+
+		return $params;
 	}
 
 	/**

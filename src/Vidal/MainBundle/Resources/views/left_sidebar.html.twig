@@ -14,10 +14,14 @@
 		<a href="{{ path('about') }}"
 		   class="{{ menu_left is defined and menu_left == 'about' ? 'active' : 'dotted' }}">О компании</a>
 	</li>
-	<!-- <li>
-		<a href="{{ path('qa') }}"
-		   class="{{ menu_left is defined and menu_left == 'qa' ? 'active' : 'dotted' }}">Ответы фармакологов</a>
-	</li> -->
+	<li>
+		<a href="{{ path('products', {'t':'b'}) }}"
+		   class="{{ menu_left is defined and menu_left == 'bads' ? 'active' : 'dotted' }}">БАД</a>
+	</li>
+	<li>
+		<a href="{{ path('rubrique', {'rubrique':'medicinskie-izdeliya'}) }}"
+		   class="{{ menu_left is defined and menu_left == 'meds' ? 'active' : 'dotted' }}">Медицинские изделия</a>
+	</li>
 	<li>
 		<a href="{{ path('veterinar') }}"
 		   class="{{ menu_left is defined and menu_left == 'veterinar' ? 'active' : 'dotted' }}">Ветеринария</a>
