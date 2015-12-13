@@ -15,7 +15,7 @@
 			|| navigator.userAgent.match(/Windows Phone/i))
 			&& window.screen.width < 768
 		) {
-			$('#swiffycontainer').hide();
+			$('#swiffycontainer, .banner-neiro').hide();
 			$('.banner-hofitol').show();
 			$('.banner-hofitol a').click(function() {
 				ga('send', 'event', 'Outbond_chophytol', 'click', 'http://chophytol.ru/');
