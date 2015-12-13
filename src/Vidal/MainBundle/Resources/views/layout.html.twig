@@ -225,6 +225,10 @@
 					{% endblock %}
 				</td>
 				<td class="right-sidebar">
+					{% if app.request.get('a') == 'a' and app.user %}
+						{% include 'VidalMainBundle:Banners:avemed.html.twig' %}
+					{% endif %}
+
 					{% if app.user %}
 						<div class="centerBannerVia">
 							<a href="http://univadis.evrika.ru/?utm_source=media&utm_medium=vidal_ru&utm_content=200x200&utm_campaign=univadis_vidal"><img
@@ -274,10 +278,6 @@
 								<!--<![endif]-->
 							</object>
 						</div>
-					{% endif %}
-
-					{% if app.request.get('a') == 'a' and app.user %}
-						{% include 'VidalMainBundle:Banners:avemed.html.twig' %}
 					{% endif %}
 
 					{% if app.request.get('a') == 'a' and not app.user %}

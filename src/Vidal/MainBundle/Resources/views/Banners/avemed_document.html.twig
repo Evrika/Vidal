@@ -1,4 +1,4 @@
-<div class="m-banner-avemed-document" style="display:none; text-align:center">
+<div class="m-banner-avemed" style="display:none; text-align:center">
 	<a href="http://avemed.ru/?utm_source=vidal&utm_medium=cpñ&utm_content=baner14_12" target="_blank">
 		<img style="border:1px solid #ddd;" src="{{ asset('bundles/vidalmain/images/banners/avemed_mobile.gif') }}">
 	</a>
@@ -15,8 +15,8 @@
 			|| navigator.userAgent.match(/Windows Phone/i))
 			&& window.screen.width < 768
 		) {
-			$('.banner-avemed, .m-banner-avemed').hide();
-			$('.m-banner-avemed-document').show();
+			$('.banner-avemed').hide();
+			$('.m-banner-avemed').show();
 		}
 	});
 </script>
