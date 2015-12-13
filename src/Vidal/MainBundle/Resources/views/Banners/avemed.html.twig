@@ -3,28 +3,3 @@
 		<img style="border:1px solid #ddd;" src="{{ asset('bundles/vidalmain/images/banners/avemed.gif') }}">
 	</a>
 </div>
-
-{% if app.request.attributes.get('_route') not in ['art', 'article', 'product'] %}
-	<div class="m-banner-avemed" style="display:none; text-align:center">
-		<a href="http://avemed.ru/?utm_source=vidal&utm_medium=cpñ&utm_content=baner14_12" target="_blank">
-			<img style="border:1px solid #ddd;" src="{{ asset('bundles/vidalmain/images/banners/avemed_mobile.gif') }}">
-		</a>
-	</div>
-
-	<script>
-		$(document).ready(function() {
-			if ((navigator.userAgent.match(/Android/i)
-				|| navigator.userAgent.match(/webOS/i)
-				|| navigator.userAgent.match(/iPhone/i)
-				|| navigator.userAgent.match(/iPad/i)
-				|| navigator.userAgent.match(/iPod/i)
-				|| navigator.userAgent.match(/BlackBerry/i)
-				|| navigator.userAgent.match(/Windows Phone/i))
-				&& window.screen.width < 768
-			) {
-				$('.banner-avemed').hide();
-				$('.m-banner-avemed').show();
-			}
-		});
-	</script>
-{% endif %}

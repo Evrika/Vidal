@@ -222,13 +222,13 @@
 
 					{% if app.user %}
 						{% if app.request.get('a') == 'a' %}
-							{% include 'VidalMainBundle:Banners:avemed.html.twig' %}
+							{% include 'VidalMainBundle:Banners:avemed_mobile.html.twig' %}
 						{% endif %}
 						{% include 'VidalMainBundle:Banners:univadis.html.twig' %}
-					{% else %}
 						{% if app.request.get('a') == 'a' %}
-							{% include 'VidalMainBundle:Banners:hofitol_mobile.html.twig' %}
+							{% include 'VidalMainBundle:Banners:avemed.html.twig' %}
 						{% endif %}
+					{% else %}
 						{% include 'VidalMainBundle:Banners:lions.html.twig' %}
 					{% endif %}
 
