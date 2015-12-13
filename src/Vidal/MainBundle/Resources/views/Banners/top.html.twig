@@ -1,0 +1,19 @@
+<script type="text/javascript" src="https://www.gstatic.com/swiffy/v7.4/runtime.js"></script>
+<script type="text/javascript" src="{{ asset('bundles/vidalmain/javascripts/swiffy.js') }}"></script>
+
+<div id="swiffycontainer" style="width: 970px; height: 90px; margin-bottom:15px;">
+</div>
+
+<script>
+	$('#swiffycontainer').click(function() {
+		var url = 'http://chophytol.ru/';
+		ga('send', 'event', 'Outbond_chophytol', 'click', url);
+		window.open(url);
+		return false;
+	});
+
+	var stage = new swiffy.Stage(document.getElementById('swiffycontainer'),
+		swiffyobject, {});
+
+	stage.start();
+</script>
