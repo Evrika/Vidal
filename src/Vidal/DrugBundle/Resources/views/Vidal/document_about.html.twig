@@ -22,7 +22,7 @@
 			<span>({{ document.EngName|raw }})</span>
 		</div>
 		<div class="anons-content">
-			создано в {{ document.YearEdition }} году на основании инструкции,
+			создано в {{ 'now'|date('Y') }} году на основании инструкции,
 			размещенной на официальном сайте Минздрава РФ
 		</div>
 	{% else %}
@@ -33,7 +33,7 @@
 		</div>
 		<div class="anons-content">
 			Основано на официально утвержденной инструкции по применению препарата
-			и сделано в {{ document.YearEdition }} году.
+			и сделано в {{ 'now'|date('Y') }} году.
 		</div>
 	{% endif %}
 </div>
