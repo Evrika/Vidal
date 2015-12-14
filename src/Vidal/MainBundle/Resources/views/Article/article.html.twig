@@ -36,11 +36,7 @@
 
 {% block content %}
 	{% include 'VidalMainBundle::share.html.twig' with {'subtitle':'Медицинская энциклопедия', 'forPatient':'1', 'class':'Article', 'id':article.id} %}
-
-	{% if app.request.get('a') == 'a' %}
-		{% include 'VidalMainBundle:Banners:avemed_document.html.twig' %}
-	{% endif %}
-
+	{% include 'VidalMainBundle:Banners:avemed_document.html.twig' %}
 	{% include 'VidalMainBundle:Article:render_article.html.twig' %}
 
 	{# купить в интернет-аптеке #}

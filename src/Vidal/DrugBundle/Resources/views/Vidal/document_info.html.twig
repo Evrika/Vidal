@@ -53,9 +53,7 @@
 
 {# Открыть описание действующего вещества #}
 {% if short %}
-	{% if app.request.get('a') == 'a' %}
-		{% include 'VidalMainBundle:Banners:avemed_document.html.twig' %}
-	{% endif %}
+	{% include 'VidalMainBundle:Banners:avemed_document.html.twig' %}
 
 	<div class="more-link no-selection">
 		Открыть описание активных компонентов препарата
@@ -147,9 +145,7 @@
 	{% endif %}
 
 	{% if not short %}
-		{% if app.request.get('a') == 'a' %}
-			{% include 'VidalMainBundle:Banners:avemed_document.html.twig' %}
-		{% endif %}
+		{% include 'VidalMainBundle:Banners:avemed_document.html.twig' %}
 	{% endif %}
 
 	{# Режим дозирования #}
