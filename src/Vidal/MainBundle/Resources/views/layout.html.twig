@@ -127,11 +127,9 @@
 
 <body>
 <div id="wrapper" class="wrapper" style="position: relative;">
-	{% if noYad is not defined %}
+	{% if not app.user and noYad is not defined and noHofitol is not defined %}
 		{#{{ render(controller('VidalMainBundle:Banner:render', {'groupId':2})) }}#}
-		{% if app.request.get('a') == 'a' and not app.user %}
-			{% include 'VidalMainBundle:Banners:hofitol.html.twig' %}
-		{% endif %}
+		{% include 'VidalMainBundle:Banners:hofitol.html.twig' %}
 	{% endif %}
 
 	<div class="mobile_menu">
@@ -221,13 +219,9 @@
 				<td class="right-sidebar">
 
 					{% if app.user %}
-						{% if app.request.get('a') == 'a' %}
-							{% include 'VidalMainBundle:Banners:avemed_mobile.html.twig' %}
-						{% endif %}
+						{% include 'VidalMainBundle:Banners:avemed_mobile.html.twig' %}
 						{% include 'VidalMainBundle:Banners:univadis.html.twig' %}
-						{% if app.request.get('a') == 'a' %}
-							{% include 'VidalMainBundle:Banners:avemed.html.twig' %}
-						{% endif %}
+						{% include 'VidalMainBundle:Banners:avemed.html.twig' %}
 					{% else %}
 						{% include 'VidalMainBundle:Banners:lions.html.twig' %}
 					{% endif %}

@@ -18,7 +18,10 @@ class NeirodozController extends Controller
      */
     public function numb11erAction()
     {
-        $params = array();
+        $params = array(
+			'noHofitol' => 'true',
+		);
+
         return $params;
     }
 }

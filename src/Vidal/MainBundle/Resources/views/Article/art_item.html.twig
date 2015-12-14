@@ -37,10 +37,7 @@
 
 {% block content %}
 	{% include 'VidalMainBundle::share.html.twig' with {'subtitle':'Статьи для специалистов', 'class':'Art', 'id':article.id} %}
-
-	{% if app.request.get('a') == 'a' %}
-		{% include 'VidalMainBundle:Banners:avemed_document.html.twig' %}
-	{% endif %}
+	{% include 'VidalMainBundle:Banners:avemed_document.html.twig' %}
 
 	<div class="article-wrap">
 		{# админам карандашик редактирования #}
