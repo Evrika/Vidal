@@ -127,7 +127,7 @@
 
 <body>
 <div id="wrapper" class="wrapper" style="position: relative;">
-	{% if noYad is not defined %}
+	{% if noYad is not defined and app.user %}
 		{#{{ render(controller('VidalMainBundle:Banner:render', {'groupId':2})) }}#}
 		{% include 'VidalMainBundle:Banners:hofitol.html.twig' %}
 	{% endif %}
