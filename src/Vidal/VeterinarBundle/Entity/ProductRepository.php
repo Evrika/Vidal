@@ -9,11 +9,11 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, d.ArticleID, d.Indication, d.DocumentID
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, d.ArticleID, d.Indication, d.DocumentID, p.inactive
 			FROM VidalVeterinarBundle:Product p
 			LEFT JOIN p.document d
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
-			WHERE p.RusName LIKE :letter
+			WHERE p.RusName LIKE :letter AND p.inactive = FALSE
 			ORDER BY p.RusName ASC
 		')->setParameter('letter', $letter . '%')
 			->getResult();
@@ -23,7 +23,7 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.ProductID, p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.photo, p.hidePhoto,
-				p.RegistrationNumber, p.RegistrationDate,
+				p.RegistrationNumber, p.RegistrationDate, p.inactive,
 				country.RusName CompanyCountry,
 				d.Indication, d.DocumentID, d.ArticleID, d.RusName DocumentRusName, d.EngName DocumentEngName,
 				d.Name DocumentName,
@@ -35,7 +35,7 @@ class ProductRepository extends EntityRepository
 			LEFT JOIN p.document d
 			LEFT JOIN d.infoPages i
 			LEFT JOIN VidalVeterinarBundle:Country co WITH i.CountryCode = co
-			WHERE c = :CompanyID
+			WHERE c = :CompanyID AND p.inactive = false
 			ORDER BY p.RusName ASC
 		')->setParameter('CompanyID', $CompanyID)
 			->getResult();
@@ -45,10 +45,10 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.Composition
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.Composition, p.inactive
 			FROM VidalVeterinarBundle:Product p
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
-			WHERE p = :ProductID
+			WHERE p = :ProductID AND p.inactive = FALSE
 		')->setParameter('ProductID', $ProductID)
 			->getOneOrNullresult();
 	}
@@ -57,10 +57,10 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.Composition
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.Composition, p.inactive
 			FROM VidalVeterinarBundle:Product p
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
-			WHERE p.Name = :Name
+			WHERE p.Name = :Name AND p.inactive = FALSE
 		')->setParameter('Name', $Name)
 			->setMaxResults(1)
 			->getOneOrNullresult();
@@ -70,11 +70,11 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.Composition
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.Composition, p.inactive
 			FROM VidalVeterinarBundle:Product p
 			JOIN p.document d
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
-			WHERE d = :DocumentID
+			WHERE d = :DocumentID AND p.inactive = FALSE
 		')->setParameter('DocumentID', $DocumentID)
 			->setMaxResults(1)
 			->getOneOrNullresult();
@@ -84,12 +84,13 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.inactive
 			FROM VidalVeterinarBundle:Product p
 			LEFT JOIN p.document d
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
 			WHERE d = :DocumentID AND
 				p.CountryEditionCode = \'RUS\' AND
+				p.inactive = FALSE AND
 				(p.ProductTypeCode = \'DRUG\' OR p.ProductTypeCode = \'GOME\')
 			ORDER BY p.RusName ASC
 		')->setParameter('DocumentID', $DocumentID)
@@ -100,14 +101,15 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT DISTINCT(p.ProductID), p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, d.ArticleID, d.Indication, d.DocumentID
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, d.ArticleID, d.Indication, d.DocumentID, p.inactive
 			FROM VidalVeterinarBundle:Product p
 			LEFT JOIN p.document d
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
 			WHERE d IN (:DocumentIDs) AND
 				p.CountryEditionCode = \'RUS\' AND
 				p.MarketStatusID IN (0,1,2,3,4,5,6,7) AND
-				p.ProductTypeCode IN (\'DRUG\',\'GOME\')
+				p.ProductTypeCode IN (\'DRUG\',\'GOME\') AND
+				p.inactive = FALSE
 			ORDER BY p.RusName ASC
 		')->setParameter('DocumentIDs', $documentIds)
 			->getResult();
@@ -118,13 +120,14 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.ProductID, p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.photo, p.hidePhoto,
-				p.RegistrationNumber, p.RegistrationDate
+				p.RegistrationNumber, p.RegistrationDate, p.inactive
 			FROM VidalVeterinarBundle:Product p
 			JOIN p.document d
 			JOIN d.infoPages WITH i.InfoPageID = :InfoPageID
 			WHERE p.CountryEditionCode = \'RUS\' AND
 				(p.MarketStatusID = 1 OR p.MarketStatusID = 2) AND
-				(p.ProductTypeCode = \'DRUG\' OR p.ProductTypeCode = \'GOME\')
+				(p.ProductTypeCode = \'DRUG\' OR p.ProductTypeCode = \'GOME\') AND
+				p.inactive = FALSE
 			ORDER BY p.RusName ASC
 		')->setParameter('InfoPageID', $InfoPageID)
 			->getResult();
@@ -166,7 +169,7 @@ class ProductRepository extends EntityRepository
 
 		$qb
 			->select('p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug,
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.inactive,
 				d.Indication, d.ArticleID')
 			->from('VidalVeterinarBundle:Product', 'p')
 			->leftJoin('p.document', 'd')
@@ -185,6 +188,7 @@ class ProductRepository extends EntityRepository
 			$where .= "(p.RusName LIKE '$word%' OR p.EngName LIKE '$word%' OR p.RusName LIKE '% $word%' OR p.EngName LIKE '% $word%')";
 		}
 		$qb->where($where);
+		$qb->andWhere('p.inactive = FALSE');
 		$productsRaw = $qb->getQuery()->getResult();
 
 		# ищем совпадение по любому из слов
@@ -199,6 +203,7 @@ class ProductRepository extends EntityRepository
 			}
 
 			$qb->where($where);
+			$qb->andWhere('p.inactive = FALSE');
 
 			$productsRaw = $qb->getQuery()->getResult();
 		}
@@ -244,13 +249,14 @@ class ProductRepository extends EntityRepository
 
 		$productsRaw = $this->_em->createQuery('
 			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, d.Indication, d.DocumentID
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, d.Indication, d.DocumentID, p.inactive
 			FROM VidalVeterinarBundle:Product p
 			LEFT JOIN p.document d
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
 			WHERE d IN (:documentIds) AND
 				p.CountryEditionCode = \'RUS\' AND
-				(p.ProductTypeCode = \'DRUG\' OR p.ProductTypeCode = \'GOME\')
+				(p.ProductTypeCode = \'DRUG\' OR p.ProductTypeCode = \'GOME\') AND
+				p.inactive = FALSE
 			ORDER BY p.RusName ASC
 		')->setParameter('documentIds', $documentIds)
 			->getResult();
@@ -287,13 +293,14 @@ class ProductRepository extends EntityRepository
 
 		$productsRaw = $this->_em->createQuery('
 			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, d.Indication, d.DocumentID
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, d.Indication, d.DocumentID, p.inactive
 			FROM VidalVeterinarBundle:Product p
 			LEFT JOIN p.document d
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
 			WHERE d IN (:documentIds) AND
 				p.CountryEditionCode = \'RUS\' AND
-				(p.ProductTypeCode = \'DRUG\' OR p.ProductTypeCode = \'GOME\')
+				(p.ProductTypeCode = \'DRUG\' OR p.ProductTypeCode = \'GOME\') AND
+				p.inactive = FALSE
 			ORDER BY p.RusName ASC
 		')->setParameter('documentIds', $documentIds)
 			->getResult();
@@ -316,14 +323,15 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug,
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.inactive
 				d.Indication, d.DocumentID, d.ClPhGrDescription
 			FROM VidalVeterinarBundle:Product p
 			LEFT JOIN p.document d
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
 			WHERE d.ClPhGrName = :description AND
 				p.CountryEditionCode = \'RUS\' AND
-				p.ProductTypeCode IN (\'DRUG\',\'GOME\')
+				p.ProductTypeCode IN (\'DRUG\',\'GOME\') AND
+				p.inactive = FALSE
 			ORDER BY p.RusName ASC
 		')->setParameter('description', $description)
 			->getResult();
@@ -333,14 +341,15 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, ms.RusName MarketStatus, p.ProductID, p.photo, p.hidePhoto,
-				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug,
+				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.inactive
 				d.Indication, d.DocumentID
 			FROM VidalVeterinarBundle:Product p
 			JOIN p.phthgroups g WITH g.id = :id
 			LEFT JOIN p.document d
 			LEFT JOIN VidalVeterinarBundle:MarketStatus ms WITH ms.MarketStatusID = p.MarketStatusID
 			WHERE p.CountryEditionCode = \'RUS\' AND
-				p.ProductTypeCode IN (\'DRUG\',\'GOME\')
+				p.ProductTypeCode IN (\'DRUG\',\'GOME\') AND
+				p.inactive = FALSE
 			ORDER BY p.RusName ASC
 		')->setParameter('id', $id)
 			->getResult();
@@ -354,7 +363,8 @@ class ProductRepository extends EntityRepository
 			->from('VidalVeterinarBundle:Product', 'p')
 			->join('p.phthgroups', 'g')
 			->where("p.CountryEditionCode = 'RUS' AND
-				p.ProductTypeCode IN ('veterinar','GOME')")
+				p.ProductTypeCode IN ('veterinar','GOME') AND
+				p.inactive = FALSE")
 			->orderBy('g.Name', 'ASC');
 
 		# поиск по словам
@@ -405,13 +415,13 @@ class ProductRepository extends EntityRepository
 	{
 		return $this->_em->createQuery('
 			SELECT p.ZipInfo, p.ProductID, p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.photo, p.hidePhoto,
-				p.RegistrationNumber, p.RegistrationDate,
+				p.RegistrationNumber, p.RegistrationDate, p.inactive,
 				d.Indication, d.DocumentID, d.ArticleID, d.RusName DocumentRusName, d.EngName DocumentEngName,
 				d.Name DocumentName
 			FROM VidalVeterinarBundle:Product p
 			LEFT JOIN p.moleculeNames mn
 			LEFT JOIN p.document d
-			WHERE mn.MoleculeID = :MoleculeID
+			WHERE mn.MoleculeID = :MoleculeID AND p.inactive = FALSE
 			ORDER BY d.ArticleID ASC
 		')->setParameter('MoleculeID', $MoleculeID)
 			->getResult();
@@ -429,7 +439,7 @@ class ProductRepository extends EntityRepository
 	public function findByPortfolio($portfolioId)
 	{
 		return $this->_em->createQuery('
-			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, p.ProductID,
+			SELECT p.ZipInfo, p.RegistrationNumber, p.RegistrationDate, p.ProductID, p.inactive,
 				p.RusName, p.EngName, p.Name, p.NonPrescriptionDrug, p.photo, p.hidePhoto
 			FROM VidalVeterinarBundle:Product p
 			JOIN p.document d

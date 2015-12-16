@@ -28,7 +28,7 @@
 				<td>Название</td>
 				<td class="right">Страна</td>
 			</tr>
-			{% for c in companies %}
+			{% for c in companies if c.Name is not empty %}
 				<tr>
 					<td>
 						<a href="{{ path('v_company', {'Name':c.Name}) }}">{{ c.LocalName|raw }}</a>

@@ -393,23 +393,24 @@ class VidalController extends Controller
 		$em     = $this->getDoctrine()->getManager('veterinar');
 		$params = array();
 
+		/** @var Product $product */
 		$product = $em->getRepository('VidalVeterinarBundle:Product')->findByProductID($ProductID);
 		$firstChar = mb_substr($product['RusName'],0,1);
 
-		if (in_array($l, array("А","Б","В","Г","Д","Е","З","И","Й","К"))) {
-				if(!in_array($product['ProductID'],array(27840,27869,27868,27934,27935,27996,28175,27710,28247,27987,27705,27964,27962,28004,28080,28086,28086,27949,27947,28078,27784,27785,27720))) {
-					$name = $product['Name'];
+//		if (in_array($firstChar, array("А","Б","В","Г","Д","Е","З","И","Й","К"))) {
+//				if(!in_array($product['ProductID'],array(27840,27869,27868,27934,27935,27996,28175,27710,28247,27987,27705,27964,27962,28004,28080,28086,28086,27949,27947,28078,27784,27785,27720))) {
+//					$name = $product['Name'];
+//
+//					$request = $this->container->get('request');
+//					$routeName = $request->get('_route');
+//					if($routeName == "v_product_old") {
+//						$name = preg_replace('/[^A-Za-z0-9 -]/u', '', strip_tags(strtolower(str_replace("&reg;","",str_replace(" ","-",$name)))));
+//						return $this->redirect($this->generateUrl('v_product', array('EngName' => $name,'ProductID' => $product['ProductID'])), 301);
+//					}
+//				}
+//		}
 
-					$request = $this->container->get('request');
-					$routeName = $request->get('_route');
-					if($routeName == "v_product_old") {
-						$name = preg_replace('/[^A-Za-z0-9 -]/u', '', strip_tags(strtolower(str_replace("&reg;","",str_replace(" ","-",$name)))));
-						return $this->redirect($this->generateUrl('v_product', array('EngName' => $name,'ProductID' => $product['ProductID'])), 301);
-					}
-				}
-		}
-
-		if (!$product) {
+		if (empty($product) || $product['inactive'] === true) {
 			throw $this->createNotFoundException();
 		}
 
